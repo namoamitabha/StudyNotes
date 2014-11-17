@@ -37,7 +37,8 @@ int main()
 	assert(val == 0);
 	++val;
 	fputs("Sample assertion failure message ==\n", stderr);
-	assert(val == 0);
+	assert(val == 3);
+//	assert(val == 0);
 	puts("FAILURE testing <assert.h>");
 	return (EXIT_FAILURE);
 }

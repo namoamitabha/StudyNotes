@@ -8,5 +8,5 @@
 	#define _STR(x) _VAL(x)
 	#define _VAL(x) #x
 	#define assert(test)	((test) ? (void)0 \
-		 : _Assert(FILE__":"_STR(__LINE__) " " #test))
+		 : _Assert(__FILE__":"_STR(__LINE__) " " #test))
 #endif

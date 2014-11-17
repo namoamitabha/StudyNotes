@@ -1,5 +1,0 @@
-* Exercise0.2:
-
-#+BEGIN_SRC c
-((struct x *)x)->x = x(5);
-#+END_SRC

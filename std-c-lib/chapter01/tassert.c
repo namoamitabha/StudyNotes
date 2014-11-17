@@ -42,3 +42,6 @@ int main()
 	puts("FAILURE testing <assert.h>");
 	return (EXIT_FAILURE);
 }
+
+//git add . && git commit -m "play with tassert.c"
+//TODO: to compile with makefile

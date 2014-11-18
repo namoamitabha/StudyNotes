@@ -1,4 +1,4 @@
-tassert: xassert.c tassert.c
-	gcc xassert.c tassert.c -I .
+assert: xassert.c tassert.c
+	gcc -o assert.out xassert.c tassert.c -I .
 clean:
-	rm a.out
+	rm *.out

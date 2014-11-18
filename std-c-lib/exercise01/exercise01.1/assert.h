@@ -5,12 +5,13 @@
 
 #undef assert
 
-#define _STR(x) _VAL(x)
-#define _VAL(x) #x
-
 #ifdef NDEBUG
-	#define assert(x) ((void)0)
+	#define assert(test) ((void)0)
 #else
-	#define assert(x) (x ? ((void)0) : \
-		   _Assert(__FILE__ ":" _VAL(_STR(__LINE__))))
+	void _Assert(char *);
+
+	#define _STR(x) _VAL(x)
+	#define _VAL(x) #x
+	#define assert(test) ((test) ? (void)0 \
+			: _Assert(__FILE__ ":" _STR(__LINE__) ":" #test))
 #endif

@@ -6,5 +6,13 @@ TEST(CType, isdigit) {
 	int c;
 	for (s = "0123456789"; *s; ++s) {
 		ASSERT_TRUE(isdigit0((int)*s));
+		ASSERT_TRUE((isdigit0)((int)*s));
 	}
 }
+
+/*
+Test(CType, isalnum) {
+
+	ASSERT_TRUE(isalnum0((int)'0'));
+}
+*/

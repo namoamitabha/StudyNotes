@@ -18,9 +18,12 @@ int isgraph(int), islower(int), isprint(int), ispunct(int);
 int isspace(int), isupper(int), isxdigit(int);
 int tolower(int), toupper(int);
 */
+int isdigit0(int);
+
 extern const short *_Ctype; //, *_Tolower, *_Toupper;
 /*
-#define isalnum(c) (_Ctype[(int)c] & (_DI|_LO|UP|_XA))
+#define isalnum0(c) (_Ctype[(int)(c)] & (_DI|_LO|_UP|_XA))
+
 #define isalpha(c) (_Ctype[(int)c] & (_LO|_UP|_XA))
 #define iscntrl(c) (_Ctype[(int)c] & (_BB|_CN))
 */

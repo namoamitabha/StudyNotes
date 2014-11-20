@@ -43,8 +43,12 @@ all : $(TESTS)
 
 clean :
 	rm -f $(TESTS) *.o
-cleanAll :
+
+realclean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
+
+test :
+	./$(TESTS)
 
 # Builds gtest.a and gtest_main.a.
 

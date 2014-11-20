@@ -12,19 +12,20 @@
 #define _UP	0x02 /* 'A'-'Z' */
 #define _XD	0x01 /* '0'-'9', 'A'-'F', 'a'-'f'*/
 
+int isalnum0(int), isdigit0(int);
 /*
 int isalnum(int), isalpha(int), iscntrl(int), isdigit(int);
 int isgraph(int), islower(int), isprint(int), ispunct(int);
 int isspace(int), isupper(int), isxdigit(int);
 int tolower(int), toupper(int);
 */
-int isdigit0(int);
 
 extern const short *_Ctype; //, *_Tolower, *_Toupper;
-/*
+
 #define isalnum0(c) (_Ctype[(int)(c)] & (_DI|_LO|_UP|_XA))
 
-#define isalpha(c) (_Ctype[(int)c] & (_LO|_UP|_XA))
+#define isalpha0(c) (_Ctype[(int)c] & (_LO|_UP|_XA))
+/*
 #define iscntrl(c) (_Ctype[(int)c] & (_BB|_CN))
 */
 #define isdigit0(c) (_Ctype[(int)(c)] & (_DI))

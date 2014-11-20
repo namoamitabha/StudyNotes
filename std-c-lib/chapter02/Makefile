@@ -90,8 +90,16 @@ xctype.o : xctype.c ctype0.h
 isdigit.o : isdigit.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c isdigit.c
 
+isalnum.o : isalnum.c ctype0.h
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c isalnum.c
+
+isalpha.o: isalpha.c ctype0.h
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c isalpha.c
+
 ctype_tests.o : ctype_tests.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c ctype_tests.c
 
-ctype_tests.out : ctype_tests.o xctype.o isdigit.o gtest_main.a
+ctype_tests.out : ctype_tests.o xctype.o isdigit.o \
+		isalnum.o isalpha.o\
+		gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@

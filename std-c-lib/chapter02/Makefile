@@ -84,10 +84,10 @@ sample1_unittest.o : $(USER_DIR)/sample1_unittest.cc \
 sample1_unittest : sample1.o sample1_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
-xctype.o : xctype.c mctype.h #$(GTEST_HEADERS)
+xctype.o : xctype.c ctype0.h #$(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c xctype.c
 
-ctype_tests.o : ctype_tests.c mctype.h
+ctype_tests.o : ctype_tests.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c ctype_tests.c
 
 ctype_tests.out : ctype_tests.o xctype.o gtest_main.a

@@ -1,4 +1,4 @@
-#include "mctype.h"
+#include "ctype0.h"
 #include <limits.h>
 #include <stdio.h>
 #if EOF != -1 || UCHAR_MAX != 255

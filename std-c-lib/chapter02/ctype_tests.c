@@ -1,4 +1,4 @@
-#include "mctype.h"
+#include "ctype0.h"
 #include <gtest/gtest.h>
 
 TEST(CType, isdigit) {

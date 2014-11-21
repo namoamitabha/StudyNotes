@@ -57,8 +57,11 @@ TEST(CType, ispunct)
 
 TEST(CType, isspace)
 {
-//	ASSERT_TRUE(is);
+	ASSERT_TRUE(isspace0(' '));
+	ASSERT_TRUE((isspace0)(' '));
 }
+
+
 TEST(CType, ClassMembership)
 {
 	int c;

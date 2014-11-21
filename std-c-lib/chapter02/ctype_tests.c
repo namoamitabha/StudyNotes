@@ -4,8 +4,11 @@
 
 TEST(CType, isalnum)
 {
-	ASSERT_TRUE((isalnum0)((int)'0'));
-	ASSERT_TRUE(isalnum0((int)'0'));
+	char *s;
+	for (s = "0123456789"; *s; ++s) {
+		ASSERT_TRUE((isalnum0)((int)*s));
+		ASSERT_TRUE(isalnum0((int)*s));
+	}
 }
 
 TEST(CType, isalpha)
@@ -38,10 +41,12 @@ TEST(CType, isgraph)
 
 TEST(CType, islower)
 {
-	ASSERT_TRUE(islower0('a'));
-	ASSERT_FALSE(islower0('A'));
-	ASSERT_TRUE((islower0)('a'));
-	ASSERT_FALSE((islower0)('A'));
+	char *s;
+
+	for (s = "abcdefghijklmnopqrstuvwxyz"; *s; ++s) {
+		ASSERT_TRUE(islower0(*s));
+		ASSERT_TRUE((islower0)(*s));
+	}
 }
 
 TEST(CType, isprint)
@@ -51,26 +56,38 @@ TEST(CType, isprint)
 
 TEST(CType, ispunct)
 {
-	ASSERT_TRUE(ispunct0(','));
-	ASSERT_TRUE((ispunct0)(','));
+	char *s;
+	for (s = "!\"#%&'();<=>?[\\]*+,-./:^_{|}~"; *s; ++s) {
+		ASSERT_TRUE(ispunct0(*s));
+		ASSERT_TRUE((ispunct0)(*s));
+	}
 }
 
 TEST(CType, isspace)
 {
-	ASSERT_TRUE(isspace0(' '));
-	ASSERT_TRUE((isspace0)(' '));
+	char *s;
+	for (s = "\f\n\r\t\v"; *s; ++s) {
+		ASSERT_TRUE(isspace0(*s));
+		ASSERT_TRUE((isspace0)(*s));
+	}
 }
 
 TEST(CType, isupper)
 {
-	ASSERT_TRUE(isupper0('A'));
-	ASSERT_TRUE((isupper0)('A'));
+	char *s;
+	for (s = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; *s; ++s) {
+		ASSERT_TRUE(isupper0(*s));
+		ASSERT_TRUE((isupper0)(*s));
+	}
 }
 
 TEST(CType, isxdigit)
 {
-	ASSERT_TRUE(isxdigit0('F'));
-	ASSERT_TRUE((isxdigit0)('F'));
+	char *s;
+	for (s = "0123456789abcdefABCDEF"; *s; ++s) {
+		ASSERT_TRUE(isxdigit0(*s));
+		ASSERT_TRUE((isxdigit0)(*s));
+	}
 }
 
 TEST(CType, tolower)

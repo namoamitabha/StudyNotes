@@ -8,6 +8,7 @@ TEST(CType, isalnum)
 	for (s = "0123456789"; *s; ++s) {
 		ASSERT_TRUE((isalnum0)((int)*s));
 		ASSERT_TRUE(isalnum0((int)*s));
+		ASSERT_TRUE(isxdigit((int)*s));
 	}
 }
 
@@ -52,6 +53,8 @@ TEST(CType, islower)
 TEST(CType, isprint)
 {
 	ASSERT_TRUE(isprint0('&'));
+	ASSERT_TRUE(isprint0(' '));
+	ASSERT_TRUE((isprint0)(' '));
 }
 
 TEST(CType, ispunct)
@@ -69,6 +72,7 @@ TEST(CType, isspace)
 	for (s = "\f\n\r\t\v"; *s; ++s) {
 		ASSERT_TRUE(isspace0(*s));
 		ASSERT_TRUE((isspace0)(*s));
+		ASSERT_TRUE(iscntrl(*s));
 	}
 }
 
@@ -107,7 +111,31 @@ TEST(CType, ClassMembership)
 	int c;
 
 	for (c = EOF; c <= UCHAR_MAX; ++c) {
-		if ((isdigit)(c))
-			ASSERT_TRUE((isalnum)(c));
+		if ((isdigit0)(c))
+			ASSERT_TRUE((isalnum0)(c));
+
+		if (isupper0(c))
+			ASSERT_TRUE(isalpha0(c));
+
+		if (islower0(c))
+			ASSERT_TRUE(isalpha0(c));
+
+		if (isalpha0(c))
+			ASSERT_TRUE(isalnum0(c) && !isdigit0(c));
+
+		if (isalnum(c))
+			ASSERT_TRUE(isgraph0(c) && !ispunct0(c));
+
+		if (ispunct0(c))
+			ASSERT_TRUE(isgraph0(c));
+
+		if (isgraph0(c))
+			ASSERT_TRUE(isprint0(c));
+
+		if (isspace0(c))
+			ASSERT_TRUE((c == ' ') || !isprint0(c));
+
+		if (iscntrl0(c))
+			ASSERT_TRUE(!isalnum0(c));
 	}
 }

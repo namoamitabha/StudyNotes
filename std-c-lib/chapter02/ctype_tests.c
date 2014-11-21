@@ -49,6 +49,16 @@ TEST(CType, isprint)
 	ASSERT_TRUE(isprint0('&'));
 }
 
+TEST(CType, ispunct)
+{
+	ASSERT_TRUE(ispunct0(','));
+	ASSERT_TRUE((ispunct0)(','));
+}
+
+TEST(CType, isspace)
+{
+//	ASSERT_TRUE(is);
+}
 TEST(CType, ClassMembership)
 {
 	int c;

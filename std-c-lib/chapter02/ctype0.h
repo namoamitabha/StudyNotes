@@ -13,6 +13,7 @@
 #define _XD	0x01 /* '0'-'9', 'A'-'F', 'a'-'f'*/
 
 int isalnum0(int), isalpha0(int), iscntrl0(int), isdigit0(int);
+int isgraph0(int);
 /*
 int isalnum(int), isalpha(int), iscntrl(int), isdigit(int);
 int isgraph(int), islower(int), isprint(int), ispunct(int);
@@ -30,7 +31,7 @@ extern const short *_Ctype; //, *_Tolower, *_Toupper;
 
 #define isdigit0(c) (_Ctype[(int)(c)] & (_DI))
 
-//#define isgraph(c) (_Ctype[(int)c] & (_DI|_LO|_PU|_UP|_XA))
+#define isgraph0(c) (_Ctype[(int)(c)] & (_DI|_LO|_PU|_UP|_XA))
 /* 
 #define islower(c) (_Ctype[(int)c] & (_LO))
 #define isprint(c) (_Ctype[(int)c] & (_DI|_LO|_PU|_SP|_UP|_XA))

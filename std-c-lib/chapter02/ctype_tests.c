@@ -25,6 +25,11 @@ TEST(CType, isdigit) {
 	}
 }
 
+TEST(CType, isgraph) {
+	ASSERT_TRUE(isgraph0('0'));
+	ASSERT_TRUE((isgraph0)('0'));
+}
+
 TEST(CType, ClassMembership) {
 	int c;
 	for (c = EOF; c <= UCHAR_MAX; ++c) {

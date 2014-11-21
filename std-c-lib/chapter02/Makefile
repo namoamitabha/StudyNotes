@@ -103,10 +103,13 @@ isalpha.o: isalpha.c ctype0.h
 iscntrl.o: iscntrl.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c iscntrl.c
 
+isgraph.o: isgraph.c ctype0.h
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c isgraph.c
+
 ctype_tests.o : ctype_tests.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c ctype_tests.c
 
 ctype_tests.out : ctype_tests.o xctype.o isdigit.o \
-		isalnum.o isalpha.o iscntrl.o\
+		isalnum.o isalpha.o iscntrl.o isgraph.o \
 		gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@

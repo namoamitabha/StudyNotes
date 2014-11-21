@@ -97,19 +97,26 @@ isdigit.o : isdigit.c ctype0.h
 isalnum.o : isalnum.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c isalnum.c
 
-isalpha.o: isalpha.c ctype0.h
+isalpha.o : isalpha.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c isalpha.c
 
-iscntrl.o: iscntrl.c ctype0.h
+iscntrl.o : iscntrl.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c iscntrl.c
 
-isgraph.o: isgraph.c ctype0.h
+isgraph.o : isgraph.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c isgraph.c
+
+islower.o : islower.c ctype0.h
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c islower.c
+
+isprint.o : isprint.c ctype0.h
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c isprint.c
 
 ctype_tests.o : ctype_tests.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c ctype_tests.c
 
 ctype_tests.out : ctype_tests.o xctype.o isdigit.o \
 		isalnum.o isalpha.o iscntrl.o isgraph.o \
+		islower.o isprint.o\
 		gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@

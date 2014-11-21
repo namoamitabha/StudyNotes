@@ -121,12 +121,15 @@ isspace.o : isspace.c ctype0.h
 isupper.o : isupper.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c isupper.c
 
+isxdigit.o : isxdigit.c ctype0.h
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c isxdigit.c
+
 ctype_tests.o : ctype_tests.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c ctype_tests.c
 
 ctype_tests.out : ctype_tests.o xctype.o isdigit.o \
 		isalnum.o isalpha.o iscntrl.o isgraph.o \
 		islower.o isprint.o ispunct.o isspace.o \
-		isupper.o \
+		isupper.o isxdigit.o \
 		gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@

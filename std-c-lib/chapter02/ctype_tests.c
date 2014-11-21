@@ -67,6 +67,12 @@ TEST(CType, isupper)
 	ASSERT_TRUE((isupper0)('A'));
 }
 
+TEST(CType, isxdigit)
+{
+	ASSERT_TRUE(isxdigit0('F'));
+	ASSERT_TRUE((isxdigit0)('F'));
+}
+
 TEST(CType, ClassMembership)
 {
 	int c;

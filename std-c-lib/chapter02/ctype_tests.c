@@ -73,6 +73,18 @@ TEST(CType, isxdigit)
 	ASSERT_TRUE((isxdigit0)('F'));
 }
 
+TEST(CType, tolower)
+{
+	EXPECT_EQ('a', tolower0('A'));
+	EXPECT_EQ('a', (tolower0)('A'));
+}
+
+TEST(CType, toupper)
+{
+	EXPECT_EQ('Z', toupper0('z'));
+	EXPECT_EQ('Z', (toupper0)('z'));
+}
+
 TEST(CType, ClassMembership)
 {
 	int c;

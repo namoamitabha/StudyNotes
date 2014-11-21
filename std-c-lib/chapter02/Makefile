@@ -124,12 +124,25 @@ isupper.o : isupper.c ctype0.h
 isxdigit.o : isxdigit.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c isxdigit.c
 
+xtolower.o : xtolower.c ctype0.h
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c xtolower.c
+
+tolower.o : tolower.c ctype0.h
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c tolower.c
+
+xtoupper.o : xtoupper.c ctype0.h
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c xtoupper.c
+
+toupper.o : toupper.c ctype0.h
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c toupper.c
+
 ctype_tests.o : ctype_tests.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c ctype_tests.c
 
 ctype_tests.out : ctype_tests.o xctype.o isdigit.o \
 		isalnum.o isalpha.o iscntrl.o isgraph.o \
 		islower.o isprint.o ispunct.o isspace.o \
-		isupper.o isxdigit.o \
+		isupper.o isxdigit.o tolower.o toupper.o \
+		xtolower.o xtoupper.o \
 		gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@

@@ -61,6 +61,11 @@ TEST(CType, isspace)
 	ASSERT_TRUE((isspace0)(' '));
 }
 
+TEST(CType, isupper)
+{
+	ASSERT_TRUE(isupper0('A'));
+	ASSERT_TRUE((isupper0)('A'));
+}
 
 TEST(CType, ClassMembership)
 {

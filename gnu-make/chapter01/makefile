@@ -12,4 +12,4 @@ lexer.c: lexer.l
 	flex -t lexer.l > lexer.c
 
 clean:
-	rm *.o lexer.c
+	rm *.o lexer.c count_words

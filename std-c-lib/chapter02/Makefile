@@ -37,6 +37,15 @@ TESTS = ctype_tests.out
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
 
+CTYPEOBJ = xctype.o isdigit.o \
+		isalnum.o isalpha.o iscntrl.o isgraph.o \
+		islower.o isprint.o ispunct.o isspace.o \
+		isupper.o isxdigit.o tolower.o toupper.o \
+		xtolower.o xtoupper.o
+
+EXEC = exec2.1.a
+
+
 # House-keeping build targets.
 
 all : $(TESTS)
@@ -45,10 +54,12 @@ clean :
 	rm -f $(TESTS) *.o
 
 realclean :
-	rm -f $(TESTS) gtest.a gtest_main.a *.o
+	rm -f $(TESTS) *.o *.a
 
 test :
 	./$(TESTS)
+
+exec : $(EXEC)
 
 # Builds gtest.a and gtest_main.a.
 
@@ -139,10 +150,11 @@ toupper.o : toupper.c ctype0.h
 ctype_tests.o : ctype_tests.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c ctype_tests.c
 
-ctype_tests.out : ctype_tests.o xctype.o isdigit.o \
-		isalnum.o isalpha.o iscntrl.o isgraph.o \
-		islower.o isprint.o ispunct.o isspace.o \
-		isupper.o isxdigit.o tolower.o toupper.o \
-		xtolower.o xtoupper.o \
-		gtest_main.a
+ctype_tests.out : ctype_tests.o $(CTYPEOBJ) gtest_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+
+exec2.1.o : exec2.1.c ctype0.h
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c exec2.1.c
+
+exec2.1.a : exec2.1.o $(CTYPEOBJ)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@

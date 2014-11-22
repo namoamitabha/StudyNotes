@@ -1,3 +1,4 @@
+/* count_words.c */
 #include <stdio.h>
 
 extern int fee_count, fie_count, foe_count, fum_count;

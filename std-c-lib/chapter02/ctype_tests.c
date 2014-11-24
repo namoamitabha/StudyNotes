@@ -5,6 +5,7 @@
 TEST(CType, isalnum)
 {
 	char *s;
+
 	for (s = "0123456789"; *s; ++s) {
 		EXPECT_TRUE((isalnum0)((int)*s));
 		EXPECT_TRUE(isalnum0((int)*s));
@@ -61,6 +62,7 @@ TEST(CType, isprint)
 TEST(CType, ispunct)
 {
 	char *s;
+
 	for (s = "!\"#%&'();<=>?[\\]*+,-./:^_{|}~"; *s; ++s) {
 		EXPECT_TRUE(ispunct0(*s));
 		EXPECT_TRUE((ispunct0)(*s));
@@ -70,6 +72,7 @@ TEST(CType, ispunct)
 TEST(CType, isspace)
 {
 	char *s;
+
 	for (s = "\f\n\r\t\v"; *s; ++s) {
 		EXPECT_TRUE(isspace0(*s));
 		EXPECT_TRUE((isspace0)(*s));
@@ -81,6 +84,7 @@ TEST(CType, isspace)
 TEST(CType, isupper)
 {
 	char *s;
+
 	for (s = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; *s; ++s) {
 		EXPECT_TRUE(isupper0(*s));
 		EXPECT_TRUE((isupper0)(*s));
@@ -90,6 +94,7 @@ TEST(CType, isupper)
 TEST(CType, isxdigit)
 {
 	char *s;
+
 	for (s = "0123456789abcdefABCDEF"; *s; ++s) {
 		EXPECT_TRUE(isxdigit0(*s));
 		EXPECT_TRUE((isxdigit0)(*s));

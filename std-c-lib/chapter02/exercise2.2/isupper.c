@@ -1,6 +1,10 @@
 #include "ctype0.h"
+#include <stdio.h>
 
 int (isupper0) (int c)
 {
-	return (_Ctype[c] & (_UP));
+	if (c == EOF)
+		return 0;
+	else
+		return (_Ctype[(unsigned char)c] & (_UP));
 }

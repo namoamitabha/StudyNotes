@@ -1,6 +1,7 @@
 #include "ctype0.h"
 #include <gtest/gtest.h>
 #include <limits.h>
+/* #include <stdio.h> */
 
 TEST(CType, isalnum)
 {
@@ -145,4 +146,15 @@ TEST(CType, ClassMembership)
 		if (iscntrl0(c))
 			EXPECT_TRUE(!isalnum0(c));
 	}
+}
+
+TEST(CType, Exercise2_2)
+{
+	EXPECT_FALSE(isdigit0(EOF));
+	/* printf("%d\n", isdigit0((unsigned char)-2)); */
+	/* printf("%d\n", (unsigned char)(-256 + 49)); */
+	/* printf("%d\n", '1'); */
+	/* printf("%d\n", isdigit0((unsigned char)(-256 + 49))); */
+	EXPECT_TRUE(isdigit0((unsigned char)(-256 + 49)));
+	EXPECT_TRUE(isdigit0((-256 + 49)));
 }

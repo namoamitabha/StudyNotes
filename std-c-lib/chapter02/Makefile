@@ -43,9 +43,6 @@ CTYPEOBJ = xctype.o isdigit.o \
 		isupper.o isxdigit.o tolower.o toupper.o \
 		xtolower.o xtoupper.o
 
-EXEC = exec2.1.a
-
-
 # House-keeping build targets.
 
 all : $(TESTS)
@@ -58,8 +55,6 @@ realclean :
 
 test :
 	./$(TESTS)
-
-exec : $(EXEC)
 
 # Builds gtest.a and gtest_main.a.
 
@@ -151,10 +146,4 @@ ctype_tests.o : ctype_tests.c ctype0.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c ctype_tests.c
 
 ctype_tests.out : ctype_tests.o $(CTYPEOBJ) gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
-
-exec2.1.o : exec2.1.c ctype0.h
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c exec2.1.c
-
-exec2.1.a : exec2.1.o $(CTYPEOBJ)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@

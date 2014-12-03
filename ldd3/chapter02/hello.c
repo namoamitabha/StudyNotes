@@ -2,6 +2,10 @@
 #include <linux/module.h>
 
 MODULE_LICENSE("Dual BSD/GPL");
+MODULE_AUTHOR("Angelo Yin");
+MODULE_DESCRIPTION("Hello world experiment");
+MODULE_VERSION("1.0.0");
+MODULE_ALIAS("AngeloHello");
 
 static int hello_init(void)
 {

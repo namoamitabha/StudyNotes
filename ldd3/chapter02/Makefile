@@ -1,4 +1,4 @@
-obj-m	:= hello.o
+obj-m := hello.o
 
 ifneq ($(KERNELRELEASE),)
 	obj-m := hello.o
@@ -12,13 +12,3 @@ clean:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean
 
 endif
-
-
-
-# obj-m += hello.o
-
-# all:
-# 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
-
-# clean:
-# 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean

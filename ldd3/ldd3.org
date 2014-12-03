@@ -1,0 +1,49 @@
+* Notes
+** Study Points
+   1. [ ] Chapter01
+   2. [ ] Chapter02
+      1. [ ] 
+      2. 
+   3. [ ] Chapter03
+   4. 
+* Others
+** DONE [KB]Find kernel version
+   CLOSED: [2014-12-03 Wed 13:17]
+   - State "DONE"       from "TODO"       [2014-12-03 Wed 13:17]
+   1. ref: http://www.cyberciti.biz/faq/centsos-redhat-rhel-6-kernel-version/
+   2. uname -s -n -r -v -m -p -i -o
+   3. uname -r
+   4. uname -mrs
+   5. uname -a
+   6. cat /etc/redhat-release
+   7. lsb_release -a
+   8. cat /etc/issue
+  
+** DONE [KB]How to check module exported symbols
+   CLOSED: [2014-12-03 Wed 13:18]
+   - State "DONE"       from "TODO"       [2014-12-03 Wed 13:18]
+   1. http://stackoverflow.com/questions/10070861/linux-kernel-exported-symbols
+   2. cat /proc/kallsyms
+** DONE [KB]How to display module info
+   CLOSED: [2014-12-03 Wed 13:30]
+   - State "DONE"       from "TODO"       [2014-12-03 Wed 13:30]
+   1. ref: http://www.cyberciti.biz/tips/how-to-display-or-show-information-about-a-linux-kernel-module-or-drivers.html
+   2. modinfo
+   3. /sbin/modinfo modulename or module full path
+   4. 
+	#+BEGIN_SRC 
+	[angelo@centos chapter02]$ modinfo hello.ko
+	filename:       /home/angelo/git-root/github-studynotes/ldd3/chapter02/hello.ko
+	alias:          AngeloHello
+	version:        1.0.0
+	description:    Hello world experiment
+	author:         Angelo Yin
+	license:        Dual BSD/GPL
+	srcversion:     CBD0CA6498114F9DB1E9E96
+	depends:        
+	vermagic:       3.10.0-123.9.3.el7.x86_64 SMP mod_unload modversions 
+
+
+	#+END_SRC
+** TODO
+** TODO 

@@ -1,7 +1,8 @@
 #include <linux/init.h>
 #include <linux/module.h>
 
-MODULE_LICENSE("Dual BSD/GPL");
+/* MODULE_LICENSE("Dual BSD/GPL"); */
+MODULE_LICENSE("GPL v2");
 MODULE_AUTHOR("Angelo Yin");
 MODULE_DESCRIPTION("Hello world experiment");
 MODULE_VERSION("1.0.0");

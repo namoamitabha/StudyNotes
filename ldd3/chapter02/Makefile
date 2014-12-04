@@ -1,7 +1,7 @@
-obj-m := hello.o
+obj-m := hello.o hellop.o
 
 ifneq ($(KERNELRELEASE),)
-	obj-m := hello.o
+	obj-m := hello.o hellop.o
 else
 	KERNELDIR ?= /lib/modules/$(shell uname -r)/build
 	PWD := $(shell pwd)

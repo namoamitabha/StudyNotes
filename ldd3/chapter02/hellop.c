@@ -3,6 +3,7 @@
 #include <linux/sched.h>
 #include <linux/version.h>
 #include <linux/vermagic.h>
+#include <linux/moduleparam.h>
 
 /* MODULE_LICENSE("Dual BSD/GPL"); */
 MODULE_LICENSE("GPL v2");

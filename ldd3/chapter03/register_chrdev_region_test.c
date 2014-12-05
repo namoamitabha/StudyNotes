@@ -16,6 +16,9 @@ MODULE_DESCRIPTION("Hello world experiment");
 MODULE_VERSION("1.0.0");
 MODULE_ALIAS("AngeloHello");
 
+dev_t first = 0;
+unsigned int count = 5;
+
 static int register_chrdev_region_init(void)
 {
 	pr_alert("Hello, world\n");
@@ -26,8 +29,6 @@ static int register_chrdev_region_init(void)
 	/* pr_alert("LINUX_VERSION_CODE:%d", LINUX_VERSION_CODE); */
 	pr_alert("KERNEL_VERSION:%d", KERNEL_VERSION(2, 6, 10));
 
-	dev_t first = 0;
-	unsigned int count = 5;
 	char *name = "register_chrdev_region_test";
 	int error;
 
@@ -42,6 +43,9 @@ static int register_chrdev_region_init(void)
 
 static void register_chrdev_region_exit(void)
 {
+	unregister_chrdev_region(first, count);
+	pr_alert("	unregister_chrdev_region(first, count);");
+
 	pr_alert("Goodbye, beautiful world\n");
 }
 

@@ -16,28 +16,29 @@ MODULE_ALIAS("AngeloHello");
 
 static int hello_init(void)
 {
-	printk(KERN_ALERT "Hello, world\n");
-	printk(KERN_ALERT "The process is \"%s\" (pid %i)\n",
+	pr_alert("Hello, world\n");
+	pr_alert("The process is \"%s\" (pid %i)\n",
 	       current->comm, current->pid);
 
-	printk(KERN_ALERT "UTS_RELEASE:%s", UTS_RELEASE);
-	printk(KERN_ALERT "LINUX_VERSION_CODE:%d", LINUX_VERSION_CODE);
-	printk(KERN_ALERT "KERNEL_VERSION:%d", KERNEL_VERSION(2, 6, 10));
+	pr_alert("UTS_RELEASE:%s", UTS_RELEASE);
+	/* pr_alert("LINUX_VERSION_CODE:%d", LINUX_VERSION_CODE); */
+	pr_alert("KERNEL_VERSION:%d", KERNEL_VERSION(2, 6, 10));
 
 	dev_t dev;
 	int major = 1;
 	int minor = 2;
+
 	dev = MKDEV(major, minor);
-	printk(KERN_ALERT "dev_t:%d", dev);
-	printk(KERN_ALERT "MAJOR:%d", MAJOR(dev));
-	printk(KERN_ALERT "MINOR:%d", MINOR(dev));
+	pr_alert("dev_t:%d", dev);
+	pr_alert("MAJOR:%d", MAJOR(dev));
+	pr_alert("MINOR:%d", MINOR(dev));
 
 	return 0;
 }
 
 static void hello_exit(void)
 {
-	printk(KERN_ALERT "Goodbye, beautiful world\n");
+	pr_alert("Goodbye, beautiful world\n");
 }
 
 void export_test(void)

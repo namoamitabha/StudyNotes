@@ -13,19 +13,19 @@ MODULE_ALIAS("AngeloHello");
 
 static int hello_init(void)
 {
-	pr_debug("Hello, world\n");
-	pr_debug("The process is \"%s\" (pid %i)\n",
+	pr_alert("Hello, world\n");
+	pr_alert("The process is \"%s\" (pid %i)\n",
 	       current->comm, current->pid);
 
-	pr_debug("UTS_RELEASE:%s", UTS_RELEASE);
-	pr_debug("LINUX_VERSION_CODE:%d", LINUX_VERSION_CODE);
-	pr_debug("KERNEL_VERSION:%d", KERNEL_VERSION(2, 6, 10));
+	pr_alert("UTS_RELEASE:%s", UTS_RELEASE);
+	/* pr_alert("LINUX_VERSION_CODE:%d", LINUX_VERSION_CODE); */
+	pr_alert("KERNEL_VERSION:%d", KERNEL_VERSION(2, 6, 10));
 	return 0;
 }
 
 static void hello_exit(void)
 {
-	pr_debug("Goodbye, beautiful world\n");
+	pr_alert("Goodbye, beautiful world\n");
 }
 
 void export_test(void)

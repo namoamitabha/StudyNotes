@@ -14,7 +14,7 @@ MODULE_DESCRIPTION("Hello world experiment");
 MODULE_VERSION("1.0.0");
 MODULE_ALIAS("AngeloHello");
 
-static int hello_init(void)
+static int dev_t_test_init(void)
 {
 	pr_alert("Hello, world\n");
 	pr_alert("The process is \"%s\" (pid %i)\n",
@@ -36,7 +36,7 @@ static int hello_init(void)
 	return 0;
 }
 
-static void hello_exit(void)
+static void dev_t_test_exit(void)
 {
 	pr_alert("Goodbye, beautiful world\n");
 }
@@ -46,5 +46,5 @@ void export_test(void)
 }
 EXPORT_SYMBOL(export_test);
 
-module_init(hello_init);
-module_exit(hello_exit);
+module_init(dev_t_test_init);
+module_exit(dev_t_test_exit);

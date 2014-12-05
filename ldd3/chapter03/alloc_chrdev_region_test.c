@@ -34,7 +34,7 @@ static int alloc_chrdev_region_init(void)
 	int err;
 
 	err = alloc_chrdev_region(&dev, firstminor, count, name);
-	if (err) {
+	if (!err) {
 		pr_alert("alloc_chrdev_region successful.");
 		pr_alert("dev_t:%d,Major=%d,Minor=%d", dev, MAJOR(dev), MINOR(dev));
 	} else {

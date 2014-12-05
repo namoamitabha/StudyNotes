@@ -37,7 +37,7 @@ static int register_chrdev_region_init(void)
 	else
 		pr_alert("register chardev region failed. error:%d", error);
 
-	return 0;  
+	return 0;
 }
 
 static void register_chrdev_region_exit(void)

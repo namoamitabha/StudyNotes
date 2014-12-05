@@ -17,7 +17,7 @@ static int howmany = 1;
 module_param(whom, charp, S_IRUGO);
 module_param(howmany, int, S_IRUGO);
 
-static int __init hello_init(void)
+static int __init hellop_init(void)
 {
 	int i = 0;
 
@@ -33,7 +33,7 @@ static int __init hello_init(void)
 	return 0;
 }
 
-static void __exit hello_exit(void)
+static void __exit hellop_exit(void)
 {
 	pr_alert("Goodbye, beautiful world\n");
 }
@@ -43,8 +43,8 @@ void export_test(void)
 }
 EXPORT_SYMBOL(export_test);
 
-module_init(hello_init);
-module_exit(hello_exit);
+module_init(hellop_init);
+module_exit(hellop_exit);
 
 /* module param using example */
 /* $ sudo insmod hellop.ko howmany=10 whom="Mom" */

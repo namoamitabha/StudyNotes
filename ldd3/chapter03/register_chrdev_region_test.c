@@ -16,7 +16,7 @@ MODULE_DESCRIPTION("Hello world experiment");
 MODULE_VERSION("1.0.0");
 MODULE_ALIAS("AngeloHello");
 
-dev_t first = 0;
+dev_t first = MKDEV(300, 0);
 unsigned int count = 5;
 
 static int register_chrdev_region_init(void)
@@ -33,10 +33,17 @@ static int register_chrdev_region_init(void)
 	int error;
 
 	error = register_chrdev_region(first, count, name);
-	if (!error)
+	pr_alert("error=%d", error);
+
+	if (!error) {
+		pr_alert("Major=%d, minor=%d",
+			 MAJOR(first), MINOR(first));
+
 		pr_alert("register chardev region successful");
-	else
+
+	} else {
 		pr_alert("register chardev region failed. error:%d", error);
+	}
 
 	return 0;
 }
@@ -44,7 +51,8 @@ static int register_chrdev_region_init(void)
 static void register_chrdev_region_exit(void)
 {
 	unregister_chrdev_region(first, count);
-	pr_alert("	unregister_chrdev_region(first, count);");
+	pr_alert("unregister_chrdev_region, Major=%d, minor=%d",
+		 MAJOR(first), MINOR(first));
 
 	pr_alert("Goodbye, beautiful world\n");
 }

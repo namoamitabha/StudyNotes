@@ -28,14 +28,50 @@ struct firstdev *firstdev_p;
 
 static void firstdev_exit(void);
 
+loff_t fdev_llseek(struct file *filp, loff_t off, int whence)
+{
+	pr_alert("fdev_llseek");
+	return 0;
+}
+
+ssize_t fdev_read(struct file *filp, char __user *buf, size_t count, loff_t *f_pos)
+{
+	pr_alert("fdev_read");
+	return 0;
+}
+
+ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count, loff_t *f_pos)
+{
+	pr_alert("fdev_write");
+	return 0;
+}
+
+long fdev_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+{
+	pr_alert("fdev_ioctl");
+	return 0;
+}
+
+int fdev_open(struct inod *inode, struct file *filp)
+{
+	pr_alert("fdev_open");
+	return 0;
+}
+
+int fdev_release(struct inode *inode, struct file *filp)
+{
+	pr_alert("fdev_release");
+	return 0;
+}
+
 struct file_operations fops = {
 	.owner	= THIS_MODULE,
-	.llseek	= NULL,
-	.read	= NULL,
-	.write	= NULL,
-	.unlocked_ioctl	= NULL,
-	.open	= NULL,
-	.release	= NULL,
+	.llseek	= fdev_llseek,
+	.read	= fdev_read,
+	.write	= fdev_write,
+	.unlocked_ioctl	= fdev_ioctl,
+	.open	= fdev_open,
+	.release	= fdev_release,
 };
 
 static int firstdev_init(void)

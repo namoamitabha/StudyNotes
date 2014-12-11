@@ -34,13 +34,15 @@ loff_t fdev_llseek(struct file *filp, loff_t off, int whence)
 	return 0;
 }
 
-ssize_t fdev_read(struct file *filp, char __user *buf, size_t count, loff_t *f_pos)
+ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
+		  loff_t *f_pos)
 {
 	pr_alert("fdev_read");
 	return 0;
 }
 
-ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count, loff_t *f_pos)
+ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
+		   loff_t *f_pos)
 {
 	pr_alert("fdev_write");
 	return 0;
@@ -64,7 +66,7 @@ int fdev_release(struct inode *inode, struct file *filp)
 	return 0;
 }
 
-struct file_operations fops = {
+const struct file_operations fops = {
 	.owner	= THIS_MODULE,
 	.llseek	= fdev_llseek,
 	.read	= fdev_read,
@@ -93,14 +95,15 @@ static int firstdev_init(void)
 	err = alloc_chrdev_region(&dev, firstminor, count, name);
 	if (!err) {
 		pr_alert("alloc_chrdev_region successful.");
-		pr_alert("dev_t:%d,Major=%d,Minor=%d", dev, MAJOR(dev), MINOR(dev));
+		pr_alert("dev_t:%d,Major=%d,Minor=%d",
+			dev, MAJOR(dev), MINOR(dev));
 	} else {
 		pr_alert("alloc_chrdev_region failed.");
 	}
 
 
 
-	firstdev_p = kmalloc(count * sizeof(struct firstdev), GFP_KERNEL);
+	firstdev_p = kmalloc_array(count, sizeof(struct firstdev), GFP_KERNEL);
 	if (!firstdev_p) {
 		result = -ENOMEM;
 		pr_alert("kmalloc firstdev_p failed.");
@@ -112,10 +115,12 @@ static int firstdev_init(void)
 	memset(firstdev_p, 0, count * sizeof(struct firstdev));
 
 	int i, major, devno;
+
 	major = MAJOR(dev);
-	
+
 	for (i = 0; i < count; ++i) {
 		struct firstdev *p = &firstdev_p[i];
+
 		devno = MKDEV(major, i);
 		cdev_init(&p->cdev, &fops);
 		p->cdev.owner = THIS_MODULE;

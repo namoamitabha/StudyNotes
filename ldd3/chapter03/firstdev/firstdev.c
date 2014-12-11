@@ -64,6 +64,7 @@ long fdev_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 int fdev_open(struct inode *inode, struct file *filp)
 {
 	struct firstdev *dev;
+
 	dev = container_of(inode->i_cdev, struct firstdev, cdev);
 	filp->private_data = dev;
 

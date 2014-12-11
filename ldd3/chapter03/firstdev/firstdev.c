@@ -9,6 +9,7 @@
 #include <linux/cdev.h>
 #include <linux/slab.h>
 #include <linux/fs.h>
+#include <linux/kernel.h>
 
 /* MODULE_LICENSE("Dual BSD/GPL"); */
 MODULE_LICENSE("GPL v2");
@@ -21,6 +22,8 @@ dev_t dev;
 unsigned int count = 4;
 
 struct firstdev {
+	int major;
+	int minor;
 	struct cdev cdev;
 };
 
@@ -54,9 +57,14 @@ long fdev_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 	return 0;
 }
 
-int fdev_open(struct inod *inode, struct file *filp)
+int fdev_open(struct inode *inode, struct file *filp)
 {
-	pr_alert("fdev_open");
+	struct firstdev *dev;
+	dev = container_of(inode->i_cdev, struct firstdev, cdev);
+	filp->private_data = dev;
+
+	pr_alert("fdev_open, major=%d, minor=%d", dev->major, dev->minor);
+
 	return 0;
 }
 
@@ -122,6 +130,8 @@ static int firstdev_init(void)
 		struct firstdev *p = &firstdev_p[i];
 
 		devno = MKDEV(major, i);
+		p->major = major;
+		p->minor = i;
 		cdev_init(&p->cdev, &fops);
 		p->cdev.owner = THIS_MODULE;
 		p->cdev.ops = &fops;

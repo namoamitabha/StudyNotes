@@ -17,7 +17,7 @@ MODULE_VERSION("1.0.0");
 MODULE_ALIAS("AngeloHello");
 
 dev_t dev;
-unsigned int count = 5;
+unsigned int count = 4;
 
 static int alloc_chrdev_region_init(void)
 {

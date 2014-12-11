@@ -40,14 +40,18 @@ loff_t fdev_llseek(struct file *filp, loff_t off, int whence)
 ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 		  loff_t *f_pos)
 {
-	pr_alert("fdev_read");
+	struct firstdev *dev = filp->private_data;
+
+	pr_alert("fdev_read, major=%d, minor=%d", dev->major, dev->minor);
 	return 0;
 }
 
 ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
 		   loff_t *f_pos)
 {
-	pr_alert("fdev_write");
+	struct firstdev *dev = filp->private_data;
+
+	pr_alert("fdev_write, major=%d, minor=%d", dev->major, dev->minor);
 	return 0;
 }
 
@@ -70,7 +74,9 @@ int fdev_open(struct inode *inode, struct file *filp)
 
 int fdev_release(struct inode *inode, struct file *filp)
 {
-	pr_alert("fdev_release");
+	struct firstdev *dev = filp->private_data;
+
+	pr_alert("fdev_release, major=%d, minor=%d", dev->major, dev->minor);
 	return 0;
 }
 

@@ -72,6 +72,21 @@ int fdev_open(struct inode *inode, struct file *filp)
 	filp->private_data = dev;
 	pr_alert("fdev_open, major=%d, minor=%d", dev->major, dev->minor);
 
+	int minor = iminor(inode);
+	int major = imajor(inode);
+
+	pr_alert("iminor(inode)=%d", minor);
+	pr_alert("imajor(inode)=%d", major);
+
+	pr_alert("MODE:%x", (filp->f_flags & O_ACCMODE));
+
+	if ((filp->f_flags & O_ACCMODE) == O_WRONLY)
+		pr_alert("O_WRONLY MODE");
+	else if ((filp->f_flags & O_ACCMODE) == O_RDONLY)
+		pr_alert("O_RDONLY MODE");
+	else
+		pr_alert("MODE:%x", (filp->f_flags & O_ACCMODE));
+
 	return 0;
 }
 

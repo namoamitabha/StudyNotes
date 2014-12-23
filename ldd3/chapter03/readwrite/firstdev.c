@@ -59,7 +59,7 @@ struct qset *fdev_follow(struct firstdev *dev, int n)
 	while (n--) {
 		if (!qs->next) {
 			qs->next = kmalloc(sizeof(struct qset), GFP_KERNEL);
-			if (qs->next = NULL)
+			if (qs->next == NULL)
 				return NULL;
 			memset(qs->next, 0, sizeof(struct qset));
 		}
@@ -91,7 +91,7 @@ ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 	int itemsize = quantum_count * qset_count;
 	int item, s_pos, q_pos, rest;
 	ssize_t retval = 0;
-	
+
 	if (*f_pos >= dev->size)
 		goto out;
 	if (*f_pos + count > dev->size)
@@ -103,13 +103,13 @@ ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 	q_pos = rest % quantum_count;
 
 	dptr = fdev_follow(dev, item);
-	
+
 	if (dptr == NULL || !dptr->data || !dptr->data[s_pos])
 		goto out;
 
 	if (count > quantum_count - q_pos)
 		count = quantum_count - q_pos;
-	
+
 	if (copy_to_user(buf, dptr->data[s_pos] + q_pos, count)) {
 		retval = -EFAULT;
 		goto out;
@@ -132,6 +132,7 @@ ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
 	int qset_count = dev->qset_count;
 
 	int item, itemsize, rest, s_pos, q_pos;
+
 	itemsize = quantum_count * qset_count;
 	item = (long)*f_pos / itemsize;
 	rest = (long)*f_pos % itemsize;
@@ -139,6 +140,7 @@ ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
 	q_pos = rest % quantum_count;
 
 	struct qset *dptr;
+
 	dptr = fdev_follow(dev, item);
 	if (dptr == NULL)
 		goto out;
@@ -162,10 +164,10 @@ ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
 	}
 	*f_pos += count;
 	retval = count;
-	
+
 	if (dev->size < *f_pos)
 		dev->size = *f_pos;
-	
+
 out:
 	return retval;
 }

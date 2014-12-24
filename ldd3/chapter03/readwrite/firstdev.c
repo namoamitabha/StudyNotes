@@ -96,8 +96,12 @@ ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 		return -ERESTARTSYS;
 	if (*f_pos >= dev->size)
 		goto out;
+
+	pr_alert("item=%d, rest=%d, s_pos=%d, q_pos=%d, count=%d",
+		 item, rest, s_pos, q_pos, count);
+
 	if (*f_pos + count > dev->size)
-		count = dev->size = *f_pos;
+		count = dev->size - *f_pos;
 
 	item = (long)*f_pos / itemsize;
 	rest = (long)*f_pos % itemsize;

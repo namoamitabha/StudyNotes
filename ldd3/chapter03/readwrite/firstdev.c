@@ -92,8 +92,8 @@ ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 	int item, s_pos, q_pos, rest;
 	ssize_t retval = 0;
 
-	if (down_interruptible(&dev->sem))
-		return -ERESTARTSYS;
+	/* if (down_interruptible(&dev->sem)) */
+	/* 	return -ERESTARTSYS; */
 	if (*f_pos >= dev->size)
 		goto out;
 
@@ -123,7 +123,7 @@ ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 	*f_pos += count;
 	retval = count;
 out:
-	up(&dev->sem);
+	/* up(&dev->sem); */
 	return retval;
 }
 
@@ -139,8 +139,8 @@ ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
 	int qset_count = dev->qset_count;
 	int item, itemsize, rest, s_pos, q_pos;
 
-	if (down_interruptible(&dev->sem))
-		return -ERESTARTSYS;
+	/* if (down_interruptible(&dev->sem)) */
+	/* 	return -ERESTARTSYS; */
 
 	itemsize = quantum_count * qset_count;
 	item = (long)*f_pos / itemsize;
@@ -180,7 +180,7 @@ ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
 	if (dev->size < *f_pos)
 		dev->size = *f_pos;
 out:
-	up(&dev->sem);
+	/* up(&dev->sem); */
 	return retval;
 }
 

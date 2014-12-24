@@ -28,7 +28,7 @@ struct qset {
 };
 
 #define QUANTUM_DEFAULT 4000
-#define QSET_DEFAULT 1
+#define QSET_DEFAULT 1000
 
 struct firstdev {
 	struct qset *data;
@@ -92,6 +92,8 @@ ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 	int item, s_pos, q_pos, rest;
 	ssize_t retval = 0;
 
+	if (down_interruptible(&dev->sem))
+		return -ERESTARTSYS;
 	if (*f_pos >= dev->size)
 		goto out;
 	if (*f_pos + count > dev->size)
@@ -101,6 +103,9 @@ ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 	rest = (long)*f_pos % itemsize;
 	s_pos = rest / quantum_count;
 	q_pos = rest % quantum_count;
+
+	pr_alert("item=%d, rest=%d, s_pos=%d, q_pos=%d, count=%d",
+		 item, rest, s_pos, q_pos, count);
 
 	dptr = fdev_follow(dev, item);
 
@@ -117,6 +122,7 @@ ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 	*f_pos += count;
 	retval = count;
 out:
+	up(&dev->sem);
 	return retval;
 }
 
@@ -130,14 +136,19 @@ ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
 
 	int quantum_count = dev->quantum_count;
 	int qset_count = dev->qset_count;
-
 	int item, itemsize, rest, s_pos, q_pos;
+
+	if (down_interruptible(&dev->sem))
+		return -ERESTARTSYS;
 
 	itemsize = quantum_count * qset_count;
 	item = (long)*f_pos / itemsize;
 	rest = (long)*f_pos % itemsize;
 	s_pos = rest / quantum_count;
 	q_pos = rest % quantum_count;
+
+	pr_alert("item=%d, rest=%d, s_pos=%d, q_pos=%d, count=%d",
+		 item, rest, s_pos, q_pos, count);
 
 	struct qset *dptr;
 
@@ -167,8 +178,8 @@ ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
 
 	if (dev->size < *f_pos)
 		dev->size = *f_pos;
-
 out:
+	up(&dev->sem);
 	return retval;
 }
 
@@ -262,13 +273,12 @@ static int fdev_init(void)
 	major = MAJOR(dev);
 	for (i = 0; i < count; ++i) {
 		struct firstdev *devp = &firstdev_p[i];
-
+		
+		sema_init(&devp->sem, 1);
 		devno = MKDEV(major, i);
 		devp->major = major;
 		devp->minor = i;
 
-		/* devp->quantum = 10; */
-		/* devp->qset_count = 10; */
 		devp->quantum_count = QUANTUM_DEFAULT;
 		devp->qset_count = QSET_DEFAULT;
 

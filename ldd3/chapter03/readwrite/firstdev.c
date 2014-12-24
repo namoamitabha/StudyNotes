@@ -97,9 +97,6 @@ ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 	if (*f_pos >= dev->size)
 		goto out;
 
-	pr_alert("item=%d, rest=%d, s_pos=%d, q_pos=%d, count=%d",
-		 item, rest, s_pos, q_pos, count);
-
 	if (*f_pos + count > dev->size)
 		count = dev->size - *f_pos;
 
@@ -108,8 +105,8 @@ ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 	s_pos = rest / quantum_count;
 	q_pos = rest % quantum_count;
 
-	pr_alert("item=%d, rest=%d, s_pos=%d, q_pos=%d, count=%d",
-		 item, rest, s_pos, q_pos, count);
+	pr_alert("f_pos=%d, item=%d, rest=%d, s_pos=%d, q_pos=%d, count=%d",
+		 f_pos, item, rest, s_pos, q_pos, count);
 
 	dptr = fdev_follow(dev, item);
 
@@ -151,8 +148,8 @@ ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
 	s_pos = rest / quantum_count;
 	q_pos = rest % quantum_count;
 
-	pr_alert("item=%d, rest=%d, s_pos=%d, q_pos=%d, count=%d",
-		 item, rest, s_pos, q_pos, count);
+	pr_alert("f_pos=%d, item=%d, rest=%d, s_pos=%d, q_pos=%d, count=%d",
+		 f_pos, item, rest, s_pos, q_pos, count);
 
 	struct qset *dptr;
 

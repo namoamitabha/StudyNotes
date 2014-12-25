@@ -45,6 +45,30 @@ struct firstdev *firstdev_p;
 
 static void fdev_exit(void);
 
+int fdev_trim(struct firstdev *dev)
+{
+	pr_alert("trim existing data");
+	struct qset *next, *dptr;
+	int qset_count = dev->qset_count;
+
+	for (dptr = dev->data; dptr; dptr = next) {
+		if (dptr->data) {
+			int i = 0;
+			for (i = 0; i < qset_count; i++)
+				kfree(dptr->data[i]);
+			kfree(dptr->data);
+			dptr->data = NULL;
+		}
+		next = dptr->next;
+		kfree(dptr);
+	}
+	dev->size = 0;
+	dev->quantum_count = QUANTUM_DEFAULT;
+	dev->qset_count = QSET_DEFAULT;
+	dev->data = NULL;
+	return 0;
+}
+
 struct qset *fdev_follow(struct firstdev *dev, int n)
 {
 	struct qset *qs = dev->data;
@@ -206,8 +230,10 @@ int fdev_open(struct inode *inode, struct file *filp)
 
 	pr_alert("MODE:%x", (filp->f_flags & O_ACCMODE));
 
-	if ((filp->f_flags & O_ACCMODE) == O_WRONLY)
+	if ((filp->f_flags & O_ACCMODE) == O_WRONLY) {
 		pr_alert("O_WRONLY MODE");
+		fdev_trim(dev);
+	}	
 	else if ((filp->f_flags & O_ACCMODE) == O_RDONLY)
 		pr_alert("O_RDONLY MODE");
 	else

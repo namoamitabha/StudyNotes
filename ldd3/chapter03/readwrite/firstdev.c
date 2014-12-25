@@ -30,7 +30,7 @@ struct qset {
 #define QUANTUM_DEFAULT 4000
 #define QSET_DEFAULT 1000
 
-struct firstdev {
+struct fdev {
 	struct qset *data;
 	int major;
 	int minor;
@@ -41,11 +41,11 @@ struct firstdev {
 	struct cdev cdev;
 };
 
-struct firstdev *firstdev_p;
+struct fdev *fdev_p;
 
 static void fdev_exit(void);
 
-int fdev_trim(struct firstdev *dev)
+int fdev_trim(struct fdev *dev)
 {
 	pr_alert("trim existing data");
 	struct qset *next, *dptr;
@@ -69,7 +69,7 @@ int fdev_trim(struct firstdev *dev)
 	return 0;
 }
 
-struct qset *fdev_follow(struct firstdev *dev, int n)
+struct qset *fdev_follow(struct fdev *dev, int n)
 {
 	struct qset *qs = dev->data;
 
@@ -105,7 +105,7 @@ loff_t fdev_llseek(struct file *filp, loff_t off, int whence)
 ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 		  loff_t *f_pos)
 {
-	struct firstdev *dev = filp->private_data;
+	struct fdev *dev = filp->private_data;
 
 	pr_alert("fdev_read, major=%d, minor=%d", dev->major, dev->minor);
 
@@ -155,7 +155,7 @@ ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
 		   loff_t *f_pos)
 {
 	ssize_t retval = -ENOMEM;
-	struct firstdev *dev = filp->private_data;
+	struct fdev *dev = filp->private_data;
 
 	pr_alert("fdev_write, major=%d, minor=%d", dev->major, dev->minor);
 
@@ -216,9 +216,9 @@ long fdev_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 
 int fdev_open(struct inode *inode, struct file *filp)
 {
-	struct firstdev *dev;
+	struct fdev *dev;
 
-	dev = container_of(inode->i_cdev, struct firstdev, cdev);
+	dev = container_of(inode->i_cdev, struct fdev, cdev);
 	filp->private_data = dev;
 	pr_alert("fdev_open, major=%d, minor=%d", dev->major, dev->minor);
 
@@ -244,7 +244,7 @@ int fdev_open(struct inode *inode, struct file *filp)
 
 int fdev_release(struct inode *inode, struct file *filp)
 {
-	struct firstdev *dev = filp->private_data;
+	struct fdev *dev = filp->private_data;
 
 	pr_alert("fdev_release, major=%d, minor=%d", dev->major, dev->minor);
 
@@ -284,22 +284,22 @@ static int fdev_init(void)
 		pr_alert("alloc_chrdev_region failed.");
 	}
 
-	firstdev_p = kmalloc_array(count, sizeof(struct firstdev), GFP_KERNEL);
-	if (!firstdev_p) {
+	fdev_p = kmalloc_array(count, sizeof(struct fdev), GFP_KERNEL);
+	if (!fdev_p) {
 		result = -ENOMEM;
-		pr_alert("kmalloc firstdev_p failed.");
+		pr_alert("kmalloc fdev_p failed.");
 		goto fail;
 	} else {
-		pr_alert("kmalloc firstdev_p successful.");
+		pr_alert("kmalloc fdev_p successful.");
 	}
 
-	memset(firstdev_p, 0, count * sizeof(struct firstdev));
+	memset(fdev_p, 0, count * sizeof(struct fdev));
 
 	int i, major, devno;
 
 	major = MAJOR(dev);
 	for (i = 0; i < count; ++i) {
-		struct firstdev *devp = &firstdev_p[i];
+		struct fdev *devp = &fdev_p[i];
 		
 		sema_init(&devp->sem, 1);
 		devno = MKDEV(major, i);
@@ -328,13 +328,13 @@ static void fdev_exit(void)
 {
 	int i;
 
-	if (firstdev_p) {
+	if (fdev_p) {
 		for (i = 0; i < count; ++i) {
-			cdev_del(&firstdev_p[i].cdev);
-			pr_alert("cdev_del(&firstdev_p[i].cdev)-%d", i);
+			cdev_del(&fdev_p[i].cdev);
+			pr_alert("cdev_del(&fdev_p[i].cdev)-%d", i);
 		}
-		kfree(firstdev_p);
-		pr_alert("kfree(firstdev_p);");
+		kfree(fdev_p);
+		pr_alert("kfree(fdev_p);");
 	}
 	unregister_chrdev_region(dev, count);
 	pr_alert("unregister_chrdev_region(first, count);");

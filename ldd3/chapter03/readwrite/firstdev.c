@@ -54,6 +54,7 @@ int fdev_trim(struct fdev *dev)
 	for (dptr = dev->data; dptr; dptr = next) {
 		if (dptr->data) {
 			int i = 0;
+
 			for (i = 0; i < qset_count; i++)
 				kfree(dptr->data[i]);
 			kfree(dptr->data);
@@ -116,8 +117,9 @@ ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 	int item, s_pos, q_pos, rest;
 	ssize_t retval = 0;
 
-	/* if (down_interruptible(&dev->sem)) */
-	/* 	return -ERESTARTSYS; */
+	if (down_interruptible(&dev->sem))
+		return -ERESTARTSYS;
+
 	if (*f_pos >= dev->size)
 		goto out;
 
@@ -163,8 +165,8 @@ ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
 	int qset_count = dev->qset_count;
 	int item, itemsize, rest, s_pos, q_pos;
 
-	/* if (down_interruptible(&dev->sem)) */
-	/* 	return -ERESTARTSYS; */
+	if (down_interruptible(&dev->sem))
+		return -ERESTARTSYS;
 
 	itemsize = quantum_count * qset_count;
 	item = (long)*f_pos / itemsize;
@@ -233,11 +235,11 @@ int fdev_open(struct inode *inode, struct file *filp)
 	if ((filp->f_flags & O_ACCMODE) == O_WRONLY) {
 		pr_alert("O_WRONLY MODE");
 		fdev_trim(dev);
-	}	
-	else if ((filp->f_flags & O_ACCMODE) == O_RDONLY)
+	} else if ((filp->f_flags & O_ACCMODE) == O_RDONLY) {
 		pr_alert("O_RDONLY MODE");
-	else
+	} else {
 		pr_alert("MODE:%x", (filp->f_flags & O_ACCMODE));
+	}
 
 	return 0;
 }
@@ -300,7 +302,7 @@ static int fdev_init(void)
 	major = MAJOR(dev);
 	for (i = 0; i < count; ++i) {
 		struct fdev *devp = &fdev_p[i];
-		
+
 		sema_init(&devp->sem, 1);
 		devno = MKDEV(major, i);
 		devp->major = major;

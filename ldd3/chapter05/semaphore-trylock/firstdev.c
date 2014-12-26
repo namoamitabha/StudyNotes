@@ -116,7 +116,7 @@ ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 	int item, s_pos, q_pos, rest;
 	ssize_t retval = 0;
 	
-	if (down_interruptible(&dev->sem))
+	if (down_trylock(&dev->sem))
 		return -ERESTARTSYS;
 
 	if (*f_pos >= dev->size)
@@ -164,7 +164,7 @@ ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
 	int qset_count = dev->qset_count;
 	int item, itemsize, rest, s_pos, q_pos;
 
-	if (down_interruptible(&dev->sem))
+	if (down_trylock(&dev->sem))
 		return -ERESTARTSYS;
 
 	itemsize = quantum_count * qset_count;
@@ -234,7 +234,7 @@ int fdev_open(struct inode *inode, struct file *filp)
 	if ((filp->f_flags & O_ACCMODE) == O_WRONLY) {
 		pr_alert("O_WRONLY MODE");
 
-		if (down_interruptible(&dev->sem))
+		if (down_trylock(&dev->sem))
 			return -ERESTARTSYS;
 
 		fdev_trim(dev);

@@ -149,7 +149,7 @@ ssize_t fdev_read(struct file *filp, char __user *buf, size_t count,
 	*f_pos += count;
 	retval = count;
 out:
-	/* up(&dev->sem); */
+	up(&dev->sem);
 	return retval;
 }
 
@@ -206,7 +206,7 @@ ssize_t fdev_write(struct file *filp, const char __user *buf, size_t count,
 	if (dev->size < *f_pos)
 		dev->size = *f_pos;
 out:
-	/* up(&dev->sem); */
+	up(&dev->sem);
 	return retval;
 }
 

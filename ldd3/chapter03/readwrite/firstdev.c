@@ -50,11 +50,10 @@ int fdev_trim(struct fdev *dev)
 	pr_alert("trim existing data");
 	struct qset *next, *dptr;
 	int qset_count = dev->qset_count;
+	int i = 0;
 
 	for (dptr = dev->data; dptr; dptr = next) {
 		if (dptr->data) {
-			int i = 0;
-
 			for (i = 0; i < qset_count; i++)
 				kfree(dptr->data[i]);
 			kfree(dptr->data);
@@ -234,7 +233,10 @@ int fdev_open(struct inode *inode, struct file *filp)
 
 	if ((filp->f_flags & O_ACCMODE) == O_WRONLY) {
 		pr_alert("O_WRONLY MODE");
+		if (down_interruptible(&dev->sem))
+			return -ERESTARTSYS;
 		fdev_trim(dev);
+		up(&dev->sem);
 	} else if ((filp->f_flags & O_ACCMODE) == O_RDONLY) {
 		pr_alert("O_RDONLY MODE");
 	} else {
@@ -332,6 +334,7 @@ static void fdev_exit(void)
 
 	if (fdev_p) {
 		for (i = 0; i < count; ++i) {
+			fdev_trim(fdev_p + i);
 			cdev_del(&fdev_p[i].cdev);
 			pr_alert("cdev_del(&fdev_p[i].cdev)-%d", i);
 		}

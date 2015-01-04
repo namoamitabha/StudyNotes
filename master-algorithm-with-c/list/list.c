@@ -12,10 +12,14 @@ void list_init(List *list, void (*destroy)(void *data))
 
 void list_destroy(List *list)
 {
-	/* ListElement *cur = list->head; */
+	void *data;
 	/* while (list->size > 0) { */
+	/* 	if (list_rem_next(list, NULL, &data) == 0 && list->destroy != NULL) { */
+	/* 		list->destroy(data); */
+	/* 	} */
 		
 	/* } */
+	/* free(list); */
 }
 
 int list_ins_next(List *list, ListElmt *element, const void *data)
@@ -41,5 +45,33 @@ int list_ins_next(List *list, ListElmt *element, const void *data)
 	
 	list->size++;
 	
+	return 0;
+}
+
+int list_rem_next(List *list, ListElmt *element, void **data)
+{
+	if (list->size == 0)
+		return -1;
+
+	ListElmt *remElmt;
+	if (element == NULL) {
+		remElmt = list->head;
+		list->head = list->head->next;
+	} else {
+		if (list_is_tail(element))
+			return -1;
+
+		remElmt = element->next;
+		element->next = element->next->next;
+	}
+	*data = remElmt->data;
+
+	if (list_is_tail(remElmt))
+		list->tail = element;
+
+	--list->size;
+
+	free(remElmt);
+
 	return 0;
 }

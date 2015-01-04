@@ -3,22 +3,51 @@
 #include <limits.h>
 #include <stdlib.h>
 
+/* #define DEBUG */
+
 void destroy(void *data)
 {
-	free(data);
+	if (data != NULL) {
+		free(data);
+	}
 }
 
 void list_print(List *list)
 {
+#ifdef DEBUG			
 	ListElmt *current = list->head;
 	int i = 1;
 	while (i <= list->size) {
-		if (current != NULL)
+		if (current != NULL) {
+
 			printf("%d:%d\n", i, *(int *)current->data);
+		}
 		current = current->next;
 		++i;
 	}
 	printf("=====\n");
+#endif
+}
+
+TEST(List, list_destroy0)
+{
+	List *list = (List *)malloc(sizeof(List));
+	list_init(list, destroy);
+	int *a = (int *)malloc(sizeof(int));
+	*a = 1;
+	list_ins_next(list, NULL, a);
+	
+	list_destroy(list);
+	EXPECT_EQ(0, list->size);
+	EXPECT_TRUE(list->head == NULL);
+	EXPECT_TRUE(list->tail == NULL);	
+}
+
+TEST(List, list_destroy1)
+{
+	List *list = (List *)malloc(sizeof(List));
+	list_init(list, destroy);
+	list_destroy(list);
 }
 
 TEST(List, list_init0)
@@ -82,7 +111,6 @@ TEST(List, list_ins_next0)
 	EXPECT_EQ(list->size, 3);
 	EXPECT_EQ(*(int *)list_data(list->head), *b);
 	EXPECT_EQ(*(int *)list_data(list->tail), *c);
-	printf("%d\n", *((int *)list->head->data));
 
 	list_print(list);
 
@@ -96,10 +124,6 @@ TEST(List, list_ins_next0)
 	EXPECT_EQ(*(int *)list_data(list->head->next), *d);
 
 	list_print(list);
-	free(a);
-	free(b);
-	free(c);
-	free(d);
 
 	list_destroy(list);
 }
@@ -143,5 +167,4 @@ TEST(List, list_rem_next)
 	EXPECT_EQ(9, list->size);
 
 	list_destroy(list);
-	free(data);
 }

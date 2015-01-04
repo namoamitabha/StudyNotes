@@ -1,6 +1,7 @@
 #include "list.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 void list_init(List *list, void (*destroy)(void *data))
 {
@@ -13,13 +14,16 @@ void list_init(List *list, void (*destroy)(void *data))
 void list_destroy(List *list)
 {
 	void *data;
-	/* while (list->size > 0) { */
-	/* 	if (list_rem_next(list, NULL, &data) == 0 && list->destroy != NULL) { */
-	/* 		list->destroy(data); */
-	/* 	} */
-		
-	/* } */
-	/* free(list); */
+	if (list == NULL)
+		return;
+
+	while (list->size > 0) {
+		if (list_rem_next(list, NULL, &data) == 0
+		    && list->destroy != NULL) {
+			list->destroy(data);
+		}
+	}
+	memset(list, 0, sizeof(List));
 }
 
 int list_ins_next(List *list, ListElmt *element, const void *data)

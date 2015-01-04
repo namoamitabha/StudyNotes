@@ -5,9 +5,23 @@
 
 void destroy(void *data)
 {
+	free(data);
 }
 
-TEST(SList, list_init0)
+void list_print(List *list)
+{
+	ListElmt *current = list->head;
+	int i = 1;
+	while (i <= list->size) {
+		if (current != NULL)
+			printf("%d:%d\n", i, *(int *)current->data);
+		current = current->next;
+		++i;
+	}
+	printf("=====\n");
+}
+
+TEST(List, list_init0)
 {
 	List *list = (List *)malloc(sizeof(List));
 	list_init(list, destroy);
@@ -15,9 +29,10 @@ TEST(SList, list_init0)
 	EXPECT_TRUE(list->head == NULL);
 	EXPECT_TRUE(list->tail == NULL);
 	EXPECT_TRUE(list->destroy == destroy);
+	list_destroy(list);
 }
 
-TEST(SList, list_init1)
+TEST(List, list_init1)
 {
 	List *list = (List *)malloc(sizeof(List));
 	list_init(list, NULL);
@@ -25,4 +40,61 @@ TEST(SList, list_init1)
 	EXPECT_TRUE(list->head == NULL);
 	EXPECT_TRUE(list->tail == NULL);
 	EXPECT_TRUE(list->destroy == NULL);
+}
+
+TEST(List, list_ins_next0)
+{
+	int result;
+
+	List *list = (List *)malloc(sizeof(List));
+	list_init(list, NULL);
+
+	int *a = (int *)malloc(sizeof(int));
+	*a = 1;
+	result = list_ins_next(list, NULL, a);
+
+	EXPECT_EQ(result, 0);
+	EXPECT_EQ(list->size, 1);
+	EXPECT_EQ(*(int *)list_data(list->head), *a);
+	EXPECT_EQ(*(int *)list_data(list->tail), *a);
+
+	list_print(list);
+
+	int *b = (int *)malloc(sizeof(int));
+	*b = 2;
+	result = list_ins_next(list, NULL, b);
+
+	EXPECT_EQ(result, 0);
+	EXPECT_EQ(list->size, 2);
+	EXPECT_EQ(*(int *)list_data(list->head), *b);
+	EXPECT_EQ(*(int *)list_data(list->tail), *a);
+
+	list_print(list);
+
+	int *c = (int *)malloc(sizeof(int));
+	*c = 0;
+	result = list_ins_next(list, list->tail, c);
+
+	EXPECT_EQ(result, 0);
+	EXPECT_EQ(list->size, 3);
+	EXPECT_EQ(*(int *)list_data(list->head), *b);
+	EXPECT_EQ(*(int *)list_data(list->tail), *c);
+	printf("%d\n", *((int *)list->head->data));
+
+	list_print(list);
+
+	int *d = (int *)malloc(sizeof(int));
+	*d = 3;
+	result = list_ins_next(list, list->head, d);
+
+	EXPECT_EQ(result, 0);
+	EXPECT_EQ(list->size, 4);
+	EXPECT_EQ(*(int *)list_data(list->head), *b);
+	EXPECT_EQ(*(int *)list_data(list->head->next), *d);
+
+	list_print(list);
+	free(a);
+	free(b);
+	free(c);
+	free(d);
 }

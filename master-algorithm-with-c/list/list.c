@@ -14,6 +14,7 @@ void list_init(List *list, void (*destroy)(void *data))
 void list_destroy(List *list)
 {
 	void *data;
+
 	if (list == NULL)
 		return;
 
@@ -29,6 +30,7 @@ void list_destroy(List *list)
 int list_ins_next(List *list, ListElmt *element, const void *data)
 {
 	ListElmt *newElement = (ListElmt *)malloc(sizeof(ListElmt));
+
 	if (newElement == NULL)
 		return -1;
 	newElement->data = (void *)data;
@@ -43,12 +45,12 @@ int list_ins_next(List *list, ListElmt *element, const void *data)
 		newElement->next = element->next;
 		element->next = newElement;
 	}
-	
+
 	if (list->tail == NULL)
 		list->tail = newElement;
-	
+
 	list->size++;
-	
+
 	return 0;
 }
 
@@ -58,6 +60,7 @@ int list_rem_next(List *list, ListElmt *element, void **data)
 		return -1;
 
 	ListElmt *remElmt;
+
 	if (element == NULL) {
 		remElmt = list->head;
 		list->head = list->head->next;

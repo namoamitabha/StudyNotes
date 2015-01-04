@@ -7,21 +7,20 @@
 
 void destroy(void *data)
 {
-	if (data != NULL) {
+	if (data != NULL)
 		free(data);
-	}
 }
 
 void list_print(List *list)
 {
-#ifdef DEBUG			
+#ifdef DEBUG
 	ListElmt *current = list->head;
 	int i = 1;
-	while (i <= list->size) {
-		if (current != NULL) {
 
+	while (i <= list->size) {
+		if (current != NULL)
 			printf("%d:%d\n", i, *(int *)current->data);
-		}
+
 		current = current->next;
 		++i;
 	}
@@ -32,20 +31,24 @@ void list_print(List *list)
 TEST(List, list_destroy0)
 {
 	List *list = (List *)malloc(sizeof(List));
+
 	list_init(list, destroy);
+
 	int *a = (int *)malloc(sizeof(int));
+
 	*a = 1;
 	list_ins_next(list, NULL, a);
-	
+
 	list_destroy(list);
 	EXPECT_EQ(0, list->size);
 	EXPECT_TRUE(list->head == NULL);
-	EXPECT_TRUE(list->tail == NULL);	
+	EXPECT_TRUE(list->tail == NULL);
 }
 
 TEST(List, list_destroy1)
 {
 	List *list = (List *)malloc(sizeof(List));
+
 	list_init(list, destroy);
 	list_destroy(list);
 }
@@ -53,6 +56,7 @@ TEST(List, list_destroy1)
 TEST(List, list_init0)
 {
 	List *list = (List *)malloc(sizeof(List));
+
 	list_init(list, destroy);
 	EXPECT_EQ(list->size, 0);
 	EXPECT_TRUE(list->head == NULL);
@@ -65,6 +69,7 @@ TEST(List, list_init0)
 TEST(List, list_init1)
 {
 	List *list = (List *)malloc(sizeof(List));
+
 	list_init(list, NULL);
 	EXPECT_EQ(list->size, 0);
 	EXPECT_TRUE(list->head == NULL);
@@ -77,8 +82,8 @@ TEST(List, list_init1)
 TEST(List, list_ins_next0)
 {
 	int result;
-
 	List *list = (List *)malloc(sizeof(List));
+
 	list_init(list, destroy);
 
 	int *a = (int *)malloc(sizeof(int));
@@ -132,9 +137,11 @@ TEST(List, list_rem_next)
 {
 	int result;
 	List *list = (List *)malloc(sizeof(List));
+
 	list_init(list, destroy);
 
 	void *data = NULL;
+
 	result = list_rem_next(list, NULL, &data);
 	EXPECT_EQ(-1, result);
 	EXPECT_TRUE(data == NULL);
@@ -144,7 +151,7 @@ TEST(List, list_rem_next)
 	list_ins_next(list, NULL, a);
 	result = list_rem_next(list, list->tail, &data);
 	EXPECT_EQ(-1, result);
-	
+
 	result = list_rem_next(list, NULL, &data);
 	EXPECT_EQ(0, result);
 	EXPECT_TRUE(list->head == NULL);
@@ -153,6 +160,7 @@ TEST(List, list_rem_next)
 	EXPECT_EQ(0, list->size);
 
 	int i;
+
 	for (i = 0; i < 10; ++i) {
 		int *t = (int *)malloc(sizeof(int));
 		*t = i;

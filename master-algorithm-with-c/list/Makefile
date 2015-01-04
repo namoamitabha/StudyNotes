@@ -44,7 +44,7 @@ CTYPEOBJ = list.o list_tests.o
 all : $(TESTS)
 
 clean :
-	rm -f $(TESTS) *.o
+	rm -f $(TESTS) *.o *.a
 
 realclean :
 	rm -f $(TESTS) *.o *.a

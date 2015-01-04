@@ -43,6 +43,8 @@ TEST(List, list_destroy0)
 	EXPECT_EQ(0, list->size);
 	EXPECT_TRUE(list->head == NULL);
 	EXPECT_TRUE(list->tail == NULL);
+
+	free(list);
 }
 
 TEST(List, list_destroy1)
@@ -51,6 +53,12 @@ TEST(List, list_destroy1)
 
 	list_init(list, destroy);
 	list_destroy(list);
+
+	EXPECT_EQ(0, list->size);
+	EXPECT_TRUE(list->head == NULL);
+	EXPECT_TRUE(list->tail == NULL);
+
+	free(list);
 }
 
 TEST(List, list_init0)
@@ -64,6 +72,7 @@ TEST(List, list_init0)
 	EXPECT_TRUE(list->destroy == destroy);
 
 	list_destroy(list);
+	free(list);
 }
 
 TEST(List, list_init1)
@@ -77,6 +86,7 @@ TEST(List, list_init1)
 	EXPECT_TRUE(list->destroy == NULL);
 
 	list_destroy(list);
+	free(list);
 }
 
 TEST(List, list_ins_next0)
@@ -131,6 +141,7 @@ TEST(List, list_ins_next0)
 	list_print(list);
 
 	list_destroy(list);
+	free(list);
 }
 
 TEST(List, list_rem_next)
@@ -175,4 +186,5 @@ TEST(List, list_rem_next)
 	EXPECT_EQ(9, list->size);
 
 	list_destroy(list);
+	free(list);
 }

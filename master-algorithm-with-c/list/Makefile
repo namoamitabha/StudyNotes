@@ -96,5 +96,5 @@ list.o : list.c list.h
 list_tests.o : list_tests.c list.h
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c list_tests.c
 
-list_tests.out : list_tests.o $(CTYPEOBJ) gtest_main.a
+list_tests.out : list_tests.o $(CTYPEOBJ) list.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@

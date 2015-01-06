@@ -29,6 +29,7 @@ void print_list(DList *list)
 TEST(DList, dlist_init)
 {
 	DList *list = (DList *)malloc(sizeof(DList));
+
 	dlist_init(list, destroy);
 	EXPECT_EQ(0, dlist_size(list));
 	EXPECT_TRUE(NULL == dlist_head(list));
@@ -43,6 +44,7 @@ TEST(DList, dlist_ins_next)
 	int result;
 
 	DList *list = (DList *)malloc(sizeof(DList));
+
 	dlist_init(list, destroy);
 
 	int *a = (int *)malloc(sizeof(int));
@@ -99,7 +101,7 @@ TEST(DList, dlist_ins_prev)
 	DList *list = (DList *)malloc(sizeof(DList));
 
 	dlist_init(list, destroy);
-	
+
 	int *a = (int *)malloc(sizeof(int));
 
 	*a = 1;
@@ -108,7 +110,7 @@ TEST(DList, dlist_ins_prev)
 	EXPECT_EQ(1, dlist_size(list));
 	EXPECT_EQ(*a, *((int *)dlist_head(list)->data));
 	EXPECT_EQ(*a, *((int *)dlist_tail(list)->data));
-	
+
 	int *b = (int *)malloc(sizeof(int));
 
 	result = dlist_ins_prev(list, NULL, a);
@@ -163,7 +165,7 @@ TEST(DList, dlist_remove)
 	EXPECT_EQ(-1, result);
 
 	int *a = (int *)malloc(sizeof(int));
-	
+
 	*a = 1;
 	result = dlist_ins_next(list, NULL, a);
 	EXPECT_EQ(0, result);
@@ -181,7 +183,7 @@ TEST(DList, dlist_remove)
 	result = dlist_ins_next(list, NULL, a);
 
 	int *b = (int *)malloc(sizeof(int));
-	
+
 	*b = 2;
 	result = dlist_ins_next(list, dlist_tail(list), b);
 
@@ -189,12 +191,12 @@ TEST(DList, dlist_remove)
 
 	*c = 3;
 	result = dlist_ins_next(list, dlist_tail(list), c);
-	
+
 	int *d = (int *)malloc(sizeof(int));
-	
+
 	*d = 4;
 	result = dlist_ins_next(list, dlist_tail(list), d);
-	
+
 	result = dlist_remove(list, dlist_tail(list), &data);
 	EXPECT_EQ(0, result);
 	EXPECT_EQ(*d, *((int *)data));
@@ -233,7 +235,7 @@ TEST(DList, dlist_destroy)
 	}
 
 	print_list(list);
-	
+
 	dlist_destroy(list);
 
 	free(list);

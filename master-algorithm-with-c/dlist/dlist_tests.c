@@ -6,7 +6,10 @@
 
 void destroy(void *data)
 {
-	/* printf("destroy:%d\n", *((int *)data)); */
+#ifdef DEBUG
+	printf("destroy:%d\n", *((int *)data)); */
+#endif
+
 	free(data);
 }
 
@@ -48,7 +51,6 @@ TEST(DList, dlist_ins_next)
 	dlist_init(list, destroy);
 
 	int *a = (int *)malloc(sizeof(int));
-
 	*a = 1;
 	result = dlist_ins_next(list, NULL, a);
 	EXPECT_EQ(0, result);
@@ -57,7 +59,6 @@ TEST(DList, dlist_ins_next)
 	EXPECT_EQ(*a, *((int *)dlist_tail(list)->data));
 
 	int *b = (int *)malloc(sizeof(int));
-
 	*b = 2;
 	result = dlist_ins_next(list, NULL, b);
 	EXPECT_EQ(-1, result);
@@ -69,7 +70,6 @@ TEST(DList, dlist_ins_next)
 	EXPECT_EQ(*b, *((int *)dlist_tail(list)->data));
 
 	int *c = (int *)malloc(sizeof(int));
-
 	*c = 3;
 	result = dlist_ins_next(list, list->head, c);
 	EXPECT_EQ(0, result);
@@ -80,7 +80,6 @@ TEST(DList, dlist_ins_next)
 	print_list(list);
 
 	int *d = (int *)malloc(sizeof(int));
-
 	*d = 4;
 	result = dlist_ins_next(list, list->tail, d);
 	EXPECT_EQ(0, result);
@@ -103,7 +102,6 @@ TEST(DList, dlist_ins_prev)
 	dlist_init(list, destroy);
 
 	int *a = (int *)malloc(sizeof(int));
-
 	*a = 1;
 	result = dlist_ins_prev(list, NULL, a);
 	EXPECT_EQ(0, result);
@@ -111,11 +109,10 @@ TEST(DList, dlist_ins_prev)
 	EXPECT_EQ(*a, *((int *)dlist_head(list)->data));
 	EXPECT_EQ(*a, *((int *)dlist_tail(list)->data));
 
-	int *b = (int *)malloc(sizeof(int));
-
 	result = dlist_ins_prev(list, NULL, a);
 	EXPECT_EQ(-1, result);
 
+	int *b = (int *)malloc(sizeof(int));
 	*b = 2;
 	result = dlist_ins_prev(list, dlist_head(list), b);
 	EXPECT_EQ(0, result);
@@ -125,7 +122,6 @@ TEST(DList, dlist_ins_prev)
 	print_list(list);
 
 	int *c = (int *)malloc(sizeof(int));
-
 	*c = 3;
 	result = dlist_ins_prev(list, dlist_tail(list), c);
 
@@ -136,7 +132,6 @@ TEST(DList, dlist_ins_prev)
 	EXPECT_EQ(*a, *((int *)dlist_tail(list)->data));
 
 	int *d = (int *)malloc(sizeof(int));
-
 	*d = 4;
 	result = dlist_ins_prev(list, dlist_head(list)->next, d);
 	EXPECT_EQ(0, result);
@@ -165,7 +160,6 @@ TEST(DList, dlist_remove)
 	EXPECT_EQ(-1, result);
 
 	int *a = (int *)malloc(sizeof(int));
-
 	*a = 1;
 	result = dlist_ins_next(list, NULL, a);
 	EXPECT_EQ(0, result);
@@ -183,17 +177,14 @@ TEST(DList, dlist_remove)
 	result = dlist_ins_next(list, NULL, a);
 
 	int *b = (int *)malloc(sizeof(int));
-
 	*b = 2;
 	result = dlist_ins_next(list, dlist_tail(list), b);
 
 	int *c = (int *)malloc(sizeof(int));
-
 	*c = 3;
 	result = dlist_ins_next(list, dlist_tail(list), c);
 
 	int *d = (int *)malloc(sizeof(int));
-
 	*d = 4;
 	result = dlist_ins_next(list, dlist_tail(list), d);
 

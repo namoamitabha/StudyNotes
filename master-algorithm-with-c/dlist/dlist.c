@@ -54,7 +54,9 @@ int dlist_ins_next(DList *list, DListElmt *element, const void *data)
 		else
 			list->tail = newElmt;
 	}
+
 	++list->size;
+
 	return 0;
 }
 
@@ -73,7 +75,6 @@ int dlist_ins_prev(DList *list, DListElmt *element, const void *data)
 	if (0 == dlist_size(list)) {
 		newElmt->next = NULL;
 		newElmt->prev = NULL;
-
 		list->head = newElmt;
 		list->tail = newElmt;
 	} else {
@@ -86,6 +87,7 @@ int dlist_ins_prev(DList *list, DListElmt *element, const void *data)
 		else
 			list->head = newElmt;
 	}
+
 	++list->size;
 
 	return 0;

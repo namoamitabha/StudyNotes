@@ -2,6 +2,8 @@
 #include <gtest/gtest.h>
 #include <stdlib.h>
 
+/* #define DEBUG */
+
 void destroy(void *data)
 {
 	/* printf("destroy:%d\n", *((int *)data)); */
@@ -10,6 +12,7 @@ void destroy(void *data)
 
 void print_list(DList *list)
 {
+#ifdef DEBUG
 	int i = 0;
 
 	DListElmt *current = list->head;
@@ -19,6 +22,7 @@ void print_list(DList *list)
 		current = current->next;
 	}
 	printf("=====\n");
+#endif
 }
 
 

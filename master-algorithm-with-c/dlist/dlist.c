@@ -1,6 +1,7 @@
 #include "dlist.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 void dlist_init(DList *list, void (*destroy)(void *data))
 {
@@ -22,6 +23,7 @@ void dlist_destroy(DList *list)
 		if (NULL != list->destroy)
 			list->destroy(data);
 	}
+
 	memset(list, 0, sizeof(DList));
 }
 

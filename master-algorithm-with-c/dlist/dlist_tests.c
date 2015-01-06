@@ -4,6 +4,7 @@
 
 void destroy(void *data)
 {
+	/* printf("destroy:%d\n", *((int *)data)); */
 	free(data);
 }
 
@@ -152,6 +153,8 @@ TEST(DList, dlist_remove)
 
 	DList *list = (DList *)malloc(sizeof(DList));
 
+	dlist_init(list, destroy);
+
 	result = dlist_remove(list, NULL, &data);
 	EXPECT_EQ(-1, result);
 
@@ -213,6 +216,8 @@ TEST(DList, dlist_destroy)
 	int result;
 
 	DList *list = (DList *)malloc(sizeof(DList));
+
+	dlist_init(list, destroy);
 
 	int *a;
 	int i;

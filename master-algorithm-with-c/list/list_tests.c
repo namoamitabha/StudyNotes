@@ -18,7 +18,7 @@ void list_print(List *list)
 	int i = 1;
 
 	while (i <= list->size) {
-		if (current != NULL)
+		if (NULL != current)
 			printf("%d:%d\n", i, *(int *)current->data);
 
 		current = current->next;

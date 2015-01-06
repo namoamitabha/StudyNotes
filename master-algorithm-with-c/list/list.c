@@ -15,15 +15,16 @@ void list_destroy(List *list)
 {
 	void *data;
 
-	if (list == NULL)
+	if (NULL == list)
 		return;
 
 	while (list->size > 0) {
 		if (list_rem_next(list, NULL, &data) == 0
-		    && list->destroy != NULL) {
+		    && NULL != list->destroy) {
 			list->destroy(data);
 		}
 	}
+
 	memset(list, 0, sizeof(List));
 }
 
@@ -33,9 +34,10 @@ int list_ins_next(List *list, ListElmt *element, const void *data)
 
 	if (newElement == NULL)
 		return -1;
+
 	newElement->data = (void *)data;
-	/* printf("%d\n", *((int *)data)); */
-	if (element == NULL) {
+
+	if (NULL == element) {
 		newElement->next = list->head;
 		list->head = newElement;
 	} else {
@@ -46,7 +48,7 @@ int list_ins_next(List *list, ListElmt *element, const void *data)
 		element->next = newElement;
 	}
 
-	if (list->tail == NULL)
+	if (NULL == list->tail)
 		list->tail = newElement;
 
 	list->size++;
@@ -61,7 +63,7 @@ int list_rem_next(List *list, ListElmt *element, void **data)
 
 	ListElmt *remElmt;
 
-	if (element == NULL) {
+	if (NULL == element) {
 		remElmt = list->head;
 		list->head = list->head->next;
 	} else {
@@ -71,6 +73,7 @@ int list_rem_next(List *list, ListElmt *element, void **data)
 		remElmt = element->next;
 		element->next = element->next->next;
 	}
+
 	*data = remElmt->data;
 
 	if (list_is_tail(remElmt))

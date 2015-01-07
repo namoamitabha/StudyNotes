@@ -4,7 +4,7 @@
 
 void destroy(void *data)
 {
-
+	free(data);
 }
 
 void clist_print(CList *list)
@@ -18,6 +18,7 @@ void clist_print(CList *list)
 		++i;
 	}
 }
+
 TEST(CList, clist_init)
 {
 	CList *list = (CList *)malloc(sizeof(CList));
@@ -109,4 +110,26 @@ TEST(CList, clist_rem_next)
 	EXPECT_EQ(0, clist_size(list));
 	EXPECT_EQ(0, *((int *)data));
 	EXPECT_TRUE(NULL == clist_head(list));
+
+	clist_destroy(list);
+	free(list);
+}
+
+TEST(CList, clist_destroy)
+{
+	int *a;
+	CList *list = (CList *)malloc(sizeof(int));
+
+	clist_init(list, destroy);
+
+	for (int i = 0; i < 10; ++i) {
+		a = (int *)malloc(sizeof(int));
+		*a = i;
+		clist_ins_next(list, clist_head(list), a);
+	}
+
+	clist_print(list);
+
+	clist_destroy(list);
+	/* free(list); */
 }

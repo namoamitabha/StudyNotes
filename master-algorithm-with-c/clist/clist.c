@@ -1,4 +1,7 @@
 #include "clist.h"
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 void clist_init(CList *list, void (*destroy)(void *data))
 {
@@ -9,7 +12,15 @@ void clist_init(CList *list, void (*destroy)(void *data))
 
 void clist_destroy(CList *list)
 {
+	void *data;
 
+	while (0 < clist_size(list)) {
+		clist_rem_next(list, clist_head(list), &data);
+		printf("destroy:%d\n", *((int *)data));
+		if (NULL != list->destroy)
+			list->destroy(data);
+	}
+	memset(list, 0, sizeof(CList));
 }
 
 int clist_ins_next(CList *list, CListElmt *element, const void *data)

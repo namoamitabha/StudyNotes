@@ -26,6 +26,7 @@ void clist_print(CList *list)
 TEST(CList, clist_init)
 {
 	CList *list = (CList *)malloc(sizeof(CList));
+
 	clist_init(list, destroy);
 	EXPECT_EQ(0, clist_size(list));
 	EXPECT_TRUE(NULL == list->head);
@@ -40,6 +41,7 @@ TEST(CList, clist_ins_next)
 	int result;
 
 	CList *list = (CList *)malloc(sizeof(CList));
+
 	clist_init(list, destroy);
 
 	int *a = (int *)malloc(sizeof(int));
@@ -48,7 +50,7 @@ TEST(CList, clist_ins_next)
 	EXPECT_EQ(0, result);
 	EXPECT_EQ(1, clist_size(list));
 	EXPECT_EQ(*a, *((int *)clist_data(clist_head(list))));
-	EXPECT_TRUE( clist_next(list->head) == clist_head(list));
+	EXPECT_TRUE(clist_next(list->head) == clist_head(list));
 
 	int *b = (int *)malloc(sizeof(int));
 	*b = 2;
@@ -61,7 +63,7 @@ TEST(CList, clist_ins_next)
 	EXPECT_EQ(2, clist_size(list));
 	EXPECT_EQ(*a, *((int *)clist_data(clist_head(list))));
 	EXPECT_EQ(*b, *((int *)clist_data(clist_next(clist_head(list)))));
-	EXPECT_TRUE(clist_head(list) 
+	EXPECT_TRUE(clist_head(list)
 		    == clist_next(clist_next(clist_head(list))));
 
 	int *c = (int *)malloc(sizeof(int));
@@ -76,20 +78,23 @@ TEST(CList, clist_ins_next)
 		== list->head->next->next->next);
 
 	clist_destroy(list);
-	free(list);	
+	free(list);
 }
 
 TEST(CList, clist_rem_next)
 {
 	int result;
 	void *data;
+
 	CList *list = (CList *)malloc(sizeof(CList));
+
 	clist_init(list, destroy);
 
 	result = clist_rem_next(list, NULL, &data);
 	EXPECT_EQ(-1, result);
 
 	int *a;
+
 	for (int i = 0; i < 3; ++i) {
 		a = (int *)malloc(sizeof(int));
 		*a = i;
@@ -135,6 +140,6 @@ TEST(CList, clist_destroy)
 	clist_print(list);
 
 	clist_destroy(list);
-//TODO: why here cannot free the list
+/* TODO: why here cannot free the list */
 	/* free(list); */
 }

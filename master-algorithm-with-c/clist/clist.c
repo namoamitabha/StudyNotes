@@ -18,9 +18,8 @@ void clist_destroy(CList *list)
 	void *data;
 
 	while (0 < clist_size(list)) {
-		clist_rem_next(list, clist_head(list), &data);
-		printf("destroy:%d\n", *((int *)data));
-		if (NULL != list->destroy)
+		if (0 == clist_rem_next(list, clist_head(list), &data) 
+		    && NULL != list->destroy)
 			list->destroy(data);
 	}
 	memset(list, 0, sizeof(CList));
@@ -47,6 +46,7 @@ int clist_ins_next(CList *list, CListElmt *element, const void *data)
 	}
 
 	++list->size;
+
 	return 0;
 }
 
@@ -57,14 +57,16 @@ int clist_rem_next(CList *list, CListElmt *element, void **data)
 
 	CListElmt *remElmt;
 
+	*data = element->next->data;
 	if (element == element->next) {
-		remElmt = clist_head(list);
-		*data = clist_data(remElmt);
+		remElmt = element;
 		list->head = NULL;
 	} else {
 		remElmt = element->next;
-		*data = clist_data(remElmt);
 		element->next = remElmt->next;
+
+		if (clist_head(list) == remElmt)
+			list->head = remElmt->next;
 	}
 
 	--list->size;

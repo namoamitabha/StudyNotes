@@ -12,6 +12,9 @@ void clist_init(CList *list, void (*destroy)(void *data))
 
 void clist_destroy(CList *list)
 {
+	if (NULL == list)
+		return;
+
 	void *data;
 
 	while (0 < clist_size(list)) {

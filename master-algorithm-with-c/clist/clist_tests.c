@@ -2,6 +2,8 @@
 #include <gtest/gtest.h>
 #include <stdlib.h>
 
+#define DEBUG
+
 void destroy(void *data)
 {
 	free(data);
@@ -9,6 +11,7 @@ void destroy(void *data)
 
 void clist_print(CList *list)
 {
+#ifdef DEBUG
 	int i = 0;
 	CListElmt *current = clist_head(list);
 
@@ -17,6 +20,7 @@ void clist_print(CList *list)
 		current = current->next;
 		++i;
 	}
+#endif
 }
 
 TEST(CList, clist_init)
@@ -131,5 +135,6 @@ TEST(CList, clist_destroy)
 	clist_print(list);
 
 	clist_destroy(list);
+//TODO: why here cannot free the list
 	/* free(list); */
 }

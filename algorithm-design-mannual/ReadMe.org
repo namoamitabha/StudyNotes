@@ -1,0 +1,5 @@
+* Vidoe & Lectures
+  1. http://www3.cs.stonybrook.edu/~algorith/video-lectures/
+
+* Code and Problems
+  1. http://www3.cs.stonybrook.edu/~algorith/

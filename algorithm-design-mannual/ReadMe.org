@@ -1,5 +1,6 @@
 * Vidoe & Lectures
   1. http://www3.cs.stonybrook.edu/~algorith/video-lectures/
+  2. https://www.youtube.com/playlist?list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b
 
 * Code and Problems
   1. http://www3.cs.stonybrook.edu/~algorith/

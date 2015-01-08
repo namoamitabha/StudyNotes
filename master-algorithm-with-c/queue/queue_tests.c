@@ -14,6 +14,7 @@ TEST(Queue, queue_enqueue_queue_dequeue)
 	int result;
 
 	Queue *queue = (Queue *)malloc(sizeof(Queue));
+
 	queue_init(queue, destroy);
 
 	int *a = (int *)malloc(sizeof(int));
@@ -33,6 +34,7 @@ TEST(Queue, queue_enqueue_queue_dequeue)
 	EXPECT_EQ(*a, *((int *)queue_peek(queue)));
 
 	void *data;
+
 	result = queue_dequeue(queue, &data);
 	EXPECT_EQ(0, result);
 	EXPECT_EQ(1, queue_size(queue));

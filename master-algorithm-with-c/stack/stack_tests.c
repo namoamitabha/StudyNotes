@@ -12,6 +12,7 @@ void destroy(void *data)
 TEST(Stack, stack_push_stack_pop)
 {
 	Stack *stack = (Stack *)malloc(sizeof(Stack));
+
 	stack_init(stack, destroy);
 
 	int result;

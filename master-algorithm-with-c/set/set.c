@@ -10,8 +10,6 @@ void set_init(Set *set,
 
 int set_is_member(const Set *set, const void *data)
 {
-	int result = 0;
-
 	ListElmt *current = list_head(set);
 
 	while (NULL != current) {
@@ -39,9 +37,9 @@ int set_remove(Set *set, void **data)
 	ListElmt *prev = NULL;
 
 	while (NULL != current) {
-		if (set->match(list_data(current), *data)) {
+		if (set->match(list_data(current), *data))
 			break;
-		}
+
 		prev = current;
 		current = list_next(current);
 	}

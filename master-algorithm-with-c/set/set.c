@@ -124,3 +124,11 @@ int set_is_subset(const Set *set1, const Set *set2)
 	}
 	return 1;
 }
+
+int set_is_equal(const Set *set1, const Set *set2)
+{
+	if (set_size(set1) != set_size(set2))
+		return 0;
+
+	return set_is_subset(set1, set2);
+}

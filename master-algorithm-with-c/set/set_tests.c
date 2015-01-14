@@ -127,7 +127,7 @@ TEST(Set, set_union)
 	Set *set1 = (Set *)malloc(sizeof(Set));
 	Set *set2 = (Set *)malloc(sizeof(Set));
 
-	set_init(setu, match, destroy);
+	/* set_init(setu, match, destroy); */
 	set_init(set1, match, destroy);
 	set_init(set2, match, destroy);
 
@@ -152,9 +152,9 @@ TEST(Set, set_union)
 	EXPECT_EQ(2, set_size(setu));
 
 	/* TODO: how to release setu to avoid double free items */
-	/* set_destroy(setu); */
 	set_destroy(set1);
 	set_destroy(set2);
+	set_destroy(setu);
 
 	free(set1);
 	free(set2);

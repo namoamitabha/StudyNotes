@@ -58,18 +58,23 @@ int set_union(Set *setu, const Set *set1, const Set *set2)
 {
 	ListElmt *current = list_head(set1);
 
-	/* assume setu is empty */
+	set_init(setu, set1->match, NULL);
+
 	while (NULL != current) {
-		if (0 != set_insert(setu, list_data(current)))
-				return -1;
+		if (0 != set_insert(setu, list_data(current))) {
+			set_destroy(setu);
+			return -1;
+		}
 		current = list_next(current);
 	}
 
 	current = list_head(set2);
 	while (NULL != current) {
 		if (0 == set_is_member(setu, list_data(current))) {
-			if (0 != set_insert(setu, list_data(current)))
+			if (0 != set_insert(setu, list_data(current))) {
+				set_destroy(setu);
 				return -1;
+			}
 		}
 		current = list_next(current);
 	}

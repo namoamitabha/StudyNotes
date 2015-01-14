@@ -104,12 +104,16 @@ int set_intersection(Set *seti, const Set *set1, const Set *set2)
 
 int set_difference(Set *setd, const Set *set1, const Set *set2)
 {
+	set_init(setd, set1->match, NULL);
+
 	ListElmt *current = list_head(set1);
 
 	while (NULL != current) {
 		if (0 == set_is_member(set2, list_data(current))) {
-			if (0 != set_insert(setd, list_data(current)))
+			if (0 != set_insert(setd, list_data(current))) {
+				set_destroy(setd);
 				return -1;
+			}
 		}
 		current = list_next(current);
 	}

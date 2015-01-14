@@ -213,7 +213,7 @@ TEST(Set, set_difference)
 	Set *set1 = (Set *)malloc(sizeof(Set));
 	Set *set2 = (Set *)malloc(sizeof(Set));
 
-	set_init(setd, match, destroy);
+	/* set_init(setd, match, destroy); */
 	set_init(set1, match, destroy);
 	set_init(set2, match, destroy);
 
@@ -243,6 +243,7 @@ TEST(Set, set_difference)
 
 	set_destroy(set1);
 	set_destroy(set2);
+	set_destroy(setd);
 
 	free(set1);
 	free(set2);

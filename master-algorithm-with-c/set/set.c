@@ -49,7 +49,7 @@ int set_remove(Set *set, void **data)
 	if (NULL == current)
 		return -1;
 
-	free(*data);
+	/* free(*data);  */ /* it should be freed by user */
 
 	return list_rem_next(set, prev, data);
 }

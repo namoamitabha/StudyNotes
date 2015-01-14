@@ -92,11 +92,16 @@ TEST(Set, set_remove)
 	EXPECT_EQ(0, set_insert(set, a));
 
 	int *b = (int *)malloc(sizeof(int));
+	int *d = b; /* to record new pointer to release later */
 
 	*b = 1;
 	result = set_remove(set, (void **)&b);
 	EXPECT_EQ(0, result);
 	EXPECT_TRUE(a == b);
+
+	EXPECT_FALSE(b == d);
+	EXPECT_EQ(*a, *d);
+
 	result = set_is_member(set, a);
 	EXPECT_EQ(0, result);
 
@@ -110,6 +115,7 @@ TEST(Set, set_remove)
 	EXPECT_FALSE(a == c);
 
 	free(c);
+	free(d);
 	set_destroy(set);
 	free(set);
 }

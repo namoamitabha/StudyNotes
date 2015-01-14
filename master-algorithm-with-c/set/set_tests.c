@@ -72,8 +72,9 @@ TEST(Set, set_insert)
 	EXPECT_EQ(0, result);
 
 	result = set_insert(set, a);
-	EXPECT_EQ(-1, result);
+	EXPECT_EQ(1, result);
 
+	/* How to test -1 */
 	set_destroy(set);
 	free(set);
 }

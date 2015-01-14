@@ -27,7 +27,7 @@ int set_is_member(const Set *set, const void *data)
 int set_insert(Set *set, const void *data)
 {
 	if (set_is_member(set, data))
-		return -1;
+		return 1;
 
 	return list_ins_next(set, NULL, data);
 }

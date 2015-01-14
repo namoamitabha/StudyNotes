@@ -12,8 +12,8 @@ int match(const void *key1, const void *key2)
 {
 	if (*((int *)key1) == *((int *)key2))
 		return 1;
-	else
-		return 0;
+
+	return 0;
 }
 
 TEST(Set, set_init)
@@ -284,7 +284,7 @@ TEST(Set, set_is_subset)
 	EXPECT_EQ(0, set_insert(set2, e));
 
 	EXPECT_EQ(1, set_is_subset(set1, set2));
-	
+
 	set_destroy(set1);
 	set_destroy(set2);
 

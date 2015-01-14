@@ -39,6 +39,7 @@ int set_remove(Set *set, void **data)
 	ListElmt *prev = NULL;
 
 	int exists = 0;
+
 	while (NULL != current) {
 		if (set->match(list_data(current), *data)) {
 			exists = 1;

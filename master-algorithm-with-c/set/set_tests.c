@@ -128,22 +128,72 @@ TEST(Set, set_union)
 
 	*a = 1;
 	EXPECT_EQ(0, set_insert(set1, a));
-	EXPECT_EQ(0, set_insert(set2, a));
 
 	int *b = (int *)malloc(sizeof(int));
 
 	*b = 2;
 	EXPECT_EQ(0, set_insert(set2, b));
 
+
+	int *c = (int *)malloc(sizeof(int));
+
+	*c = 1;
+	EXPECT_EQ(0, set_insert(set2, c));
+
 	result = set_union(setu, set1, set2);
 	EXPECT_EQ(0, result);
 	EXPECT_EQ(2, set_size(setu));
 
-	/* set_destroy(set1); */
-	/* set_destroy(set2); */
+	/* TODO: how to release setu to avoid double free items */
 	/* set_destroy(setu); */
+	set_destroy(set1);
+	set_destroy(set2);
 
 	free(set1);
 	free(set2);
 	free(setu);
+}
+
+TEST(Set, set_intersection)
+{
+	int result;
+	Set *seti = (Set *)malloc(sizeof(Set));
+	Set *set1 = (Set *)malloc(sizeof(Set));
+	Set *set2 = (Set *)malloc(sizeof(Set));
+
+	set_init(seti, match, destroy);
+	set_init(set1, match, destroy);
+	set_init(set2, match, destroy);
+
+	int *a = (int *)malloc(sizeof(int));
+
+	*a = 1;
+	EXPECT_EQ(0, set_insert(set1, a));
+
+	int *b = (int *)malloc(sizeof(int));
+
+	*b = 2;
+	EXPECT_EQ(0, set_insert(set1, b));
+
+	int *c = (int *)malloc(sizeof(int));
+
+	*c = 3;
+	EXPECT_EQ(0, set_insert(set2, c));
+
+	int *d = (int *)malloc(sizeof(int));
+
+	*d = 2;
+	EXPECT_EQ(0, set_insert(set2, d));
+
+	result = set_intersection(seti, set1, set2);
+	EXPECT_EQ(0, result);
+	EXPECT_EQ(1, set_size(seti));
+	EXPECT_EQ(*d, *((int *)list_data(list_head(seti))));
+
+	set_destroy(set1);
+	set_destroy(set2);
+
+	free(set1);
+	free(set2);
+	free(seti);
 }

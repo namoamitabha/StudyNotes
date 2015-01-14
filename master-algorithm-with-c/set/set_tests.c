@@ -240,3 +240,55 @@ TEST(Set, set_difference)
 	free(set2);
 	free(setd);
 }
+
+TEST(Set, set_is_subset)
+{
+	int result;
+	Set *set1 = (Set *)malloc(sizeof(Set));
+	Set *set2 = (Set *)malloc(sizeof(Set));
+
+	set_init(set1, match, destroy);
+	set_init(set2, match, destroy);
+
+	EXPECT_EQ(1, set_is_subset(set1, set2));
+
+	int *a = (int *)malloc(sizeof(int));
+
+	*a = 1;
+	EXPECT_EQ(0, set_insert(set1, a));
+
+	EXPECT_EQ(0, set_is_subset(set1, set2));
+
+	int *b = (int *)malloc(sizeof(int));
+
+	*b = 2;
+	EXPECT_EQ(0, set_insert(set1, b));
+
+	int *c = (int *)malloc(sizeof(int));
+
+	*c = 1;
+	EXPECT_EQ(0, set_insert(set2, c));
+
+	int *d = (int *)malloc(sizeof(int));
+
+	*d = 2;
+	EXPECT_EQ(0, set_insert(set2, d));
+
+	EXPECT_EQ(1, set_is_subset(set1, set2));
+
+	*a = 3;
+	EXPECT_EQ(0, set_is_subset(set1, set2));
+
+	int *e = (int *)malloc(sizeof(int));
+
+	*e = 3;
+	EXPECT_EQ(0, set_insert(set2, e));
+
+	EXPECT_EQ(1, set_is_subset(set1, set2));
+	
+	set_destroy(set1);
+	set_destroy(set2);
+
+	free(set1);
+	free(set2);
+}

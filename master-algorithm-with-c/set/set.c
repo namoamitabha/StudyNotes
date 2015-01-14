@@ -38,18 +38,15 @@ int set_remove(Set *set, void **data)
 	ListElmt *current = list_head(set);
 	ListElmt *prev = NULL;
 
-	int exists = 0;
-
 	while (NULL != current) {
 		if (set->match(list_data(current), *data)) {
-			exists = 1;
 			break;
 		}
 		prev = current;
 		current = list_next(current);
 	}
 
-	if (0 == exists)
+	if (NULL == current)
 		return -1;
 
 	free(*data);

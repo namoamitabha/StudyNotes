@@ -1,7 +1,7 @@
-obj-m := firstdev.o
+obj-m := sleepy.o
 
 ifneq ($(KERNELRELEASE),)
-	obj-m := firstdev.o
+	obj-m := sleepy.o
 else
 	KERNELDIR ?= /lib/modules/$(shell uname -r)/build
 	PWD := $(shell pwd)

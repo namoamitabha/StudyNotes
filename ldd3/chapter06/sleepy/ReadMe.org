@@ -9,3 +9,35 @@
 
 From investigation, the sleepy writer will only wake one reader one time.
 Why
+* Add looping in read to wait all reader wakes up
+From log, all readers are waken up.
+
+[ 7259.244665] process 11224 (cat) going to sleep
+[ 7262.392159] process 11225 (cat) going to sleep
+[ 7273.749314] process 11227 (ls) awakening the readers...
+[ 7273.749331] loop to wait all readers wake up.
+[ 7273.749351] looping...0
+[ 7273.749354] loop to wait all readers wake up.
+[ 7273.749357] looping...0
+[ 7273.749361] looping...1000
+[ 7273.749366] looping...1000
+[ 7273.749370] looping...2000
+[ 7273.749372] looping...2000
+[ 7273.749375] looping...3000
+[ 7273.749377] looping...3000
+[ 7273.749381] looping...4000
+[ 7273.749382] looping...4000
+[ 7273.749385] looping...5000
+[ 7273.749387] looping...5000
+[ 7273.749390] looping...6000
+[ 7273.749393] looping...6000
+[ 7273.749395] looping...7000
+[ 7273.749399] looping...8000
+[ 7273.749404] looping...9000
+[ 7273.749405] looping...7000
+[ 7273.749409] looping...8000
+[ 7273.749412] looping...10000
+[ 7273.749414] awoken 11225 (cat)
+[ 7273.749426] looping...9000
+[ 7273.749430] looping...10000
+[ 7273.749431] awoken 11224 (cat)

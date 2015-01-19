@@ -36,6 +36,13 @@ ssize_t sleepy_read (struct file *filp, char __user *buf, size_t count, loff_t *
 	printk(KERN_DEBUG "process %i (%s) going to sleep\n",
 			current->pid, current->comm);
 	wait_event_interruptible(wq, flag != 0);
+	printk(KERN_DEBUG "loop to wait all readers wake up.\n");
+	int i;
+	for (i = 0; i <= 10000; ++i)
+	{
+		if (0 == i % 1000)
+			printk(KERN_DEBUG "looping...%i\n", i);
+	}
 	flag = 0;
 	printk(KERN_DEBUG "awoken %i (%s)\n", current->pid, current->comm);
 	return 0; /* EOF */

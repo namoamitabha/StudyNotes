@@ -1,0 +1,11 @@
+* Issue about sleepy
+
+[ 6474.048596] process 9738 (cat) going to sleep
+[ 6485.541566] process 9779 (cat) going to sleep
+[ 6505.917528] process 9865 (ls) awakening the readers...
+[ 6505.917542] awoken 9779 (cat)
+[ 6509.627001] process 9872 (ls) awakening the readers...
+[ 6509.627046] awoken 9738 (cat)
+
+From investigation, the sleepy writer will only wake one reader one time.
+Why

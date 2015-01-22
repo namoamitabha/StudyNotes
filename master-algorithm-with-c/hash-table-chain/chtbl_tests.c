@@ -4,7 +4,10 @@
 
 int h(const void *key)
 {
-	return 0;
+	//buckets: 100
+	//prime base: 47, 100/47 = 2.13
+	int base = 47; // base should a little less than buckets
+	return *((int *)key) % base;
 }
 
 int match(const void *key1, const void *key2)
@@ -14,7 +17,7 @@ int match(const void *key1, const void *key2)
 
 void destroy(void *data)
 {
-
+	free(data);
 }
 
 TEST(CHTbl, chtbl_init)
@@ -34,3 +37,53 @@ TEST(CHTbl, chtbl_init)
 
 	free(htbl);
 }
+
+TEST(CHTbl, chtbl_insert)
+{
+	int result;
+
+	CHTbl *htbl = (CHTbl *)malloc(sizeof(CHTbl));
+
+	chtbl_init(htbl, 100, h, match, destroy);
+
+	int *a = (int *)malloc(sizeof(int));
+
+	*a = 1;
+	result = chtbl_insert(htbl, a);
+	EXPECT_EQ(0, result);
+	EXPECT_EQ(1, chtbl_size(htbl));
+
+	int *b = (int *)malloc(sizeof(int));
+
+	*b = 2;
+	result = chtbl_insert(htbl, b);
+	EXPECT_EQ(0, result);
+	EXPECT_EQ(2, chtbl_size(htbl));
+
+	/* result = chtbl_insert(htbl, a); */
+	/* EXPECT_EQ(-1, result); */
+	/* EXPECT_EQ(2, chtbl_size(htbl)); */
+
+	free(htbl);
+}
+
+TEST(CHTbl, chtbl_lookup)
+{
+	int result;
+	int *data = (int *)malloc(sizeof(int));
+
+	CHTbl *htbl = (CHTbl *)malloc(sizeof(CHTbl));
+
+	chtbl_init(htbl, 100, h, match, destroy);
+
+	int *a = (int *)malloc(sizeof(int));
+
+	*a = 32;
+	chtbl_insert(htbl, a);
+
+	*data = 32;
+	result = chtbl_lookup(htbl, (void **)&data);
+
+	free(htbl);
+}
+

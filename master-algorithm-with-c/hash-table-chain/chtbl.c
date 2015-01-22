@@ -8,6 +8,11 @@ int chtbl_init(CHTbl *htbl, int buckets,
 	htbl->table = (List *)malloc(sizeof(List) * buckets);
 	if (NULL == htbl->table)
 		return -1;
+	int i;
+
+	for (i = 0; i < buckets; ++i) {
+		list_init(htbl->table + i, destroy);
+	}
 
 	htbl->buckets = buckets;
 	htbl->size = 0;
@@ -15,5 +20,23 @@ int chtbl_init(CHTbl *htbl, int buckets,
 	htbl->match = match;
 	htbl->destroy = destroy;
 
+	return 0;
+}
+
+int chtbl_insert(CHTbl *htbl, const void *data)
+{
+	int key = htbl->h(data);
+
+	int result = list_ins_next(htbl->table + key, NULL, data);
+	if (-1 == result)
+		return result;
+
+	++htbl->size;
+
+	return 0;
+}
+
+int chtbl_lookup(const CHTbl *htbl, void **data)
+{
 	return 0;
 }

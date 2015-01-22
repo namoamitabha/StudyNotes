@@ -186,3 +186,26 @@ TEST(CHTbl, chtbl_destroy)
 	chtbl_destroy(htbl);
 	free(htbl);
 }
+
+TEST(CHTbl, performance)
+{
+	CHTbl *htbl = (CHTbl *)malloc(sizeof(CHTbl));
+
+	chtbl_init(htbl, 100, h, match, destroy);
+
+	int i;
+	int result;
+	int *data;
+
+	for (i = 200; i < 250; ++i) {
+		data = (int *)malloc(sizeof(int));
+		*data = i;
+		result = chtbl_insert(htbl, data);
+		printf("%d chtbl_insert result:%d\n", i, result);
+	}
+
+	EXPECT_EQ(50, chtbl_size(htbl));
+
+	chtbl_destroy(htbl);
+	free(htbl);
+}

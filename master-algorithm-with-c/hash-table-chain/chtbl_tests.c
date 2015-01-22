@@ -2,6 +2,8 @@
 #include <gtest/gtest.h>
 #include <stdlib.h>
 
+#define DEBUG
+
 int h(const void *key)
 {
 	//buckets: 100
@@ -37,6 +39,7 @@ TEST(CHTbl, chtbl_init)
 	EXPECT_TRUE(destroy == htbl->destroy);
 	EXPECT_TRUE(NULL != htbl->table);
 
+	chtbl_destroy(htbl);
 	free(htbl);
 }
 
@@ -66,6 +69,17 @@ TEST(CHTbl, chtbl_insert)
 	EXPECT_EQ(1, result);
 	EXPECT_EQ(2, chtbl_size(htbl));
 
+	int *data;
+	int i;
+	for (i = 100; i < 120; ++i) {
+		data = (int *)malloc(sizeof(int));
+		*data = i;
+		result = chtbl_insert(htbl, data);
+		EXPECT_EQ(0, result);
+		/* printf("%d result: %d chtbl_size:%d\n", i, result, chtbl_size(htbl)); */
+	}
+
+	chtbl_destroy(htbl);
 	free(htbl);
 }
 
@@ -105,7 +119,8 @@ TEST(CHTbl, chtbl_lookup)
 	*data = 101;
 	result = chtbl_lookup(htbl, (void **)&data);
 	EXPECT_EQ(-1, result);
-	
+
+	chtbl_destroy(htbl);
 	free(htbl);
 }
 
@@ -145,5 +160,29 @@ TEST(CHTbl, chtbl_remove)
 	EXPECT_EQ(-1, result);
 
 	free(data);
+	chtbl_destroy(htbl);
+	free(htbl);
+}
+
+TEST(CHTbl, chtbl_destroy)
+{
+	CHTbl *htbl = (CHTbl *)malloc(sizeof(CHTbl));
+
+	chtbl_init(htbl, 100, h, match, destroy);
+
+	int i;
+	int result;
+	int *data;
+
+	for (i = 200; i < 220; ++i) {
+		data = (int *)malloc(sizeof(int));
+		*data = i;
+		result = chtbl_insert(htbl, data);
+		/* printf("%d chtbl_insert result:%d\n", i, result); */
+	}
+
+	EXPECT_EQ(20, chtbl_size(htbl));
+
+	chtbl_destroy(htbl);
 	free(htbl);
 }

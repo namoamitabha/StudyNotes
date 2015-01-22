@@ -76,3 +76,17 @@ int chtbl_remove(CHTbl *htbl, void **data)
 	}
 	return -1;
 }
+
+void chtbl_destroy(CHTbl *htbl)
+{
+	int i;
+	List *list;
+
+	for (i = 0; i < htbl->buckets; ++i) {
+		list = htbl->table + i;
+		list_destroy(list);
+		/* free(list); */
+	}
+
+	free(htbl->table);
+}

@@ -62,9 +62,9 @@ TEST(CHTbl, chtbl_insert)
 	EXPECT_EQ(0, result);
 	EXPECT_EQ(2, chtbl_size(htbl));
 
-	/* result = chtbl_insert(htbl, a); */
-	/* EXPECT_EQ(-1, result); */
-	/* EXPECT_EQ(2, chtbl_size(htbl)); */
+	result = chtbl_insert(htbl, a);
+	EXPECT_EQ(1, result);
+	EXPECT_EQ(2, chtbl_size(htbl));
 
 	free(htbl);
 }

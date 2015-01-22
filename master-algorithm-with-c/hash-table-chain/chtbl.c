@@ -25,6 +25,11 @@ int chtbl_init(CHTbl *htbl, int buckets,
 
 int chtbl_insert(CHTbl *htbl, const void *data)
 {
+	void *tmp = (void *)data;
+
+	if (0 == chtbl_lookup(htbl, &tmp))
+		return 1;
+
 	int key = htbl->h(data);
 
 	int result = list_ins_next(htbl->table + key, NULL, data);

@@ -38,5 +38,14 @@ int chtbl_insert(CHTbl *htbl, const void *data)
 
 int chtbl_lookup(const CHTbl *htbl, void **data)
 {
-	return 0;
+	int key = htbl->h(*data);
+	ListElmt *current = (htbl->table + key)->head;
+	while (NULL != current) {
+		if (htbl->match(*data, list_data(current))) {
+			*data = list_data(current);
+			return 0;
+		}
+	}
+
+	return -1;
 }

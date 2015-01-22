@@ -12,6 +12,8 @@ int h(const void *key)
 
 int match(const void *key1, const void *key2)
 {
+	if (*((int *)key1) == *((int *)key2))
+		return 1;
 	return 0;
 }
 
@@ -83,7 +85,27 @@ TEST(CHTbl, chtbl_lookup)
 
 	*data = 32;
 	result = chtbl_lookup(htbl, (void **)&data);
+	EXPECT_EQ(0, result);
+	EXPECT_TRUE(a == data);
 
+	*data = 33;
+	result = chtbl_lookup(htbl, (void **)&data);
+	EXPECT_EQ(-1, result);
+
+	int *b = (int *)malloc(sizeof(int));
+
+	*b = 77;
+	chtbl_insert(htbl, b);
+
+	*data = 77;
+	result = chtbl_lookup(htbl, (void **)&data);
+	EXPECT_EQ(0, result);
+	EXPECT_TRUE(b == data);
+
+	*data = 101;
+	result = chtbl_lookup(htbl, (void **)&data);
+	EXPECT_EQ(-1, result);
+	
 	free(htbl);
 }
 

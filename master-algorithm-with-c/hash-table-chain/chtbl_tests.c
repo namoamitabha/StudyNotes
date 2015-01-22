@@ -109,3 +109,41 @@ TEST(CHTbl, chtbl_lookup)
 	free(htbl);
 }
 
+TEST(CHTbl, chtbl_remove)
+{
+	int result;
+	int *data = (int *)malloc(sizeof(int));
+	int i;
+
+	CHTbl *htbl = (CHTbl *)malloc(sizeof(CHTbl));
+
+	chtbl_init(htbl, 100, h, match, destroy);
+
+	int *a;
+
+	for (i = 100; i < 110; ++i) {
+		a = (int *)malloc(sizeof(int));
+		*a = i;
+		result = chtbl_insert(htbl, a);
+		EXPECT_EQ(0, result);
+	}
+
+	EXPECT_EQ(10, chtbl_size(htbl));
+
+	*data = 100;
+	result = chtbl_remove(htbl, (void **)&data);
+	EXPECT_EQ(0, result);
+	EXPECT_EQ(9, chtbl_size(htbl));
+
+	*data = 101;
+	result = chtbl_remove(htbl, (void **)&data);
+	EXPECT_EQ(0, result);
+	EXPECT_EQ(8, chtbl_size(htbl));
+
+	*data = 99;
+	result = chtbl_remove(htbl, (void **)&data);
+	EXPECT_EQ(-1, result);
+
+	free(data);
+	free(htbl);
+}

@@ -54,3 +54,25 @@ int chtbl_lookup(const CHTbl *htbl, void **data)
 
 	return -1;
 }
+
+
+int chtbl_remove(CHTbl *htbl, void **data)
+{
+	int key = htbl->h(*data);
+	List *list = htbl->table + key;
+	ListElmt *current = list_head(list);
+	ListElmt *prev = NULL;
+	int result;
+
+	while (NULL != current) {
+		if (htbl->match(*data, list_data(current))) {
+			result = list_rem_next(list, prev, data);
+			if (0 == result)
+				--htbl->size;
+			return result;
+		}
+		prev = current;
+		current = current->next;
+	}
+	return -1;
+}

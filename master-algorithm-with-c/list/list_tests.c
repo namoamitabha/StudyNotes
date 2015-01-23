@@ -188,3 +188,26 @@ TEST(List, list_rem_next)
 	list_destroy(list);
 	free(list);
 }
+
+TEST(List, performance)
+{
+	int result;
+	int *tmp;
+	int i;
+	const int size = 1000000;
+	List *list = (List *)malloc(sizeof(List));
+
+	list_init(list, destroy);
+
+	for (i = 0; i < size; ++i) {
+		tmp = (int *)malloc(sizeof(int));
+		*tmp = i;
+
+		list_ins_next(list, NULL, tmp);
+	}
+	EXPECT_EQ(size, list_size(list));
+	list_print(list);
+
+	list_destroy(list);
+	free(list);
+}

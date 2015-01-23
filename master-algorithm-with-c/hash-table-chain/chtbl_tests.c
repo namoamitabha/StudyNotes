@@ -125,6 +125,17 @@ TEST(CHTbl, chtbl_lookup)
 	result = chtbl_lookup(htbl, (void **)&data);
 	EXPECT_EQ(-1, result);
 
+	int i;
+	int *d;
+	for (i = 0; i < 500; ++i) {
+		d = (int *)malloc(sizeof(int));
+		chtbl_insert(htbl, d);
+	}
+
+	*data = 500;
+	result = chtbl_lookup(htbl, (void **)&data);
+	EXPECT_EQ(0, result);
+
 	chtbl_destroy(htbl);
 	free(htbl);
 }

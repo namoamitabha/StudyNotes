@@ -57,6 +57,7 @@ int chtbl_lookup(const CHTbl *htbl, void **data)
 			*data = list_data(current);
 			return 0;
 		}
+		current = current->next;
 	}
 
 	return -1;

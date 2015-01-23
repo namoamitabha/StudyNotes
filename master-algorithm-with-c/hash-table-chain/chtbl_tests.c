@@ -10,6 +10,8 @@ int h(const void *key)
 	//prime base: 47, 100/47 = 2.13
 	int base = 47; // base should a little less than buckets
 	return *((int *)key) % base;
+	/* printf("%d\n", *(int *)key); */
+	/* return *((int *)key); */
 }
 
 int match(const void *key1, const void *key2)
@@ -197,14 +199,14 @@ TEST(CHTbl, performance)
 	int result;
 	int *data;
 
-	for (i = 200; i < 250; ++i) {
+	for (i = 200; i < 240; ++i) {
 		data = (int *)malloc(sizeof(int));
 		*data = i;
 		result = chtbl_insert(htbl, data);
 		/* printf("%d chtbl_insert result:%d\n", i, result); */
 	}
 
-	EXPECT_EQ(50, chtbl_size(htbl));
+	EXPECT_EQ(40, chtbl_size(htbl));
 
 	chtbl_destroy(htbl);
 	free(htbl);

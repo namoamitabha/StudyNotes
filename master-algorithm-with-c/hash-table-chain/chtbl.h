@@ -5,8 +5,7 @@
 
 #include "../list/list.h"
 
-typedef struct CHTbl_
-{
+typedef struct CHTbl_ {
 	int	buckets;
 
 	int	(*h)(const void *key);

@@ -2,16 +2,15 @@
 #include <gtest/gtest.h>
 #include <stdlib.h>
 
-#define DEBUG
+/* #define DEBUG */
 
 int h(const void *key)
 {
-	//buckets: 100
-	//prime base: 47, 100/47 = 2.13
-	int base = 47; // base should a little less than buckets
+	/* buckets: 100 */
+	/* prime base: 47, 100/47 = 2.13 */
+	int base = 47; /* base should a little less than buckets */
+
 	return *((int *)key) % base;
-	/* printf("%d\n", *(int *)key); */
-	/* return *((int *)key); */
 }
 
 int match(const void *key1, const void *key2)
@@ -73,12 +72,16 @@ TEST(CHTbl, chtbl_insert)
 
 	int *data;
 	int i;
+
 	for (i = 100; i < 120; ++i) {
 		data = (int *)malloc(sizeof(int));
 		*data = i;
 		result = chtbl_insert(htbl, data);
 		EXPECT_EQ(0, result);
-		/* printf("%d result: %d chtbl_size:%d\n", i, result, chtbl_size(htbl)); */
+#ifdef DEBUG
+		printf("%d result: %d chtbl_size:%d\n", i, result,
+		       chtbl_size(htbl));
+#endif
 	}
 
 	chtbl_destroy(htbl);
@@ -180,7 +183,9 @@ TEST(CHTbl, chtbl_destroy)
 		data = (int *)malloc(sizeof(int));
 		*data = i;
 		result = chtbl_insert(htbl, data);
-		/* printf("%d chtbl_insert result:%d\n", i, result); */
+#ifdef DEBUG
+		printf("%d chtbl_insert result:%d\n", i, result);
+#endif
 	}
 
 	EXPECT_EQ(20, chtbl_size(htbl));
@@ -203,7 +208,9 @@ TEST(CHTbl, performance)
 		data = (int *)malloc(sizeof(int));
 		*data = i;
 		result = chtbl_insert(htbl, data);
-		/* printf("%d chtbl_insert result:%d\n", i, result); */
+#ifdef DEBUG
+		printf("%d chtbl_insert result:%d\n", i, result);
+#endif
 	}
 
 	EXPECT_EQ(40, chtbl_size(htbl));

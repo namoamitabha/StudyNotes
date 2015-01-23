@@ -38,8 +38,8 @@ int chtbl_insert(CHTbl *htbl, const void *data)
 		return 1;
 
 	int key = get_key(htbl, data);
-
 	int result = list_ins_next(htbl->table + key, NULL, data);
+
 	if (0 == result)
 		++htbl->size;
 

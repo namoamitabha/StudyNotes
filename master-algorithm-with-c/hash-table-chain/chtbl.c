@@ -1,4 +1,10 @@
 #include "chtbl.h"
+#include <string.h>
+
+int get_key(const CHTbl *htbl, const void *data)
+{
+	return htbl->h(data) % htbl->buckets;
+}
 
 int chtbl_init(CHTbl *htbl, int buckets,
 	       int (*h)(const void *key),
@@ -11,7 +17,8 @@ int chtbl_init(CHTbl *htbl, int buckets,
 	int i;
 
 	for (i = 0; i < buckets; ++i) {
-		list_init(htbl->table + i, destroy);
+		/* list_init(htbl->table + i, destroy); */
+		list_init(&htbl->table[i], destroy);
 	}
 
 	htbl->buckets = buckets;
@@ -30,21 +37,21 @@ int chtbl_insert(CHTbl *htbl, const void *data)
 	if (0 == chtbl_lookup(htbl, &tmp))
 		return 1;
 
-	int key = htbl->h(data);
+	int key = get_key(htbl, data);
 
 	int result = list_ins_next(htbl->table + key, NULL, data);
-	if (-1 == result)
-		return result;
+	if (0 == result)
+		++htbl->size;
 
-	++htbl->size;
-
-	return 0;
+	return result;
 }
 
 int chtbl_lookup(const CHTbl *htbl, void **data)
 {
-	int key = htbl->h(*data);
-	ListElmt *current = (htbl->table + key)->head;
+	int key = get_key(htbl, *data);
+
+	ListElmt *current = list_head(htbl->table + key);
+
 	while (NULL != current) {
 		if (htbl->match(*data, list_data(current))) {
 			*data = list_data(current);
@@ -58,7 +65,8 @@ int chtbl_lookup(const CHTbl *htbl, void **data)
 
 int chtbl_remove(CHTbl *htbl, void **data)
 {
-	int key = htbl->h(*data);
+	int key = get_key(htbl, *data);
+
 	List *list = htbl->table + key;
 	ListElmt *current = list_head(list);
 	ListElmt *prev = NULL;
@@ -80,13 +88,13 @@ int chtbl_remove(CHTbl *htbl, void **data)
 void chtbl_destroy(CHTbl *htbl)
 {
 	int i;
-	List *list;
 
 	for (i = 0; i < htbl->buckets; ++i) {
-		list = htbl->table + i;
-		list_destroy(list);
+		list_destroy(htbl->table + i);
 		/* free(list); */
 	}
 
 	free(htbl->table);
+
+	memset(htbl, 0, sizeof(CHTbl));
 }

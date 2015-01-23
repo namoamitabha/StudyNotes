@@ -203,8 +203,9 @@ TEST(CHTbl, performance)
 	int i;
 	int result;
 	int *data;
+	const int size = 500;
 
-	for (i = 200; i < 240; ++i) {
+	for (i = 0; i < size; ++i) {
 		data = (int *)malloc(sizeof(int));
 		*data = i;
 		result = chtbl_insert(htbl, data);
@@ -213,7 +214,7 @@ TEST(CHTbl, performance)
 #endif
 	}
 
-	EXPECT_EQ(40, chtbl_size(htbl));
+	EXPECT_EQ(size, chtbl_size(htbl));
 
 	chtbl_destroy(htbl);
 	free(htbl);

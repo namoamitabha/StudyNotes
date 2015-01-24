@@ -2,20 +2,23 @@
 #include <gtest/gtest.h>
 #include <stdlib.h>
 
-static const int positions = 100;
+static const int POSITIONS = 100;
 
 int h1(const void *key)
 {
-	return 0;
+	return *((int *)key) % POSITIONS;
 }
 
 int h2(const void *key)
 {
-	return 0;
+	return 1 + *((int *)key) % (POSITIONS - 2);
 }
 
 int match(const void *key1, const void *key2)
 {
+	if (*((int *)key1) == *((int *)key2))
+		return 1;
+
 	return 0;
 }
 
@@ -30,7 +33,7 @@ TEST(OHTbl, ohtbl_init)
 	int result;
 	OHTbl *htbl = (OHTbl *)malloc(sizeof(OHTbl));
 
-	result = ohtbl_init(htbl, positions, h1, h2, match, destroy);
+	result = ohtbl_init(htbl, POSITIONS, h1, h2, match, destroy);
 	EXPECT_EQ(0, result);
 	EXPECT_TRUE(h1 == htbl->h1);
 	EXPECT_TRUE(h2 == htbl->h2);
@@ -38,7 +41,7 @@ TEST(OHTbl, ohtbl_init)
 	EXPECT_TRUE(destroy == htbl->destroy);
 
 	EXPECT_EQ(0, ohtbl_size(htbl));
-	EXPECT_EQ(positions, htbl->positions);
+	EXPECT_EQ(POSITIONS, htbl->positions);
 
 	ohtbl_destroy(htbl);
 	free(htbl);

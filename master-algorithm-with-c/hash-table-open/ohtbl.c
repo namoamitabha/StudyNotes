@@ -1,5 +1,9 @@
 #include "ohtbl.h"
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#define DEBUG
 
 int ohtbl_init(OHTbl *htbl, int positions,
 	       int (*h1)(const void *key),
@@ -56,7 +60,17 @@ int ohtbl_insert(OHTbl *htbl, const void *data)
 
 	for (i = 0; i < htbl->positions; ++i) {
 		key = get_key(htbl, data, i);
-		
+#ifdef DEBUG
+		printf("i=%d, key=%d\n", i, key);
+#endif
+
+		if (NULL == htbl->table[key] ||
+		    htbl->vacated == htbl->table[key]) {
+			htbl->table[key] = (void *)data;
+			++htbl->size;
+			return 0;
+		}
 	}
-	return 0;
+
+	return -1;
 }

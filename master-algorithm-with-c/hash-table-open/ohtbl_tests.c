@@ -2,6 +2,8 @@
 #include <gtest/gtest.h>
 #include <stdlib.h>
 
+#define DEBUG
+
 static const int POSITIONS = 100;
 
 int h1(const void *key)
@@ -53,10 +55,22 @@ TEST(OHTbl, ohtbl_insert)
 	int result;
 	OHTbl *htbl = (OHTbl *)malloc(sizeof(OHTbl));
 
+	ohtbl_init(htbl, POSITIONS, h1, h2, match, destroy);
+
 	int *a = (int *)malloc(sizeof(int));
 
-	*a = 1;
+	*a = 0;
 	result = ohtbl_insert(htbl, a);
 	EXPECT_EQ(0, result);
 	EXPECT_EQ(1, ohtbl_size(htbl));
+
+	int i;
+
+	for (i = 1; i < 100; ++i) {
+		a = (int *)malloc(sizeof(int));
+		*a = i;
+		result = ohtbl_insert(htbl, a);
+		EXPECT_EQ(0, result);
+		EXPECT_EQ(i + 1, ohtbl_size(htbl));
+	}
 }

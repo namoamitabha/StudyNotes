@@ -46,3 +46,9 @@ TEST(OHTbl, ohtbl_init)
 	ohtbl_destroy(htbl);
 	free(htbl);
 }
+
+TEST(OHTbl, ohtbl_insert)
+{
+	int result;
+	OHTbl *htbl = (OHTbl *)malloc(sizeof(OHTbl));
+}

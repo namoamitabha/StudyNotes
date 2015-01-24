@@ -15,6 +15,9 @@ int ohtbl_init(OHTbl *htbl, int positions,
 	htbl->destroy = destroy;
 	htbl->size = 0;
 	htbl->table = (void **)malloc(sizeof(void *) * htbl->positions);
+	if (NULL == htbl->table)
+		return -1;
+
 	int i;
 
 	for (i = 0; i < htbl->positions; ++i) {

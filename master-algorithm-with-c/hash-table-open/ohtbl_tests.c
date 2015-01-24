@@ -113,3 +113,28 @@ TEST(OHTbl, ohtbl_lookup)
 	ohtbl_destroy(htbl);
 	free(htbl);
 }
+
+TEST(OHTbl, ohtbl_remove)
+{
+	int result;
+	int i;
+	int *a;
+	OHTbl *htbl = (OHTbl *)malloc(sizeof(OHTbl));
+
+	ohtbl_init(htbl, POSITIONS, h1, h2, match, destroy);
+
+	a = (int *)malloc(sizeof(int));
+	*a = 0;
+	ohtbl_insert(htbl, a);
+	
+	int j = 0;
+	void *b = &j;
+	result = ohtbl_lookup(htbl, &b);
+	EXPECT_EQ(0, result);
+
+	b = &j;
+	result = ohtbl_remove(htbl, &b);
+	EXPECT_EQ(0, result);
+	EXPECT_EQ(0, ohtbl_size(htbl));
+	EXPECT_TRUE(a == b);
+}

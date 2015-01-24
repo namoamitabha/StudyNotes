@@ -101,3 +101,26 @@ int ohtbl_lookup(const OHTbl *htbl, void **data)
 
 	return -1;
 }
+
+int ohtbl_remove(OHTbl *htbl, void **data)
+{
+	int i;
+	int key;
+
+	for (i = 0; i < htbl->positions; ++i) {
+		key = get_key(htbl, *data, i);
+		if (NULL == htbl->table[key])
+			return -1;
+
+		if (htbl->vacated == htbl->table[key])
+			continue;
+
+		if (htbl->match(*data, htbl->table[key])) {
+			*data = htbl->table[key];
+			htbl->table[key] = htbl->vacated;
+			--htbl->size;
+			return 0;
+		}
+	}
+	return 0;
+}

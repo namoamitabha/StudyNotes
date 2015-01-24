@@ -42,6 +42,7 @@ TEST(OHTbl, ohtbl_init)
 
 	EXPECT_EQ(0, ohtbl_size(htbl));
 	EXPECT_EQ(POSITIONS, htbl->positions);
+	EXPECT_FALSE(NULL == htbl->vacated);
 
 	ohtbl_destroy(htbl);
 	free(htbl);
@@ -51,4 +52,11 @@ TEST(OHTbl, ohtbl_insert)
 {
 	int result;
 	OHTbl *htbl = (OHTbl *)malloc(sizeof(OHTbl));
+
+	int *a = (int *)malloc(sizeof(int));
+
+	*a = 1;
+	result = ohtbl_insert(htbl, a);
+	EXPECT_EQ(0, result);
+	EXPECT_EQ(1, ohtbl_size(htbl));
 }

@@ -14,6 +14,10 @@ int ohtbl_init(OHTbl *htbl, int positions,
 	htbl->match = match;
 	htbl->destroy = destroy;
 	htbl->size = 0;
+	htbl->vacated = malloc(sizeof(void *));
+	if (NULL == htbl->vacated)
+		return -1;
+
 	htbl->table = (void **)malloc(sizeof(void *) * htbl->positions);
 	if (NULL == htbl->table)
 		return -1;
@@ -43,4 +47,16 @@ void ohtbl_destroy(OHTbl *htbl)
 int get_key(OHTbl *htbl, const void *data, int i)
 {
 	return (htbl->h1(data) + i * htbl->h2(data)) % htbl->positions;
+}
+
+int ohtbl_insert(OHTbl *htbl, const void *data)
+{
+	int i;
+	int key;
+
+	for (i = 0; i < htbl->positions; ++i) {
+		key = get_key(htbl, data, i);
+		
+	}
+	return 0;
 }

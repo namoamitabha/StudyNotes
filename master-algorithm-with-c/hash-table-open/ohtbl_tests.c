@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include <stdlib.h>
 
-#define DEBUG
+
 
 static const int POSITIONS = 100;
 
@@ -73,4 +73,39 @@ TEST(OHTbl, ohtbl_insert)
 		EXPECT_EQ(0, result);
 		EXPECT_EQ(i + 1, ohtbl_size(htbl));
 	}
+
+	ohtbl_destroy(htbl);
+	free(htbl);
+}
+
+TEST(OHTbl, ohtbl_lookup)
+{
+	int result;
+	int i;
+	int *a;
+
+	OHTbl *htbl = (OHTbl *)malloc(sizeof(OHTbl));
+
+	ohtbl_init(htbl, POSITIONS, h1, h2, match, destroy);
+
+	for (i = 0; i < 50; ++i) {
+		a = (int *)malloc(sizeof(int));
+		*a = i;
+		result = ohtbl_insert(htbl, a);
+		EXPECT_EQ(0, result);
+	}
+
+	int j = 0;
+	int *b = &j;
+
+	result = ohtbl_lookup(htbl, (void **)&b);
+	EXPECT_EQ(0, result);
+
+	j = 51;
+	b = &j;
+	result = ohtbl_lookup(htbl, (void **)&b);
+	EXPECT_EQ(-1, result);
+
+	ohtbl_destroy(htbl);
+	free(htbl);
 }

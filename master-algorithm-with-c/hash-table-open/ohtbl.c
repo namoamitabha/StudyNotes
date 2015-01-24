@@ -48,7 +48,7 @@ void ohtbl_destroy(OHTbl *htbl)
 	memset(htbl, 0, sizeof(OHTbl));
 }
 
-int get_key(OHTbl *htbl, const void *data, int i)
+int get_key(const OHTbl *htbl, const void *data, int i)
 {
 	return (htbl->h1(data) + i * htbl->h2(data)) % htbl->positions;
 }
@@ -68,6 +68,28 @@ int ohtbl_insert(OHTbl *htbl, const void *data)
 		    htbl->vacated == htbl->table[key]) {
 			htbl->table[key] = (void *)data;
 			++htbl->size;
+			return 0;
+		}
+	}
+
+	return -1;
+}
+
+int ohtbl_lookup(const OHTbl *htbl, void **data)
+{
+	int i;
+	int key;
+
+	for (i = 0; i < htbl->positions; ++i) {
+		key = get_key(htbl, *data, i);
+		if (NULL == htbl->table[key])
+			return -1;
+
+		if (htbl->vacated == htbl->table[key])
+			continue;
+
+		if (htbl->match(htbl->table[key], *data)) {
+			*data = htbl->table[key];
 			return 0;
 		}
 	}

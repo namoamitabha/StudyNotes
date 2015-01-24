@@ -66,7 +66,7 @@ TEST(OHTbl, ohtbl_insert)
 
 	int i;
 
-	for (i = 1; i < 100; ++i) {
+	for (i = 1; i < 99; ++i) {
 		a = (int *)malloc(sizeof(int));
 		*a = i;
 		result = ohtbl_insert(htbl, a);
@@ -74,6 +74,10 @@ TEST(OHTbl, ohtbl_insert)
 		EXPECT_EQ(i + 1, ohtbl_size(htbl));
 	}
 
+	*a = 0;
+	result = ohtbl_insert(htbl, a);
+	EXPECT_EQ(1, result);
+	
 	ohtbl_destroy(htbl);
 	free(htbl);
 }

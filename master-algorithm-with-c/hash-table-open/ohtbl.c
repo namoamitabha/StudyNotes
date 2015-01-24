@@ -58,6 +58,11 @@ int ohtbl_insert(OHTbl *htbl, const void *data)
 	int i;
 	int key;
 
+	void *tmp = (void *)data;
+
+	if (0 == ohtbl_lookup(htbl, &tmp))
+		return 1;
+
 	for (i = 0; i < htbl->positions; ++i) {
 		key = get_key(htbl, data, i);
 #ifdef DEBUG

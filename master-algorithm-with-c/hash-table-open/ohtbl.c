@@ -16,6 +16,10 @@ int ohtbl_init(OHTbl *htbl, int positions,
 	htbl->size = 0;
 
 	htbl->table = (void **)malloc(sizeof(void *) * htbl->positions);
+	int i;
+	for (i = 0; i < htbl->positions; ++i) {
+		*(htbl->table + i) = NULL;
+	}
 	return 0;
 }
 

@@ -21,7 +21,8 @@ int match(const void *key1, const void *key2)
 
 void destroy(void *data)
 {
-	free(data);
+	if (NULL != data)
+		free(data);
 }
 
 TEST(OHTbl, ohtbl_init)
@@ -39,6 +40,6 @@ TEST(OHTbl, ohtbl_init)
 	EXPECT_EQ(0, ohtbl_size(htbl));
 	EXPECT_EQ(positions, htbl->positions);
 
-	/* ohtbl_destroy(htbl); */
+	ohtbl_destroy(htbl);
 	free(htbl);
 }

@@ -47,7 +47,7 @@ void ohtbl_destroy(OHTbl *htbl)
 	}
 
 	free(htbl->table);
-
+	
 	memset(htbl, 0, sizeof(OHTbl));
 }
 

@@ -61,6 +61,9 @@ int ohtbl_insert(OHTbl *htbl, const void *data)
 	int i;
 	int key;
 
+	if (ohtbl_size(htbl) == htbl->positions)
+		return -1;
+
 	void *tmp = (void *)data;
 
 	if (0 == ohtbl_lookup(htbl, &tmp))

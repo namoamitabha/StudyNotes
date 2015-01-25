@@ -88,6 +88,12 @@ TEST(OHTbl, ohtbl_insert)
 	*a = 0;
 	result = ohtbl_insert(htbl, a);
 	EXPECT_EQ(1, result);
+
+	int *b = (int *)malloc(sizeof(int));
+
+	*b = 101;
+	result = ohtbl_insert(htbl, b);
+	EXPECT_EQ(-1, result);
 	
 	ohtbl_destroy(htbl);
 	free(htbl);

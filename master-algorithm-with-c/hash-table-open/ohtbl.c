@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define DEBUG
+/* #define DEBUG */
 
 int ohtbl_init(OHTbl *htbl, int positions,
 	       int (*h1)(const void *key),
@@ -40,7 +40,9 @@ void ohtbl_destroy(OHTbl *htbl)
 	int i;
 
 	for (i = 0; i < htbl->positions; ++i) {
-		if (NULL != htbl->destroy)
+		if (NULL != htbl->destroy 
+		    && NULL != htbl->table[i]
+		    && htbl->vacated != htbl->table[i])
 			htbl->destroy(*(htbl->table + i));
 	}
 

@@ -2,8 +2,6 @@
 #include <gtest/gtest.h>
 #include <stdlib.h>
 
-
-
 static const int POSITIONS = 100;
 
 int h1(const void *key)
@@ -28,6 +26,19 @@ void destroy(void *data)
 {
 	if (NULL != data)
 		free(data);
+}
+
+void print_ohtbl(OHTbl *htbl)
+{
+	int i;
+	for (i = 0; i < POSITIONS; ++i) {
+		if (NULL == htbl->table[i])
+			printf("%d:NULL\n", i);
+		else if (htbl->vacated == htbl->table[i])
+			printf("%d:removed\n", i);
+		else
+			printf("%d:%d\n", i, *((int *)htbl->table[i]));
+	}
 }
 
 TEST(OHTbl, ohtbl_init)
@@ -137,4 +148,45 @@ TEST(OHTbl, ohtbl_remove)
 	EXPECT_EQ(0, result);
 	EXPECT_EQ(0, ohtbl_size(htbl));
 	EXPECT_TRUE(a == b);
+
+	for (i = 100; i < POSITIONS * 2; ++i) {
+		a = (int *)malloc(sizeof(int));
+		*a = i;
+		result = ohtbl_insert(htbl, a);
+		EXPECT_EQ(0, result);
+	}
+	EXPECT_EQ(POSITIONS, ohtbl_size(htbl));
+
+	j = 100;
+	b = &j;
+	result = ohtbl_lookup(htbl, &b);
+	EXPECT_EQ(0, result);
+	EXPECT_EQ(j, *((int *)b));
+	EXPECT_FALSE(&j == b);
+
+	b = &j;
+	result = ohtbl_remove(htbl, &b);
+	EXPECT_EQ(0, result);
+	EXPECT_EQ(j, *((int *)b));
+	EXPECT_FALSE(&j == b);
+	EXPECT_EQ(POSITIONS - 1, ohtbl_size(htbl));
+	free(b);
+
+	b = &j;
+	result = ohtbl_lookup(htbl, &b);
+	EXPECT_EQ(-1, result);
+
+	/* int *c = (int *)malloc(sizeof(int)); */
+	/* *c = 200; */
+	/* result = ohtbl_insert(htbl, &c); */
+	/* EXPECT_EQ(0, result); */
+	/* print_ohtbl(htbl); */
+	/* j = 200; */
+	/* b = &j; */
+	/* result = ohtbl_lookup(htbl, &b); */
+	/* EXPECT_EQ(0, result); */
+	/* EXPECT_EQ(j, *((int *)b)); */
+
+	ohtbl_destroy(htbl);
+	free(htbl);
 }

@@ -163,6 +163,11 @@ TEST(OHTbl, ohtbl_remove)
 	}
 	EXPECT_EQ(POSITIONS, ohtbl_size(htbl));
 
+	a = (int *)malloc(sizeof(int));
+	*a = 500;
+	result = ohtbl_insert(htbl, a);
+	EXPECT_EQ(-1, result);
+
 	j = 100;
 	b = &j;
 	result = ohtbl_lookup(htbl, &b);
@@ -178,7 +183,13 @@ TEST(OHTbl, ohtbl_remove)
 	EXPECT_EQ(POSITIONS - 1, ohtbl_size(htbl));
 	free(b);
 
-	b = &j;
+	int l = 500;
+	b = &l;
+	result = ohtbl_remove(htbl, &b);
+	EXPECT_EQ(-1, result);
+
+	int k = 100;
+	b = &k;
 	result = ohtbl_lookup(htbl, &b);
 	EXPECT_EQ(-1, result);
 

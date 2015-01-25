@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+static const char VACATED = 'O';
+
 /* #define DEBUG */
 
 int ohtbl_init(OHTbl *htbl, int positions,
@@ -11,20 +13,17 @@ int ohtbl_init(OHTbl *htbl, int positions,
 	       int (*match)(const void *key1, const void *key2),
 	       void (*destroy)(void *data))
 {
-	htbl->positions = positions;
+	htbl->table = (void **)malloc(sizeof(void *) * positions);
+	if (NULL == htbl->table)
+		return -1;
 
+	htbl->positions = positions;
 	htbl->h1 = h1;
 	htbl->h2 = h2;
 	htbl->match = match;
 	htbl->destroy = destroy;
 	htbl->size = 0;
-	htbl->vacated = malloc(sizeof(void *));
-	if (NULL == htbl->vacated)
-		return -1;
-
-	htbl->table = (void **)malloc(sizeof(void *) * htbl->positions);
-	if (NULL == htbl->table)
-		return -1;
+	htbl->vacated = (void *)&VACATED;
 
 	int i;
 

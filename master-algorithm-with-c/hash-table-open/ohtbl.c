@@ -38,11 +38,12 @@ void ohtbl_destroy(OHTbl *htbl)
 {
 	int i;
 
-	for (i = 0; i < htbl->positions; ++i) {
-		if (NULL != htbl->destroy 
-		    && NULL != htbl->table[i]
-		    && htbl->vacated != htbl->table[i])
-			htbl->destroy(*(htbl->table + i));
+	if (htbl->destroy != NULL) {
+		for (i = 0; i < htbl->positions; ++i) {
+			if (NULL != htbl->table[i]
+			    && htbl->vacated != htbl->table[i])
+				htbl->destroy(htbl->table[i]);
+		}
 	}
 
 	free(htbl->table);

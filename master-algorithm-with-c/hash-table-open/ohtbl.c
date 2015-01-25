@@ -128,5 +128,5 @@ int ohtbl_remove(OHTbl *htbl, void **data)
 			return 0;
 		}
 	}
-	return 0;
+	return -1;
 }

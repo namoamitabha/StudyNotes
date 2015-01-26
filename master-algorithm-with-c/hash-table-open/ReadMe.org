@@ -1,0 +1,8 @@
+* Issue
+** Failed to reuse deleted space
+   1. Test case: ohtbl_remove
+      1. Remove one item from table
+      2. Reinsert another item, to capture the space and it is failed
+   2. Fixed.
+   3. Root cause: the pointer used to insert is pointer address. Correct is to use pointer.
+** 

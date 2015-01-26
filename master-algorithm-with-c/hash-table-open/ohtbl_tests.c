@@ -193,16 +193,18 @@ TEST(OHTbl, ohtbl_remove)
 	result = ohtbl_lookup(htbl, &b);
 	EXPECT_EQ(-1, result);
 
-	/* int *c = (int *)malloc(sizeof(int)); */
-	/* *c = 200; */
-	/* result = ohtbl_insert(htbl, &c); */
-	/* EXPECT_EQ(0, result); */
+	int *c = (int *)malloc(sizeof(int));
+	*c = 200;
+	result = ohtbl_insert(htbl, c);
+	EXPECT_EQ(0, result);
+
 	/* print_ohtbl(htbl); */
-	/* j = 200; */
-	/* b = &j; */
-	/* result = ohtbl_lookup(htbl, &b); */
-	/* EXPECT_EQ(0, result); */
-	/* EXPECT_EQ(j, *((int *)b)); */
+
+	j = 200;
+	b = &j;
+	result = ohtbl_lookup(htbl, &b);
+	EXPECT_EQ(0, result);
+	EXPECT_EQ(j, *((int *)b));
 
 	ohtbl_destroy(htbl);
 	free(htbl);

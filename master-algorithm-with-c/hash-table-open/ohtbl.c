@@ -5,7 +5,7 @@
 
 static const char VACATED = 'O';
 
-#define DEBUG
+/* #define DEBUG */
 
 int ohtbl_init(OHTbl *htbl, int positions,
 	       int (*h1)(const void *key),
@@ -128,5 +128,6 @@ int ohtbl_remove(OHTbl *htbl, void **data)
 			return 0;
 		}
 	}
+
 	return -1;
 }

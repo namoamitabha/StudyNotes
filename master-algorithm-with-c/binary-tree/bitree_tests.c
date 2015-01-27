@@ -25,7 +25,7 @@ TEST(BiTree, bitree_ins_left)
 	int result;
 	BiTree *tree = (BiTree *)malloc(sizeof(BiTree));
 
-	bitree_init(tree, destroy);
+	bitree_init(tree, NULL);
 
 	int i = 0;
 	result = bitree_ins_left(tree, NULL, &i);
@@ -45,6 +45,38 @@ TEST(BiTree, bitree_ins_left)
 
 	int k = 2;
 	result = bitree_ins_left(tree, bitree_root(tree), &k);
+	EXPECT_EQ(-1, result);
+
+	free(tree);
+}
+
+TEST(BiTree, bitree_ins_right)
+{
+	int result;
+	BiTree *tree = (BiTree *)malloc(sizeof(BiTree));
+
+	bitree_init(tree, NULL);
+
+	int i = 0;
+
+	result = bitree_ins_right(tree, bitree_root(tree), &i);
+	EXPECT_EQ(0, result);
+	EXPECT_EQ(1, bitree_size(tree));
+	EXPECT_EQ(i, *((int *)bitree_data(tree->root)));
+
+	int j = 1;
+
+	result = bitree_ins_right(tree, NULL, &j);
+	EXPECT_EQ(-1, result);
+
+	result = bitree_ins_right(tree, bitree_root(tree), &j);
+	EXPECT_EQ(0, result);
+	EXPECT_EQ(2, bitree_size(tree));
+	EXPECT_EQ(j, *((int *)bitree_data(tree->root->left)));
+
+	int k = 2;
+
+	result = bitree_ins_right(tree, bitree_root(tree), &k);
 	EXPECT_EQ(-1, result);
 
 	free(tree);

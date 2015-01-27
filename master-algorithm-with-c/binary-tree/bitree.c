@@ -63,3 +63,8 @@ int bitree_ins_right(BiTree *tree, BiTreeNode *node, const void *data)
 
 	return 0;
 }
+
+void bitree_destroy(BiTree *tree)
+{
+
+}

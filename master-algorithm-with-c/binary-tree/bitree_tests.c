@@ -81,3 +81,26 @@ TEST(BiTree, bitree_ins_right)
 
 	free(tree);
 }
+
+TEST(BiTree, bitree_destroy)
+{
+	BiTree *tree = (BiTree *)malloc(sizeof(BiTree));
+
+	bitree_init(tree, destroy);
+
+	int i;
+	int *a;
+	int result;
+
+	a = (int *)malloc(sizeof(int));
+	result = bitree_ins_left(tree, bitree_root(tree), a);
+	EXPECT_EQ(0, result);
+
+	a = (int *)malloc(sizeof(int));
+	result = bitree_ins_right(tree, bitree_root(tree), a);
+	EXPECT_EQ(0, result);
+
+	bitree_destroy(tree);
+
+	free(tree);
+}

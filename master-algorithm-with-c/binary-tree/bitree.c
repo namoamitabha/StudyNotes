@@ -1,5 +1,6 @@
 #include "bitree.h"
 #include <stdio.h>
+#include <string.h>
 
 void bitree_init(BiTree *tree, void (*destroy)(void *data))
 {
@@ -67,7 +68,9 @@ int bitree_ins_right(BiTree *tree, BiTreeNode *node, const void *data)
 
 void bitree_destroy(BiTree *tree)
 {
+	bitree_rem_left(tree, NULL);
 
+	memset(tree, 0, sizeof(BiTree));
 }
 
 

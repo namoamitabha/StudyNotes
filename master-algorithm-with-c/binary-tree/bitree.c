@@ -30,15 +30,14 @@ int bitree_ins_left(BiTree *tree, BiTreeNode *node, const void *data)
 	if (-1 == create_newnode(&newNode, data))
 		return -1;
 
-	if (NULL == node && 0 != bitree_size(tree)) {
+	if (NULL == node && 0 != bitree_size(tree))
 		return -1;
-	} else if (NULL == node && 0 == bitree_size(tree)) {
+	else if (NULL == node && 0 == bitree_size(tree))
 		tree->root = newNode;
-	} else if (NULL != node && NULL == bitree_left(node)) {
+	else if (NULL != node && NULL == bitree_left(node))
 		node->left = newNode;
-	} else if (NULL != node && NULL != bitree_left(node)) {
+	else if (NULL != node && NULL != bitree_left(node))
 		return -1;
-	}
 
 	++tree->size;
 
@@ -125,7 +124,7 @@ int bitree_merge(BiTree *merge, BiTree *left, BiTree *right, const void *data)
 {
 	if (-1 == bitree_ins_left(merge, NULL, data))
 		return -1;
-	
+
 	merge->root->left = left->root;
 	left->root = NULL;
 

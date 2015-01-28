@@ -28,6 +28,7 @@ TEST(BiTree, bitree_ins_left)
 	bitree_init(tree, NULL);
 
 	int i = 0;
+
 	result = bitree_ins_left(tree, NULL, &i);
 	EXPECT_EQ(0, result);
 	EXPECT_EQ(1, bitree_size(tree));
@@ -35,6 +36,7 @@ TEST(BiTree, bitree_ins_left)
 	EXPECT_EQ(i, *((int *)bitree_data(tree->root)));
 
 	int j = 1;
+
 	result = bitree_ins_left(tree, NULL, &j);
 	EXPECT_EQ(-1, result);
 
@@ -44,6 +46,7 @@ TEST(BiTree, bitree_ins_left)
 	EXPECT_EQ(1, *((int *)(bitree_left(tree->root)->data)));
 
 	int k = 2;
+
 	result = bitree_ins_left(tree, bitree_root(tree), &k);
 	EXPECT_EQ(-1, result);
 
@@ -176,7 +179,7 @@ TEST(BiTree, bitree_merge)
 
 	*a = 11;
 	bitree_ins_left(left, bitree_root(left), a);
-	
+
 	int *b = (int *)malloc(sizeof(int));
 
 	*b = 12;

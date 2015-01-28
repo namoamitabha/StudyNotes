@@ -25,20 +25,21 @@ static int create_newnode(BiTreeNode **node, const void *data)
 
 int bitree_ins_left(BiTree *tree, BiTreeNode *node, const void *data)
 {
-	BiTreeNode *newnode;
-
-	if (-1 == create_newnode(&newnode, data))
-		return -1;
+	BiTreeNode *newnode, **position;
 
 	if (NULL == node && 0 != bitree_size(tree))
 		return -1;
 	else if (NULL == node && 0 == bitree_size(tree))
-		tree->root = newnode;
+		position = &(tree->root);
 	else if (NULL != node && NULL == bitree_left(node))
-		node->left = newnode;
+		position = &(node->left);
 	else if (NULL != node && NULL != bitree_left(node))
 		return -1;
 
+	if (-1 == create_newnode(&newnode, data))
+		return -1;
+
+	*position = newnode;
 	++tree->size;
 
 	return 0;
@@ -46,20 +47,21 @@ int bitree_ins_left(BiTree *tree, BiTreeNode *node, const void *data)
 
 int bitree_ins_right(BiTree *tree, BiTreeNode *node, const void *data)
 {
-	BiTreeNode *newnode;
-
-	if (-1 == create_newnode(&newnode, data))
-		return -1;
+	BiTreeNode *newnode, **position;
 
 	if (NULL == node && 0 != bitree_size(tree))
 		return -1;
 	else if (NULL == node && 0 == bitree_size(tree))
-		tree->root = newnode;
+		position = &(tree->root);
 	else if (NULL != node && NULL == bitree_right(node))
-		node->right = newnode;
+		position = &(node->right);
 	else if (NULL != node && NULL != bitree_right(node))
 		return -1;
 
+	if (-1 == create_newnode(&newnode, data))
+		return -1;
+
+	*position = newnode;
 	++tree->size;
 
 	return 0;

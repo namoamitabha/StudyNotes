@@ -193,4 +193,6 @@ TEST(BiTree, bitree_merge)
 	EXPECT_EQ(3, bitree_size(merge));
 	EXPECT_TRUE(NULL == bitree_root(left));
 	EXPECT_TRUE(NULL == bitree_root(right));
+	EXPECT_EQ(0, bitree_size(left));
+	EXPECT_EQ(0, bitree_size(right));
 }

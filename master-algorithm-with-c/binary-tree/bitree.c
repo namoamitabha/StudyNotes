@@ -126,12 +126,14 @@ int bitree_merge(BiTree *merge, BiTree *left, BiTree *right, const void *data)
 		return -1;
 
 	merge->root->left = left->root;
-	left->root = NULL;
-
 	merge->root->right = right->root;
-	right->root = NULL;
-
 	merge->size += left->size + right->size;
+
+	left->root = NULL;
+	left->size = 0;
+
+	right->root = NULL;
+	right->size = 0;
 
 	return 0;
 }

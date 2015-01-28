@@ -120,3 +120,19 @@ void bitree_rem_right(BiTree *tree, BiTreeNode *node)
 		node->right = NULL;
 	}
 }
+
+int bitree_merge(BiTree *merge, BiTree *left, BiTree *right, const void *data)
+{
+	if (-1 == bitree_ins_left(merge, NULL, data))
+		return -1;
+	
+	merge->root->left = left->root;
+	left->root = NULL;
+
+	merge->root->right = right->root;
+	right->root = NULL;
+
+	merge->size += left->size + right->size;
+
+	return 0;
+}

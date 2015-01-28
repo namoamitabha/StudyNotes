@@ -160,3 +160,34 @@ TEST(BiTree, bitree_rem_right)
 
 	free(tree);
 }
+
+TEST(BiTree, bitree_merge)
+{
+	int result;
+	BiTree *merge = (BiTree *)malloc(sizeof(BiTree));
+	BiTree *left = (BiTree *)malloc(sizeof(BiTree));
+	BiTree *right = (BiTree *)malloc(sizeof(BiTree));
+
+	bitree_init(merge, destroy);
+	bitree_init(left, destroy);
+	bitree_init(right, destroy);
+
+	int *a = (int *)malloc(sizeof(int));
+
+	*a = 11;
+	bitree_ins_left(left, bitree_root(left), a);
+	
+	int *b = (int *)malloc(sizeof(int));
+
+	*b = 12;
+	bitree_ins_right(right, bitree_root(right), b);
+
+	int *c = (int *)malloc(sizeof(int));
+
+	*c = 10;
+	result = bitree_merge(merge, left, right, c);
+	EXPECT_EQ(0, result);
+	EXPECT_EQ(3, bitree_size(merge));
+	EXPECT_TRUE(NULL == bitree_root(left));
+	EXPECT_TRUE(NULL == bitree_root(right));
+}

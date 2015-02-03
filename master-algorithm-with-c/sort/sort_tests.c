@@ -9,8 +9,8 @@ int compare(const void *key1, const void *key2)
 		return 1;
 	else if (*(int *)key1 == *((int *)key2))
 		return 0;
-	else
-		return -1;
+
+	return -1;
 }
 
 TEST(Sort_Insertion, issort)

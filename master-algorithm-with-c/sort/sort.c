@@ -17,23 +17,16 @@ int issort(void *data, int size, int esize,
 		return -1;
 
 	for (i = 1; i < size; ++i) {
-		/* key = data[i]; */
 		memcpy(key, &a[i * esize], esize);
 #ifdef DEBUG
 		printf("key=%d\n", *((int *)key));
 #endif
-		for (j = i - 1; j >= 0; --j) {
-			if (compare(&a[j * esize], key) > 0) {
-				/* data[j + 1] = *(data + j); */
-				memcpy(&a[(j + 1) * esize], &a[j * esize], esize);
-			} else {
-				/* data[j + 1] = key; */
-				memcpy(&a[(j + 1) * esize], key, esize);
-				break;
-			}
+		j = i - 1;
+		while (j >= 0 && compare(&a[j * esize], key) > 0) {
+			memcpy(&a[(j + 1) * esize], &a[j * esize], esize);
+			--j;
 		}
-		if (j < 0)
-			memcpy(&a[0], key, esize);
+		memcpy(&a[(j + 1) * esize], key, esize);
 	}
 
 	free(key);

@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 /* #define DEBUG */
 
@@ -43,7 +44,22 @@ static void qksort_exchange(void *item1, void *item2, int esize)
 
 	free(tmp);
 }
+static int qksort_get_random_median(int i, int k)
+{
+	int a, b, c, r, n;
 
+	srand(time(NULL));
+
+	r = k - i;
+	a = rand() % r;
+	b = rand() % r;
+	c = rand() % r;
+
+	n = (b + c + a) / 3 + i;
+	printf("i=%d, k=%d, n=%d\n", i, k, n);
+
+	return n;
+}
 static int qksort_partition(void *data, int size, int esize, int i, int k,
 			    int (*compare)(const void *key1, const void *key2))
 {
@@ -51,6 +67,9 @@ static int qksort_partition(void *data, int size, int esize, int i, int k,
 	char *a = (char *)data;
 
 	/* assumre k element as key */
+	int n = qksort_get_random_median(i , k);
+
+	qksort_exchange(&a[n * esize], &a[k * esize], esize);
 
 	l = i;
 	m = k - 1;

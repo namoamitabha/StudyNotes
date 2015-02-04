@@ -35,14 +35,20 @@ int issort(void *data, int size, int esize,
 	return 0;
 }
 
-static void qksort_exchange(void *item1, void *item2, int esize)
+static int qksort_exchange(void *item1, void *item2, int esize)
 {
 	char *tmp = (char *)malloc(esize);
+
+	if (NULL == tmp)
+		return -1;
+
 	memcpy(tmp, item1, esize);
 	memcpy(item1, item2, esize);
 	memcpy(item2, tmp, esize);
 
 	free(tmp);
+
+	return 0;
 }
 static int qksort_get_random_median(int i, int k)
 {
@@ -69,14 +75,16 @@ static int qksort_partition(void *data, int size, int esize, int i, int k,
 	/* assumre k element as key */
 	int n = qksort_get_random_median(i , k);
 
-	qksort_exchange(&a[n * esize], &a[k * esize], esize);
+	if (qksort_exchange(&a[n * esize], &a[k * esize], esize) < 0)
+		return -1;
 
 	l = i;
 	m = k - 1;
 	while (l <= m) {
 		if (compare(&a[l * esize], &a[k * esize]) >= 0) {
 			/* exchange l with m */
-			qksort_exchange(&a[l * esize], &a[m * esize], esize);
+			if (qksort_exchange(&a[l * esize], &a[m * esize], esize) < 0)
+				return -1;
 			/* decrease m */
 			--m;
 		} else {
@@ -86,7 +94,8 @@ static int qksort_partition(void *data, int size, int esize, int i, int k,
 	}
 
 	/* exchange l with k */
-	qksort_exchange(&a[l * esize], &a[k * esize], esize);
+	if (qksort_exchange(&a[l * esize], &a[k * esize], esize) < 0)
+		return -1;
 
 	return l;
 }
@@ -102,14 +111,19 @@ int qksort(void *data, int size, int esize, int i, int k,
 
 	int m = qksort_partition(data, size, esize, i, k, compare);
 
+	if (m < 0)
+		return -1;
+
 #ifdef DEBUG
 	printf("m=%d\n", m);
 #endif
 
 	/* qksort i to m */
-	qksort(data, size, esize, i, m - 1, compare);
+	if (qksort(data, size, esize, i, m - 1, compare) < 0)
+		return -1;
 	/* qksort m + 2 to k */
-	qksort(data, size, esize, m + 1, k, compare);
+	if (qksort(data, size, esize, m + 1, k, compare) < 0)
+		return -1;
 
 	return 0;
 }

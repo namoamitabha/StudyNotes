@@ -49,15 +49,13 @@ static int qksort_partition(void *data, int size, int esize, int i, int k,
 {
 	int l, m;
 	char *a = (char *)data;
-	char *key = (char *)malloc(esize);
 
 	/* assumre k element as key */
-	memcpy(key, &a[k * esize], esize);
 
 	l = i;
 	m = k - 1;
 	while (l <= m) {
-		if (compare(&a[l * esize], key) >= 0) {
+		if (compare(&a[l * esize], &a[k * esize]) >= 0) {
 			/* exchange l with m */
 			qksort_exchange(&a[l * esize], &a[m * esize], esize);
 			/* decrease m */
@@ -70,8 +68,6 @@ static int qksort_partition(void *data, int size, int esize, int i, int k,
 
 	/* exchange l with k */
 	qksort_exchange(&a[l * esize], &a[k * esize], esize);
-
-	free(key);
 
 	return l;
 }

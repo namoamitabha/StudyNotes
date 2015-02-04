@@ -50,22 +50,37 @@ static int qksort_exchange(void *item1, void *item2, int esize)
 
 	return 0;
 }
-static int qksort_get_random_median(int i, int k)
+
+static int qksort_compare(const void *key1, const void *key2)
 {
-	int a, b, c, r, n;
+	if (*(const int *)key1 > *(const int *)key2)
+		return 1;
+	else if (*(const int *)key1 == *(const int *)key2)
+		return 0;
+	return 0;
+}
+
+static int qksort_get_median_of_three(int i, int k)
+{
+	int r[3], m;
 
 	srand(time(NULL));
 
-	r = k - i;
-	a = rand() % r;
-	b = rand() % r;
-	c = rand() % r;
+	m = k - i + 1;
 
-	n = (b + c + a) / 3 + i;
-	printf("i=%d, k=%d, n=%d\n", i, k, n);
+	r[0] = rand() % m + i;
+	r[1] = rand() % m + i;
+	r[2] = rand() % m + i;
 
-	return n;
+	issort(r, 3, sizeof(int), qksort_compare);
+
+#ifdef DEBUG
+	printf("i=%d, k=%d, n=%d\n", i, k, r[1]);
+#endif
+
+	return r[1];
 }
+
 static int qksort_partition(void *data, int size, int esize, int i, int k,
 			    int (*compare)(const void *key1, const void *key2))
 {
@@ -73,7 +88,7 @@ static int qksort_partition(void *data, int size, int esize, int i, int k,
 	char *a = (char *)data;
 
 	/* assumre k element as key */
-	int n = qksort_get_random_median(i , k);
+	int n = qksort_get_median_of_three(i , k);
 
 	if (qksort_exchange(&a[n * esize], &a[k * esize], esize) < 0)
 		return -1;

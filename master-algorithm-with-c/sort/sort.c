@@ -81,6 +81,7 @@ static int qksort_get_median_of_three(int i, int k)
 	return r[1];
 }
 
+/* Use median of three method to select partition */
 static int qksort_partition(void *data, int esize, int i, int k,
 			    int (*compare)(const void *key1, const void *key2))
 {

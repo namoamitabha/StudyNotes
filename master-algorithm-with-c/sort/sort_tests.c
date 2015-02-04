@@ -61,3 +61,8 @@ TEST(Sort_Quick, qksort)
 	}
 	/* printf("%d\n", data[i]); */
 }
+
+TEST(Sort_Merge, mgsort)
+{
+
+}

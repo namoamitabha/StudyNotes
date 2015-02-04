@@ -39,7 +39,7 @@ TEST(Sort_Insertion, issort)
 
 TEST(Sort_Quick, qksort)
 {
-	int size = 5;
+	int size = 100;
 	int *data = (int *)malloc(sizeof(int) * size);
 	int i;
 	int result;

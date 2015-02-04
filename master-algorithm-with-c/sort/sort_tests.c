@@ -64,5 +64,25 @@ TEST(Sort_Quick, qksort)
 
 TEST(Sort_Merge, mgsort)
 {
+	int size = 5;
+	int *data = (int *)malloc(sizeof(int) * size);
+	int i;
+	int result;
 
+	srand(time(NULL));
+
+	for (i = 0; i < size; ++i) {
+		/* data[i] = rand() % size; */
+		data[i] = 5 - i;
+		printf("%d\n", data[i]);
+	}
+
+	result = mgsort(data, size, sizeof(int), 0, size -1, compare);
+	EXPECT_EQ(0, result);
+
+	for (i = 0; i < size - 1; ++i) {
+		/* printf("%d\n", data[i]); */
+		EXPECT_TRUE(data[i] <= data[i + 1]);
+	}
+	/* printf("%d\n", data[i]); */
 }

@@ -81,7 +81,7 @@ static int qksort_get_median_of_three(int i, int k)
 	return r[1];
 }
 
-static int qksort_partition(void *data, int size, int esize, int i, int k,
+static int qksort_partition(void *data, int esize, int i, int k,
 			    int (*compare)(const void *key1, const void *key2))
 {
 	int l, m;
@@ -124,7 +124,7 @@ int qksort(void *data, int size, int esize, int i, int k,
 	if (i >= k)
 		return 0;
 
-	int m = qksort_partition(data, size, esize, i, k, compare);
+	int m = qksort_partition(data, esize, i, k, compare);
 
 	if (m < 0)
 		return -1;

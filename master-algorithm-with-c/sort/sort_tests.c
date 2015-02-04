@@ -52,7 +52,7 @@ TEST(Sort_Quick, qksort)
 		/* printf("%d\n", data[i]); */
 	}
 
-	result = qksort(data, size, sizeof(int), 0, size -1, compare);
+	result = qksort(data, size, sizeof(int), 0, size - 1, compare);
 	EXPECT_EQ(0, result);
 
 	for (i = 0; i < size - 1; ++i) {

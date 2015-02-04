@@ -98,7 +98,8 @@ static int qksort_partition(void *data, int esize, int i, int k,
 	while (l <= m) {
 		if (compare(&a[l * esize], &a[k * esize]) >= 0) {
 			/* exchange l with m */
-			if (qksort_exchange(&a[l * esize], &a[m * esize], esize) < 0)
+			if (qksort_exchange(&a[l * esize], &a[m * esize], esize)
+				< 0)
 				return -1;
 			/* decrease m */
 			--m;

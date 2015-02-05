@@ -81,8 +81,8 @@ TEST(Sort_Merge, mgsort)
 	EXPECT_EQ(0, result);
 
 	for (i = 0; i < size - 1; ++i) {
-		/* printf("%d\n", data[i]); */
+		printf("%d\n", data[i]);
 		EXPECT_TRUE(data[i] <= data[i + 1]);
 	}
-	/* printf("%d\n", data[i]); */
+	printf("%d\n", data[i]);
 }

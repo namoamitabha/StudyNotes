@@ -145,8 +145,85 @@ int qksort(void *data, int size, int esize, int i, int k,
 	return 0;
 }
 
+static int mgsort_merge(void *data, int esize, int i, int m, int k,
+			int (*compare)(const void *key1, const void *key2))
+{
+	int n = m + 1;
+	int lsize = m - i + 1;
+	int rsize = k - n + 1;
+	char *a = (char *)data;
+	char *ldata = (char *)malloc(esize * lsize);
+
+	if (NULL == ldata)
+		return -1;
+
+	char *rdata = (char *)malloc(esize * rsize);
+
+	if (NULL == rdata) {
+		free(ldata);
+		return -1;
+	}
+
+	int j;
+	for (j = 0; j < lsize; ++j) {
+		memcpy(&ldata[j * esize], &a[(i + j) * esize], esize);
+	}
+
+	for (j = 0; j < rsize; ++j) {
+		memcpy(&rdata[j * esize], &a[(n + j) * esize], esize);
+	}
+
+	int l_index = 0, r_index = 0, index = i;
+
+	while (l_index < lsize && r_index < rsize) {
+		if (compare(&ldata[l_index], &rdata[r_index]) < 0) {
+			memcpy(&a[index * esize], &ldata[l_index * esize], esize);
+			++l_index;
+		} else {
+			memcpy(&a[index * esize], &rdata[r_index * esize], esize);
+			++r_index;
+		}
+		++index;
+	}
+
+	while (l_index < lsize) {
+		memcpy(&a[index * esize], &ldata[l_index * esize], esize);
+		++index;
+		++l_index;
+	}
+
+	while (r_index < rsize) {
+		memcpy(&a[index * esize], &rdata[r_index * esize], esize);
+		++index;
+		++r_index;
+	}
+
+	free(ldata);
+	free(rdata);
+
+	return 0;
+}
+
 int mgsort(void *data, int size, int esize, int i, int k,
 	   int (*compare)(const void *key1, const void *key2))
 {
+	if (i >= k)
+		return 0;
+
+	int result;
+
+	int m = (i + k) / 2;
+
+	printf("i=%d, k=%d, m=%d\n", i, k, m);
+
+        if (mgsort(data, size, esize, i, m, compare) < 0)
+		return -1;
+
+	if (mgsort(data, size, esize, m + 1, k, compare) < 0)
+		return -1;
+
+	if (mgsort_merge(data, esize, i, m, k, compare) < 0)
+		return -1;
+
 	return 0;
 }

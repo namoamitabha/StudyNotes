@@ -74,6 +74,7 @@ TEST(Sort_Merge, mgsort)
 	for (i = 0; i < size; ++i) {
 		/* data[i] = rand() % size; */
 		data[i] = 5 - i;
+		/* data[i] = i; */
 		printf("%d\n", data[i]);
 	}
 

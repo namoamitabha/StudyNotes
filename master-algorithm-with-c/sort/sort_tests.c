@@ -87,3 +87,67 @@ TEST(Sort_Merge, mgsort)
 	}
 	printf("%d\n", data[i]);
 }
+
+TEST(Sort_Count, ctsort)
+{
+	int result;
+	int size = 10;
+	int k = 200;
+	int i;
+	int *a = (int *)malloc(sizeof(int) * size);
+
+	for (i = 0; i < size; ++i) {
+		a[i] = size - i;
+	}
+
+	result = ctsort(a, size, k);
+	EXPECT_EQ(0, result);
+
+	for (i = 0; i < (size - 1); ++i) {
+		EXPECT_TRUE(a[i] <= a[i + 1]);
+	}
+}
+
+TEST(Sort_Count, ctsort_random)
+{
+	int result;
+	int size = 10;
+	int k = 200;
+	int i;
+	int *a = (int *)malloc(sizeof(int) * size);
+
+	srand(time(NULL));
+
+	for (i = 0; i < size; ++i) {
+		a[i] = rand() % k;
+	}
+
+	result = ctsort(a, size, k);
+	EXPECT_EQ(0, result);
+
+	for (i = 0; i < (size - 1); ++i) {
+		EXPECT_TRUE(a[i] <= a[i + 1]);
+	}
+}
+
+TEST(Sort_Count, ctsort_equal)
+{
+	int result;
+	int size = 10;
+	int k = 9;
+	int i;
+	int *a = (int *)malloc(sizeof(int) * size);
+
+	srand(time(NULL));
+
+	for (i = 0; i < size; ++i) {
+		a[i] = rand() % k;
+	}
+
+	result = ctsort(a, size, k);
+	EXPECT_EQ(0, result);
+
+	for (i = 0; i < (size - 1); ++i) {
+		EXPECT_TRUE(a[i] <= a[i + 1]);
+	}
+}

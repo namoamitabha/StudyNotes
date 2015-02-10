@@ -243,3 +243,38 @@ int mgsort(void *data, int size, int esize, int i, int k,
 
 	return 0;
 }
+
+int ctsort(int *data, int size, int k)
+{
+#ifdef DEBUG
+	print_array(data, size);
+#endif
+
+	int *array = (int *)calloc(k, sizeof(int));
+	if (NULL == array)
+		return -1;
+
+	int i;
+
+	for (i = 0; i < size; ++i) {
+		++array[data[i]];
+	}
+
+	int j = 0;
+
+	for (i = 0; i < k; ++i) {
+		while(array[i] > 0) {
+			data[j] = i;
+			--array[i];
+			++j;
+		}
+	}
+
+#ifdef DEBUG
+	print_array(data, size);
+#endif
+
+	free(array);
+
+	return 0;
+}

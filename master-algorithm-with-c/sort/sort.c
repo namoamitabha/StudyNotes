@@ -163,8 +163,10 @@ static int mgsort_merge(void *data, int esize, int i, int m, int k,
 	int rsize = k - n + 1;
 	char *data_cp = (char *)data;
 
+#ifdef DEBUG
 	printf("mgsort_merge:i=%d, m=%d, n=%d, k=%d\n", i, m, n, k);
 	print_array(data, 5);
+#endif
 
 	char *ldata = (char *)malloc(esize * lsize);
 
@@ -212,7 +214,9 @@ static int mgsort_merge(void *data, int esize, int i, int m, int k,
 		++r_i;
 	}
 
+#ifdef DEBUG
 	print_array(data, 5);
+#endif
 
 	free(ldata);
 	free(rdata);
@@ -230,7 +234,9 @@ int mgsort(void *data, int size, int esize, int i, int k,
 
 	int m = (i + k) / 2;
 
+#ifdef DEBUG
 	printf("mgsort:i=%d, k=%d, m=%d\n", i, k, m);
+#endif
 
         if (mgsort(data, size, esize, i, m, compare) < 0)
 		return -1;

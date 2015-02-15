@@ -17,6 +17,6 @@ int mgsort(void *data, int size, int esize, int i, int k,
 int ctsort(int *data, int size, int k);
 
 /* radix sort */
-int rxort(int *data, int size, int p, int k);
+int rxsort(int *data, int size, int p, int k);
 
 #endif

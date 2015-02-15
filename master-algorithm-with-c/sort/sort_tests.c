@@ -3,6 +3,17 @@
 #include <stdlib.h>
 #include <time.h>
 
+static void print_array(int *a, int size)
+{
+	int i;
+
+	for (i = 0; i < size; ++i) {
+		printf("%d,", a[i]);
+	}
+	printf("\n");
+
+}
+
 int compare(const void *key1, const void *key2)
 {
 	if (*((int *)key1) > *((int *)key2))
@@ -172,4 +183,33 @@ TEST(Sort_Count, ctsort_equal)
 	for (i = 0; i < (size - 1); ++i) {
 		EXPECT_TRUE(a[i] <= a[i + 1]);
 	}
+}
+
+
+TEST(Sort_Radix, rxsort)
+{
+	int result;
+	int size = 10;
+	int *a = (int *)malloc(sizeof(int) * size);
+	int i;
+	int p = 3;
+	int k = 10;
+
+	srand(time(NULL));
+
+	for (i = 0; i < size; ++i) {
+		a[i] = rand() % 1000;
+		/* printf("%d,", a[i]); */
+	}
+
+	print_array(a, size);
+
+	result = rxsort(a, size, p, k);
+	EXPECT_EQ(0, result);
+
+	for (i = 1; i < size; ++i) {
+		EXPECT_TRUE(a[i] >= a[i - 1]);
+	}
+
+	print_array(a, size);
 }

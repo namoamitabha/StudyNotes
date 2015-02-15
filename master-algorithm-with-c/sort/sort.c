@@ -284,3 +284,9 @@ int ctsort(int *data, int size, int k)
 
 	return 0;
 }
+
+int rxsort(int *data, int size, int p, int k)
+{
+	
+	return 0;
+}

@@ -7,9 +7,9 @@ static void print_array(int *a, int size)
 {
 	int i;
 
-	for (i = 0; i < size; ++i) {
+	for (i = 0; i < size; ++i)
 		printf("%d,", a[i]);
-	}
+
 	printf("\n");
 
 }
@@ -82,18 +82,18 @@ TEST(Sort_Merge, mgsort)
 
 	srand(time(NULL));
 
-	for (i = 0; i < size; ++i) {
+	for (i = 0; i < size; ++i)
 		data[i] = 5 - i;
-	}
+
 #ifdef DEBUG
 	print_array(data, size);
 #endif
-	result = mgsort(data, size, sizeof(int), 0, size -1, compare);
+	result = mgsort(data, size, sizeof(int), 0, size - 1, compare);
 	EXPECT_EQ(0, result);
 
-	for (i = 0; i < size - 1; ++i) {
+	for (i = 0; i < size - 1; ++i)
 		EXPECT_TRUE(data[i] <= data[i + 1]);
-	}
+
 #ifdef DEBUG
 	print_array(data, size);
 #endif
@@ -108,19 +108,19 @@ TEST(Sort_Merge, mgsort_random)
 
 	srand(time(NULL));
 
-	for (i = 0; i < size; ++i) {
+	for (i = 0; i < size; ++i)
 		data[i] = rand() % size;
-	}
+
 #ifdef DEBUG
 	print_array(data, size);
 #endif
 
-	result = mgsort(data, size, sizeof(int), 0, size -1, compare);
+	result = mgsort(data, size, sizeof(int), 0, size - 1, compare);
 	EXPECT_EQ(0, result);
 
-	for (i = 0; i < size - 1; ++i) {
+	for (i = 0; i < size - 1; ++i)
 		EXPECT_TRUE(data[i] <= data[i + 1]);
-	}
+
 #ifdef DEBUG
 	print_array(data, size);
 #endif
@@ -134,16 +134,14 @@ TEST(Sort_Count, ctsort)
 	int i;
 	int *a = (int *)malloc(sizeof(int) * size);
 
-	for (i = 0; i < size; ++i) {
+	for (i = 0; i < size; ++i)
 		a[i] = size - i;
-	}
 
 	result = ctsort(a, size, k);
 	EXPECT_EQ(0, result);
 
-	for (i = 0; i < (size - 1); ++i) {
+	for (i = 0; i < (size - 1); ++i)
 		EXPECT_TRUE(a[i] <= a[i + 1]);
-	}
 }
 
 TEST(Sort_Count, ctsort_random)
@@ -156,16 +154,14 @@ TEST(Sort_Count, ctsort_random)
 
 	srand(time(NULL));
 
-	for (i = 0; i < size; ++i) {
+	for (i = 0; i < size; ++i)
 		a[i] = rand() % k;
-	}
 
 	result = ctsort(a, size, k);
 	EXPECT_EQ(0, result);
 
-	for (i = 0; i < (size - 1); ++i) {
+	for (i = 0; i < (size - 1); ++i)
 		EXPECT_TRUE(a[i] <= a[i + 1]);
-	}
 }
 
 TEST(Sort_Count, ctsort_equal)
@@ -178,16 +174,14 @@ TEST(Sort_Count, ctsort_equal)
 
 	srand(time(NULL));
 
-	for (i = 0; i < size; ++i) {
+	for (i = 0; i < size; ++i)
 		a[i] = rand() % k;
-	}
 
 	result = ctsort(a, size, k);
 	EXPECT_EQ(0, result);
 
-	for (i = 0; i < (size - 1); ++i) {
+	for (i = 0; i < (size - 1); ++i)
 		EXPECT_TRUE(a[i] <= a[i + 1]);
-	}
 }
 
 
@@ -202,9 +196,9 @@ TEST(Sort_Radix, rxsort_random)
 
 	srand(time(NULL));
 
-	for (i = 0; i < size; ++i) {
+	for (i = 0; i < size; ++i)
 		a[i] = rand() % 1000;
-	}
+
 #ifdef DEBUG
 	print_array(a, size);
 #endif
@@ -212,9 +206,9 @@ TEST(Sort_Radix, rxsort_random)
 	result = rxsort(a, size, p, k);
 	EXPECT_EQ(0, result);
 
-	for (i = 1; i < size; ++i) {
+	for (i = 1; i < size; ++i)
 		EXPECT_TRUE(a[i] >= a[i - 1]);
-	}
+
 #ifdef DEBUG
 	print_array(a, size);
 #endif
@@ -231,9 +225,9 @@ TEST(Sort_Radix, rxsort)
 
 	srand(time(NULL));
 
-	for (i = 0; i < size; ++i) {
+	for (i = 0; i < size; ++i)
 		a[i] = 10 - i;
-	}
+
 #ifdef DEBUG
 	print_array(a, size);
 #endif
@@ -241,9 +235,9 @@ TEST(Sort_Radix, rxsort)
 	result = rxsort(a, size, p, k);
 	EXPECT_EQ(0, result);
 
-	for (i = 1; i < size; ++i) {
+	for (i = 1; i < size; ++i)
 		EXPECT_TRUE(a[i] >= a[i - 1]);
-	}
+
 #ifdef DEBUG
 	print_array(a, size);
 #endif

@@ -201,10 +201,12 @@ static int mgsort_merge(void *data, int esize, int i, int m, int k,
 		       index, l_i, ldata[l_i * esize], r_i, rdata[r_i * esize]);
 #endif
 		if (compare(&ldata[l_i * esize], &rdata[r_i * esize]) < 0) {
-			memcpy(&data_cp[index * esize], &ldata[l_i * esize], esize);
+			memcpy(&data_cp[index * esize],
+			       &ldata[l_i * esize], esize);
 			++l_i;
 		} else {
-			memcpy(&data_cp[index * esize], &rdata[r_i * esize], esize);
+			memcpy(&data_cp[index * esize],
+			       &rdata[r_i * esize], esize);
 			++r_i;
 		}
 		++index;
@@ -244,7 +246,7 @@ int mgsort(void *data, int size, int esize, int i, int k,
 	printf("mgsort:i=%d, k=%d, m=%d\n", i, k, m);
 #endif
 
-        if (mgsort(data, size, esize, i, m, compare) < 0)
+	if (mgsort(data, size, esize, i, m, compare) < 0)
 		return -1;
 
 	if (mgsort(data, size, esize, m + 1, k, compare) < 0)
@@ -274,9 +276,8 @@ int ctsort(int *data, int size, int k)
 		return -1;
 	}
 
-	for (i = 0; i < size; ++i) {
+	for (i = 0; i < size; ++i)
 		++counter[data[i]];
-	}
 
 	for (i = 1; i < k; ++i)
 		counter[i] += counter[i - 1];
@@ -324,7 +325,6 @@ int rxsort(int *data, int size, int p, int k)
 		printf("i=%d, p=%d, exp=%d, base=%d\n", i, p, exp, base);
 		print_array(data, size);
 #endif
-		
 		for (j = 0; j < size; ++j) {
 			index = (data[j] / exp) % base;
 #ifdef DEBUG
@@ -336,9 +336,8 @@ int rxsort(int *data, int size, int p, int k)
 		printf("\n");
 		print_array(counter, k);
 #endif
-		for (j = 1; j < k; ++j) {
+		for (j = 1; j < k; ++j)
 			counter[j] += counter[j - 1];
-		}
 #ifdef DEBUG
 		print_array(counter, k);
 #endif

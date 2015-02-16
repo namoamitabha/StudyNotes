@@ -186,7 +186,7 @@ TEST(Sort_Count, ctsort_equal)
 }
 
 
-TEST(Sort_Radix, rxsort)
+TEST(Sort_Radix, rxsort_random)
 {
 	int result;
 	int size = 10;
@@ -199,10 +199,13 @@ TEST(Sort_Radix, rxsort)
 
 	for (i = 0; i < size; ++i) {
 		a[i] = rand() % 1000;
-		/* printf("%d,", a[i]); */
+#ifdef DEBUG
+		printf("%d,", a[i]);
+#endif
 	}
-
-	/* print_array(a, size); */
+#ifdef DEBUG
+	print_array(a, size);
+#endif
 
 	result = rxsort(a, size, p, k);
 	EXPECT_EQ(0, result);
@@ -210,6 +213,37 @@ TEST(Sort_Radix, rxsort)
 	for (i = 1; i < size; ++i) {
 		EXPECT_TRUE(a[i] >= a[i - 1]);
 	}
-
-	/* print_array(a, size); */
+#ifdef DEBUG
+	print_array(a, size);
+#endif
 }
+
+TEST(Sort_Radix, rxsort)
+{
+	int result;
+	int size = 10;
+	int *a = (int *)malloc(sizeof(int) * size);
+	int i;
+	int p = 2;
+	int k = 10;
+
+	srand(time(NULL));
+
+	for (i = 0; i < size; ++i) {
+		a[i] = 10 - i;
+	}
+#ifdef DEBUG
+	print_array(a, size);
+#endif
+
+	result = rxsort(a, size, p, k);
+	EXPECT_EQ(0, result);
+
+	for (i = 1; i < size; ++i) {
+		EXPECT_TRUE(a[i] >= a[i - 1]);
+	}
+#ifdef DEBUG
+	print_array(a, size);
+#endif
+}
+

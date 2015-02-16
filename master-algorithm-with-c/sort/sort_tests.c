@@ -76,49 +76,47 @@ TEST(Sort_Quick, qksort)
 TEST(Sort_Merge, mgsort)
 {
 	int size = 5;
-	int *data = (int *)malloc(sizeof(int) * size);
 	int i;
 	int result;
+	int *data = (int *)malloc(sizeof(int) * size);
 
 	srand(time(NULL));
 
 	for (i = 0; i < size; ++i) {
 		data[i] = 5 - i;
-		/* printf("%d\n", data[i]); */
 	}
+	print_array(data, size);
 
 	result = mgsort(data, size, sizeof(int), 0, size -1, compare);
 	EXPECT_EQ(0, result);
 
 	for (i = 0; i < size - 1; ++i) {
-		/* printf("%d\n", data[i]); */
 		EXPECT_TRUE(data[i] <= data[i + 1]);
 	}
-	/* printf("%d\n", data[i]); */
+	print_array(data, size);
 }
 
 TEST(Sort_Merge, mgsort_random)
 {
 	int size = 5;
-	int *data = (int *)malloc(sizeof(int) * size);
 	int i;
 	int result;
+	int *data = (int *)malloc(sizeof(int) * size);
 
 	srand(time(NULL));
 
 	for (i = 0; i < size; ++i) {
 		data[i] = rand() % size;
-		/* printf("%d\n", data[i]); */
 	}
+	print_array(data, size);
 
 	result = mgsort(data, size, sizeof(int), 0, size -1, compare);
 	EXPECT_EQ(0, result);
 
 	for (i = 0; i < size - 1; ++i) {
-		/* printf("%d\n", data[i]); */
 		EXPECT_TRUE(data[i] <= data[i + 1]);
 	}
-	/* printf("%d\n", data[i]); */
+	print_array(data, size);
 }
 
 TEST(Sort_Count, ctsort)
@@ -199,9 +197,6 @@ TEST(Sort_Radix, rxsort_random)
 
 	for (i = 0; i < size; ++i) {
 		a[i] = rand() % 1000;
-#ifdef DEBUG
-		printf("%d,", a[i]);
-#endif
 	}
 #ifdef DEBUG
 	print_array(a, size);

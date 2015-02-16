@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 
-#define DEBUG
+#define CDEBUG
 
 int issort(void *data, int size, int esize,
 	   int (*compare)(const void *key1, const void *key2))
@@ -190,10 +190,18 @@ static int mgsort_merge(void *data, int esize, int i, int m, int k,
 		memcpy(&rdata[j * esize], &data_cp[(n + j) * esize], esize);
 	}
 
+#ifdef DEBUG
+	print_array(ldata, lsize);
+	print_array(rdata, rsize);
+#endif
 	int l_i = 0, r_i = 0, index = i;
 
 	while (l_i < lsize && r_i < rsize) {
-		if (compare(&ldata[l_i], &rdata[r_i]) < 0) {
+#ifdef DEBUG
+		printf("index=%d, ldata[%d]=%d, rdata[%d]=%d\n",
+		       index, l_i, ldata[l_i * esize], r_i, rdata[r_i * esize]);
+#endif
+		if (compare(&ldata[l_i * esize], &rdata[r_i * esize]) < 0) {
 			memcpy(&data_cp[index * esize], &ldata[l_i * esize], esize);
 			++l_i;
 		} else {
@@ -230,8 +238,6 @@ int mgsort(void *data, int size, int esize, int i, int k,
 {
 	if (i >= k)
 		return 0;
-
-	int result;
 
 	int m = (i + k) / 2;
 

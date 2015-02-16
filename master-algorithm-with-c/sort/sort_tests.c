@@ -85,15 +85,18 @@ TEST(Sort_Merge, mgsort)
 	for (i = 0; i < size; ++i) {
 		data[i] = 5 - i;
 	}
+#ifdef DEBUG
 	print_array(data, size);
-
+#endif
 	result = mgsort(data, size, sizeof(int), 0, size -1, compare);
 	EXPECT_EQ(0, result);
 
 	for (i = 0; i < size - 1; ++i) {
 		EXPECT_TRUE(data[i] <= data[i + 1]);
 	}
+#ifdef DEBUG
 	print_array(data, size);
+#endif
 }
 
 TEST(Sort_Merge, mgsort_random)
@@ -108,7 +111,9 @@ TEST(Sort_Merge, mgsort_random)
 	for (i = 0; i < size; ++i) {
 		data[i] = rand() % size;
 	}
+#ifdef DEBUG
 	print_array(data, size);
+#endif
 
 	result = mgsort(data, size, sizeof(int), 0, size -1, compare);
 	EXPECT_EQ(0, result);
@@ -116,7 +121,9 @@ TEST(Sort_Merge, mgsort_random)
 	for (i = 0; i < size - 1; ++i) {
 		EXPECT_TRUE(data[i] <= data[i + 1]);
 	}
+#ifdef DEBUG
 	print_array(data, size);
+#endif
 }
 
 TEST(Sort_Count, ctsort)

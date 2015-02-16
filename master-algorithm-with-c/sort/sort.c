@@ -256,32 +256,39 @@ int ctsort(int *data, int size, int k)
 #ifdef DEBUG
 	print_array(data, size);
 #endif
+	int i;
+	int *counter = (int *)calloc(k, sizeof(int));
 
-	int *array = (int *)calloc(k, sizeof(int));
-	if (NULL == array)
+	if (NULL == counter)
 		return -1;
 
-	int i;
+	int *temp = (int *)malloc(size * sizeof(int));
+
+	if (NULL == temp) {
+		free(counter);
+		return -1;
+	}
 
 	for (i = 0; i < size; ++i) {
-		++array[data[i]];
+		++counter[data[i]];
 	}
 
-	int j = 0;
+	for (i = 1; i < k; ++i)
+		counter[i] += counter[i - 1];
 
-	for (i = 0; i < k; ++i) {
-		while(array[i] > 0) {
-			data[j] = i;
-			--array[i];
-			++j;
-		}
+	for (i = size - 1; i >= 0; --i) {
+		temp[counter[data[i]] - 1] = data[i];
+		--counter[data[i]];
 	}
+
+	memcpy(data, temp, size * sizeof(int));
 
 #ifdef DEBUG
 	print_array(data, size);
 #endif
 
-	free(array);
+	free(counter);
+	free(temp);
 
 	return 0;
 }

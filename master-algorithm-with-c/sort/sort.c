@@ -148,8 +148,8 @@ int qksort(void *data, int size, int esize, int i, int k,
 static void print_array(void *data, int size)
 {
 	int i;
-	for (i = 0; i < size; ++i)
-	{
+
+	for (i = 0; i < size; ++i) {
 		printf("%d ", *(((int *)data) + i));
 		/* printf("%d", (int)data[i]); */
 	}
@@ -182,13 +182,12 @@ static int mgsort_merge(void *data, int esize, int i, int m, int k,
 	}
 
 	int j;
-	for (j = 0; j < lsize; ++j) {
-		memcpy(&ldata[j * esize], &data_cp[(i + j) * esize], esize);
-	}
 
-	for (j = 0; j < rsize; ++j) {
+	for (j = 0; j < lsize; ++j)
+		memcpy(&ldata[j * esize], &data_cp[(i + j) * esize], esize);
+
+	for (j = 0; j < rsize; ++j)
 		memcpy(&rdata[j * esize], &data_cp[(n + j) * esize], esize);
-	}
 
 #ifdef DEBUG
 	print_array(ldata, lsize);

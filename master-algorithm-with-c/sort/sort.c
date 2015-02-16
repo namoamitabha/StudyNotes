@@ -355,5 +355,8 @@ int rxsort(int *data, int size, int p, int k)
 		exp *= base;
 	}
 
+	free(counter);
+	free(temp);
+
 	return 0;
 }

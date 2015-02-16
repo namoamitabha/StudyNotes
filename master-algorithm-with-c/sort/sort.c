@@ -144,6 +144,7 @@ int qksort(void *data, int size, int esize, int i, int k,
 
 	return 0;
 }
+
 static void print_array(void *data, int size)
 {
 	int i;
@@ -287,6 +288,65 @@ int ctsort(int *data, int size, int k)
 
 int rxsort(int *data, int size, int p, int k)
 {
-	
+	int *counter = (int *)calloc(k, sizeof(int));
+
+	if (NULL == counter)
+		return -1;
+
+	int *temp = (int *)malloc(size * sizeof(int));
+
+	if (NULL == temp) {
+		free(counter);
+		return -1;
+	}
+
+	int i;
+	int j;
+	int index;
+	int exp = 1;
+	int base = k;
+
+	for (i = 0; i < p; ++i) {
+#ifdef DEBUG
+		printf("***************");
+		printf("i=%d, p=%d, exp=%d, base=%d\n", i, p, exp, base);
+		print_array(data, size);
+#endif
+		
+		for (j = 0; j < size; ++j) {
+			index = (data[j] / exp) % base;
+#ifdef DEBUG
+			printf("data=%d, radix=%d; ", data[j], index);
+#endif
+			++counter[index];
+		}
+#ifdef DEBUG
+		printf("\n");
+		print_array(counter, k);
+#endif
+		for (j = 1; j < k; ++j) {
+			counter[j] += counter[j - 1];
+		}
+#ifdef DEBUG
+		print_array(counter, k);
+#endif
+
+		for (j = size - 1; j >= 0; --j) {
+			index = (data[j] / exp) % base;
+			temp[counter[index] - 1] = data[j];
+			--counter[index];
+		}
+
+		memcpy(data, temp, size * sizeof(int));
+#ifdef DEBUG
+		print_array(data, size);
+#endif
+
+		for (j = 0; j < k; ++j)
+			counter[j] = 0;
+
+		exp *= base;
+	}
+
 	return 0;
 }

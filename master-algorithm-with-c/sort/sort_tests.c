@@ -202,7 +202,7 @@ TEST(Sort_Radix, rxsort)
 		/* printf("%d,", a[i]); */
 	}
 
-	print_array(a, size);
+	/* print_array(a, size); */
 
 	result = rxsort(a, size, p, k);
 	EXPECT_EQ(0, result);
@@ -211,5 +211,5 @@ TEST(Sort_Radix, rxsort)
 		EXPECT_TRUE(a[i] >= a[i - 1]);
 	}
 
-	print_array(a, size);
+	/* print_array(a, size); */
 }

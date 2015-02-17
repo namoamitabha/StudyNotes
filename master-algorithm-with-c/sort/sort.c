@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <math.h>
 
 #define CDEBUG
 
@@ -316,17 +317,21 @@ int rxsort(int *data, int size, int p, int k)
 	int i;
 	int j;
 	int index;
-	int exp = 1;
+	int pval = 1;
 	int base = k;
 
 	for (i = 0; i < p; ++i) {
+		pval = (int)pow(k, i);
+
+		for (j = 0; j < k; ++j)
+			counter[j] = 0;
 #ifdef DEBUG
 		printf("***************");
-		printf("i=%d, p=%d, exp=%d, base=%d\n", i, p, exp, base);
+		printf("i=%d, p=%d, pval=%d, base=%d\n", i, p, pval, base);
 		print_array(data, size);
 #endif
 		for (j = 0; j < size; ++j) {
-			index = (data[j] / exp) % base;
+			index = (data[j] / pval) % base;
 #ifdef DEBUG
 			printf("data=%d, radix=%d; ", data[j], index);
 #endif
@@ -343,7 +348,7 @@ int rxsort(int *data, int size, int p, int k)
 #endif
 
 		for (j = size - 1; j >= 0; --j) {
-			index = (data[j] / exp) % base;
+			index = (data[j] / pval) % base;
 			temp[counter[index] - 1] = data[j];
 			--counter[index];
 		}
@@ -352,11 +357,6 @@ int rxsort(int *data, int size, int p, int k)
 #ifdef DEBUG
 		print_array(data, size);
 #endif
-
-		for (j = 0; j < k; ++j)
-			counter[j] = 0;
-
-		exp *= base;
 	}
 
 	free(counter);

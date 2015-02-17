@@ -214,7 +214,7 @@ TEST(Sort_Radix, rxsort_random)
 #endif
 }
 
-TEST(Sort_Radix, rxsort)
+TEST(Sort_Radix, rxsort_10)
 {
 	int result;
 	int size = 10;
@@ -222,6 +222,35 @@ TEST(Sort_Radix, rxsort)
 	int i;
 	int p = 2;
 	int k = 10;
+
+	srand(time(NULL));
+
+	for (i = 0; i < size; ++i)
+		a[i] = 10 - i;
+
+#ifdef DEBUG
+	print_array(a, size);
+#endif
+
+	result = rxsort(a, size, p, k);
+	EXPECT_EQ(0, result);
+
+	for (i = 1; i < size; ++i)
+		EXPECT_TRUE(a[i] >= a[i - 1]);
+
+#ifdef DEBUG
+	print_array(a, size);
+#endif
+}
+
+TEST(Sort_Radix, rxsort_16)
+{
+	int result;
+	int size = 10;
+	int *a = (int *)malloc(sizeof(int) * size);
+	int i;
+	int p = 2;
+	int k = 16;
 
 	srand(time(NULL));
 

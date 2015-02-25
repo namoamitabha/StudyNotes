@@ -272,3 +272,7 @@ TEST(Sort_Radix, rxsort_16)
 #endif
 }
 
+TEST(Search_Binary, bisearch)
+{
+
+}

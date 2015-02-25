@@ -364,3 +364,26 @@ int rxsort(int *data, int size, int p, int k)
 
 	return 0;
 }
+
+int bisearch(void *sorted, void *target, int size, int esize,
+	     int (*compare)(const void *key1, const void *key2))
+{
+	int left = 0;
+	int right = size -1;
+	int mid, result;
+	char *data = (char *)sorted;
+
+	while (left <= right) {
+		mid = (left + right) / 2;
+		//Assume data in ascending order
+		result = compare(target, (data + mid * esize));
+		if (result > 0) {
+			left = mid + 1;
+		} else if (0 == result) {
+			return mid;
+		} else if (result < 0) {
+			right = mid - 1;
+		}
+	}
+	return 0;
+}

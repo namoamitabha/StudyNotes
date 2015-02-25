@@ -287,4 +287,5 @@ TEST(Search_Binary, bisearch)
 
 	*target = 10;
 	result = bisearch(data, target, size, sizeof(int), compare);
+	EXPECT_EQ(10, result);
 }

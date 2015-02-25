@@ -274,5 +274,17 @@ TEST(Sort_Radix, rxsort_16)
 
 TEST(Search_Binary, bisearch)
 {
+	int size = 100;
+	int *data = (int *)malloc(size * sizeof(int));
+	int i;
 
+	for (i = 0; i < size; ++i) {
+		data[i] = i;
+	}
+
+	int result;
+	int *target = (int *)malloc(sizeof(int));
+
+	*target = 10;
+	result = bisearch(data, target, size, sizeof(int), compare);
 }

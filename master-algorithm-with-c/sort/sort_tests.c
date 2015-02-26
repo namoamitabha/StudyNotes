@@ -288,4 +288,13 @@ TEST(Search_Binary, bisearch)
 	*target = 10;
 	result = bisearch(data, target, size, sizeof(int), compare);
 	EXPECT_EQ(10, result);
+
+	*target = 101;
+	result = bisearch(data, target, size, sizeof(int), compare);
+	EXPECT_EQ(-1, result);
+
+	*target = 99;
+	result = bisearch(data, target, size, sizeof(int), compare);
+	EXPECT_EQ(99, result);
+
 }

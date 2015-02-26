@@ -385,5 +385,6 @@ int bisearch(void *sorted, void *target, int size, int esize,
 			right = mid - 1;
 		}
 	}
-	return 0;
+
+	return -1;
 }

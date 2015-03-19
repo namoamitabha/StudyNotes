@@ -1,0 +1,26 @@
+* Lisp
+** Study lisp with causes from MIT
+** Cause details
+** TODO [lisp]Structure and Interpretation of Computer Programs
+   1. course: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/
+   2. self study
+      1. link: http://icampustutor.csail.mit.edu/6.001-public/
+      2. account: crazy0man, pwd: cra740824
+      3. book online: http://mitpress.mit.edu/sicp/full-text/book/book.html
+      4. Lecture Notes: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/lecture-notes/
+      5. Readings: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/readings/
+      6. Video Lectures: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/
+      7. Recitations: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/recitations/
+      8. Exams: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/exams/
+      9. Projects: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/projects/
+      10. Tools: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/tools/
+	  1. Guide to MIT Scheme: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/tools/scheme/
+	  2. Revised(5) Report on the Algorithmic Language Scheme: http://people.csail.mit.edu/jaffer/r5rs_toc.html
+      11. Related Resources: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/related-resources/
+      12. 
+
+
+** TODO Study records
+   1. [ ] Introduction to Computation
+      1. [ ] Video
+   2. 

@@ -1,5 +1,35 @@
 * Lisp
 ** Study lisp with causes from MIT
+*** TODO LEC1
+    1. Issue: how to run example
+       #+BEGIN_SRC 
+	(defun A (+ 5 5))
+	(* A A)
+	'error:Symbol's value as variable is void: A
+	;;should be fixed as
+	(defun A () (+ 5 5))
+	(* (A) (A))
+	;;ref: Y分钟学Elisp http://www.tuicool.com/articles/buInem
+       #+END_SRC
+
+    2. Issue: how to run example
+       #+BEGIN_SRC 
+	(defun square (lambda (x) (* x x)))
+	(square 10)
+       #+END_SRC
+    3. Issue: the value is not expected that same as video
+       1. calculate is more near to video but my value is: 
+       #+BEGIN_SRC 
+       (defun square (x) (* x x))
+       (square 10)
+       (square 1001)
+       (square (+ 5 7))
+       (+ (square 3) (square 4))
+       (square (square (square 1001))) ;; the value is not expectd that same as video
+       #+END_SRC
+    4. video: 48:40, 3/22/2015
+    
+*** TODO LEC2
 ** Cause details
 ** TODO [lisp]Structure and Interpretation of Computer Programs
    1. course: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/
@@ -17,10 +47,39 @@
 	  1. Guide to MIT Scheme: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/tools/scheme/
 	  2. Revised(5) Report on the Algorithmic Language Scheme: http://people.csail.mit.edu/jaffer/r5rs_toc.html
       11. Related Resources: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/related-resources/
-      12. 
-
+   3. GNU CLISP
+   4. 
 
 ** TODO Study records
-   1. [ ] Introduction to Computation
-      1. [ ] Video
+   1. [ ] Introduction to Computation: 3/20/2015
+      1. [ ] lec1a_512kb.mp4
+      2. [ ] TODO: upload lec7a_512kb.mp4 to yunpan.cn
    2. 
+** TODO Common Lisp Implementations: A Survey
+   1. ref: https://www.common-lisp.net/~dlw/LispSurvey.html
+   2. select implementation of lisp as "GNU CLISP"
+      1. because:GPL, and run on linux/Unix/Mac/Windows
+      2. GNU CL
+   3. GNU CLISP
+** TODO Lisp jobs
+   1. https://lispjobs.wordpress.com/
+   2. 
+** TODO GNU CLISP
+   1. http://www.clisp.org/
+   2. how to install clisp on centos
+   3. clisp not available on centos
+
+** TODO Gnu CL (GCL)
+   1. http://www.gnu.org/software/gcl/
+   2. 
+
+** TODO Steel Bank CL (SBCL)
+   1. http://www.sbcl.org/
+   2. install on centos: http://www.lcs.wang/?p=47
+   3. sudo yum install sbcl http://www.lcs.wang/?p=47
+   4. http://www.sbcl.org/getting.html
+** TODO MIT/GNU Scheme 9.4
+   1. http://www.gnu.org/software/mit-scheme/documentation/mit-scheme-user/index.html#Top
+   2. in emacs
+   3. M-x load-library RET xscheme RET
+   4. M-x run-scheme

@@ -39,3 +39,10 @@
 square
 ;; (defun square (lambda (x) (* x x)))
 ;; (square 10)
+
+(defun (average x y)
+  (lambda / (+ x y) 2))
+
+(defun (mean-square x y)
+  (average (square x)
+	   (square y)))

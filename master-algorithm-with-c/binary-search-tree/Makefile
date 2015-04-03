@@ -93,7 +93,7 @@ sample1_unittest : sample1.o sample1_unittest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 bistree.o : bistree.c bistree.h
-	$(CXX) $(CPPFLAGS) -I$(LIST_DIR) $(CXXFLAGS) -c bistree.c ../list/list.c
+	$(CXX) $(CPPFLAGS) -I$(LIST_DIR) $(CXXFLAGS) -c bistree.c ../binary-tree/bitree.c
 
 bistree_tests.o : bistree_tests.c bistree.h
 	$(CXX) $(CPPFLAGS) -I$(LIST_DIR) $(CXXFLAGS) -c bistree_tests.c

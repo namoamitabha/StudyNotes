@@ -29,7 +29,6 @@
        #+END_SRC
     4. video: 48:40, 3/22/2015
     5. 
-    
 *** TODO LEC2
 ** Cause details
 ** TODO [lisp]Structure and Interpretation of Computer Programs
@@ -62,6 +61,8 @@
       1. because:GPL, and run on linux/Unix/Mac/Windows
       2. GNU CL
    3. GNU CLISP
+   4. ref: http://www.clisp.org/
+   5. Issue: how to install clisp on centos7
 ** TODO Lisp jobs
    1. https://lispjobs.wordpress.com/
    2. 

@@ -28,4 +28,5 @@ int bistree_remove(BisTree *tree, const void *data);
 int bistree_lookup(BisTree *tree, void **data);
 
 #define bistree_size(tree) ((tree)->size)
+
 #endif

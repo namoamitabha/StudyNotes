@@ -85,3 +85,55 @@
    2. in emacs
    3. M-x load-library RET xscheme RET
    4. M-x run-scheme
+** DONE Install clisp on centos
+   CLOSED: [2015-04-07 Tue 09:44]
+   - State "DONE"       from "TODO"       [2015-04-07 Tue 09:44]
+   1. following instructions in /home/angelo/tools/clisp-2.49/unix/INSTALL
+   2. issue: configure without libsigsegv
+   3. libsigsegv still cannot be detected by clisp
+   4. no idea about the root cause
+** TODO Lisp quickstart
+   1. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial.html
+      1. Lisp string does not terminate with a \0
+      2. For tab and return, you can just type tab or return right in the string itself.
+      3. nil means false
+      4. Every other expression but nil is "true". Official constant t is true
+      5. symbol is a series of characters which typically do not contain whitespace, parentheses, pound, quote, double-quote, period, or backquote and among a few others
+	 1. Evaluating lists as functions
+	    1. Symbols don't take the form of numbers
+	    2. Common for symbols to have hyphens(-) or asterisks (*) in them
+	    3. case-insensitive
+	    4. in lisp, there are no operators, instead, there are only functions
+	    5. predicates, return "true" (t) or "false" (nil). traditionally, many lisp predicate names end with a p. such as "numberp", "oddp"
+	    6. print: evalutes its argument, then prints it, then returns the argument.
+	 2. Control structures and Variables
+	    1. function rule: evaluate each argument exactly one time each
+	    2. macros or special forms
+	       1) used as control structures
+	       2) (if test-expression then-expression optional-else-expression)
+	       3) if only allows one test-expression, one then-expression, and one optional-else-expression.
+	       4) if you need do three things? You need make a block
+	    3. progn, (progn expr1 expr2 expr3 ...)
+	       1. progn can take any number of expressions, and evaluates each of its expressions in order. progn then returns the value of the last expression
+	    4. symbols are also expressions except when they're at the head of a list
+	    5. a symbol represents a variable when it's not the head of a list
+	    6. Variable are set with macro setf
+	       1. (setf variable-symbol expression)
+	       2. Lisp doesn't need to declare variables before they are used
+	       3. setf will make global variables, unless variables are declared to be local
+	    7. let declares local variables with each declaration
+	       1) (let (declaration1 declaration2 ...) expr1 expr2 ...)
+	       2) let gets rid of the local variables and returns the value of the last expression.
+	       3) local variables are only declared within the scope of the let expression
+	       4) use setf to change the value of a local variable inside a let statement
+	       5) can nest let statements within other let statements
+	       6) Locally declared variables may shadow outer local and global variables with the same name
+	    8. a list might be a special form or macro is because it repeatedly evaluates its arguments
+	    9. (dotimes (var high-val optional-return-val) expr1 expr2 ...)
+	 3. Writing functions
+	    1. 
+      6. lists, 
+      7. atom is every expression that is not a list
+   2. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial2.html
+   3. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial3.html
+   4. 

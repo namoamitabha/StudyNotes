@@ -40,9 +40,23 @@ square
 ;; (defun square (lambda (x) (* x x)))
 ;; (square 10)
 
-(defun (average x y)
-  (lambda / (+ x y) 2))
+(defun average (x y)
+  (/ (+ x y) 2))
 
-(defun (mean-square x y)
+(average 2 4)
+
+(defun mean-square (x y)
   (average (square x)
 	   (square y)))
+
+(mean-square 5 7)
+
+(if (> 5 4)
+    (message "5 is greater than 4!"))
+
+(defun ABS (x)
+  (if (< x 0) (- x))
+  (if (= x 0) '0)
+  (if (> x 0) x))
+
+(ABS 0)

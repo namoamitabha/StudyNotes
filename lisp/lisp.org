@@ -165,7 +165,53 @@
 	       10. Lists and strings share a common supertype, sequences.
 	       11. All sequence functions work on any kind of sequence (including strings and lists).
 	    10. Loading and Compiling Lisp
-		1. 
+		1. You can time the speed of any expression, and its garbage collection, with the time function
+		2. interpreter
+		3. compiler
+		4. load, to load script file directly
+		   1. use :print t to print all output
+		5. compile-file function, to compile a whole file
+		   1. Object file will have extension as .fas or .fsl or .fasl, or afasl
+		   2. To use load to load object files.
+		   3. In general, to be safe, always load the full name of the file including the extension
+		   4. With very few exceptions, you should never use global variables when you can use local variables instead
+	    11. Lisp Style
+		1. Lisp programmers don't rely much on the parentheses when reading code. Instead, they rely heavily on breaking expressions into multiple lines and indenting them in a very peculiar way
+		2. Formatting rules:
+		   1. Put a single space between each item in a list.
+		   2. Do NOT put space between the opening parenthesis and the first item in a list. Similarly, do NOT put space between the closing parenthesis and the last item.
+		   3. Never put parentheses all by themselves on lines like a C++/Java brace. Do not be afraid to pile up parentheses at the end of a line.
+		3. Comments
+		   1. #, Winged comments, equivalent of /* and */ in C++, not commonly used in Lisp
+		   2. ;, inline comments, end with a return
+		   3. ;;, common in Lisp to pile up several semicolons ;; or ;;; to make the comment more visible
+		   4. common approach:
+		      1. Use one semicolon for inline code.
+		      2. Use two semicolons to comment the head of a function.
+		      3. Use three semicolons to comment the head of a file or other big region.
+		      4. Use winged comments only to comment-out a region temporarily.
+		4. Many Lisp structures have buit-in documentation comments.
+		   1. For example, if the first expression in a defun staement is a string, that string is not part of the code but instead is considered to be the "documentation" for the function
+		   2. You can access the documentation for an object with the documentation function
+		   3. documentation
+		   4. describe
+		5. Lisp has important style rules about symbols, used for both variables and function names.
+		   1. Although Lisp symbols are case-insensitive, ALWAYS use lower-case.
+		   2. Do NOT use underscores in symbols. Use hyphens
+		   3. Although the previous examples above didn't do it to avoid confusing you, you should always denote global variables by wrapping them with *asterisks*. Global variable names should also be self-explanatory.
+		   4. Variable names should be nouns.
+		   5. Function names should be verbs.
+		   6. Though you can always name variables the same names as functions, it's more readable not to do so.
+		6. Lisp is a functional language.
+		   1. Learn to use functional style.
+		   2. One way you can tell you're using functional style is if you have very few (or even no) local variables, and rarely if ever use a global variable
+		   3. As Paul Graham says, "treat setf as if there were a tax on its use"
+		7. Global variables
+		   1. Declare your global variables once with defparameter before you start using them in setf statements.
+		      1. (defparameter var-symbol initial-value optional-documentation-string)
+		   2. Declare global constants with defconstant.
+		      1. (defconstant var-symbol value optional-documentation-string)
+		8. 
       6. lists, 
       7. atom is every expression that is not a list
    2. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial2.html

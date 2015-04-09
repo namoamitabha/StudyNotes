@@ -131,7 +131,21 @@
 	    8. a list might be a special form or macro is because it repeatedly evaluates its arguments
 	    9. (dotimes (var high-val optional-return-val) expr1 expr2 ...)
 	 3. Writing functions
-	    1. 
+	    1. defun, function-making macro
+	    2. (defun function-name-symbol (param1 param2 param3 ...) expr1 expr2 expr3 ...)
+	    3. Surprisingly rare in Lisp to have more than one expression in a function. Intead, expressions tend to get nested together.
+	    4. Lisp functions tend to take on functional form rather than declarative form.
+	    5. Lisp is pass-by-value. Parameters of a function are considered to be local variables.
+	    6. List style often makes heavy use of recursion
+	    7. &optional, speical term to make functions with an optional argument followed by the optional parameter name, at the end of your parameter list
+	       1. Can provide default value for optional parameter by following &optional not by a parameter name but by a list of the form (param-name default-value)
+	       2. can only have one optional parameter
+	    8. &key, keyword parameters, appear at the end of a parameter list after the term &key
+	       1. Don't use optional parameter and keyword parameter at same time. Gets confusing.
+	       2. Many built-in lisp functions use losts of keyword parameters to "extend" then!
+	       3. Pass keyword parameter whose name is foo into a function by using the term :foo followed by the value to set foo to.
+	       4. Keyword parameters can be passed in in any order, but must appear at the end of the parameter list.
+	    9. Lists and Symbols as Data
       6. lists, 
       7. atom is every expression that is not a list
    2. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial2.html

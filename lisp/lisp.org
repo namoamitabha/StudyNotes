@@ -92,7 +92,9 @@
    2. issue: configure without libsigsegv
    3. libsigsegv still cannot be detected by clisp
    4. no idea about the root cause
-** TODO Lisp quickstart
+** TODO [LISP]Lisp: Tears of Joy, Part 1
+   1. http://www.opensourceforu.com/2011/06/lisp-tears-of-joy-part-1/
+** TODO [LISP]Lisp quickstart
    1. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial.html
       1. Lisp string does not terminate with a \0
       2. For tab and return, you can just type tab or return right in the string itself.
@@ -146,6 +148,24 @@
 	       3. Pass keyword parameter whose name is foo into a function by using the term :foo followed by the value to set foo to.
 	       4. Keyword parameters can be passed in in any order, but must appear at the end of the parameter list.
 	    9. Lists and Symbols as Data
+	       1. Lists are normally evaluated as function or macro calls
+	       2. Symbols are normally evaluated as variable references.
+	       3. Lists and symbols are data as well
+	       4. quote, can used to bypass the evaluation of its argument
+	       5. list, is a singly-linked list
+		  1. first, car, return the first item in list, old name of first is car
+		  2. rest, cdr, return a list consisting of everything but the first item. The old name of rest is cdr
+		  3. append, hooks multiple lists tegother
+		  4. cons, takes an item and a list, and return a new list consisting of the old list with the item tacked on the front
+	       6. ', special abbreviation for quote. '(a b c d e) is same as (quote (a b c d e))
+	       7. In data form, the first item of a list can be anything -- it's not restricted to be just a symbol
+	       8. nil, isn't just "false". It's also the empty list, '()
+	       9. dolist, iterates over a list
+		  1. (dolist (var list-to-iterate-over optional-return-val) expr1 expr2 ...)
+	       10. Lists and strings share a common supertype, sequences.
+	       11. All sequence functions work on any kind of sequence (including strings and lists).
+	    10. Loading and Compiling Lisp
+		1. 
       6. lists, 
       7. atom is every expression that is not a list
    2. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial2.html

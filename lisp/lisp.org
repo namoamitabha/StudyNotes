@@ -283,10 +283,19 @@
 	    1. apply, takes a function pointer, plus one more argument which must evaluate to a list
 	    2. (apply function-pointer list-arg)
 	    3. (apply function-pointer arg1 arg2 ... list-arg)
-	    4. 
-	 4. 
       4. Mapping
+	 1. Lisp uses pointers to functions everywhere
+	 2. mapcar, mapping functions
+	 3. (mapcar function-pointer list)
+	 4. (mapcar function-pointer list1 list2 ...)
+	 5. If function-pointer points to a function which takes N arguments, then we must provide N lists
+	 6. map, mapc, mapcan, mapcon ...
+	 7. reduce, composing a function in on itself
+	 8. (reduce function-pointer list)
+	 9. function-pointer must point to a function which takes exactly two arguments
+	 10. :from-end t keyword argument, change the order of operations
       5. Lambda and Closures
+	 1. 
       6. Sequence Functions
       7. Functions with Variable Arguments
       8. 

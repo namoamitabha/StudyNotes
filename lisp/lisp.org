@@ -381,6 +381,9 @@
 	       5. reverse, nreverse
 	       6. sort is destructive, (sort sequence predicate)
       7. Functions with Variable Arguments
-      8. 
+	 1. &rest, can appear at the end of a parameter list in defun, followed by a parameter name
+	 2. If a function call provides any extra arguments beyond those defined in parameter list, the additional arguments are all placed in a list, which the &rest parameter is set to.
+	 3. Otherwise it is set to nil
+	 4. Donot use &rest with keyword parameter and optional parameters in the same function.
    3. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial3.html
    4. 

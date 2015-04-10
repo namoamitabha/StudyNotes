@@ -214,6 +214,31 @@
 		8. 
       6. lists, 
       7. atom is every expression that is not a list
-   2. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial2.html
+   2. Lisp II : http://cs.gmu.edu/~sean/lisp/LispTutorial2.html
+      1. Arrays and Vectors
+	 1. simple-vector
+	    1. Arrays guaranteed to have certain types
+	    2. Arrays can hold anything
+	    3. make-array, (make-array length), makes a one-dimensional fixed-length array, and elements are each initialized to nil
+	    4. #(a b c)
+	    5. svref, (svref simple-vector index), to extract the element of simple vectors (aref just calls svref for simple vectors)
+	 2. multidimensional array
+	    1. (make-array dimension-list), makes an N-dimensional fixed-length array of the dimensions given by elements in the list. And each are initialized to nil
+	    2. aref, (aref array index1 index2 ...), to extract the element of any array
+	    3. #nA(...), special form
+	 3. Variable-length vector
+	    1. :adjustable and :fill-pointer,
+	    2. (make-array length :file-pointer t :adjustable t)
+	    3. can have a zero-length vector
+	    4. vector-push-extend, can tack new stuff onto the end of a variable-length vector
+	    5. vector-pop, can "pop" elements off the end of the variable-length vector
+	    6. Multidimensional arrays can also have their sizes adjusted
+	 4. string
+	    1. a vector of characters
+	    2. can access elements with aref
+	    3. not simple vector and cannot use svref (no idea why? why?)
+	    4. char, (char string index), same function as aref,
+      2. Setf and Friends
+      3. 
    3. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial3.html
    4. 

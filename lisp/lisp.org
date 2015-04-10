@@ -327,9 +327,59 @@
 		#+END_SRC
 	    9. Lisp can be easily modified to do rather OOP built on top of closures.
 	    10. It comes with an OOP system, CLOS, as part of the language
-	    11. 
-	 3. 
       6. Sequence Functions
+	 1. Vectors (both simple and variable-length), lists and strings are all sequencs.
+	 2. Multidimensional arrays are not sequences.
+	 3. sequence function (duh), a function which works with any kind of equence
+	 4. length, reverse, subseq, elt
+	 5. elt
+	    1. (el sequence index)
+	    2. elt, returns element #index in the sequence
+	    3. elt, works with a variety of data types, but as result is slower than custom-made functions for each data type
+	    4. aref, for string
+	    5. svref, for simple-vector
+	    6. nth, for lists
+	 6. copy-seq, makes a duplicate copy of a sequence. It doesnot copy the elements (both sequences will point to the same elemetns)
+	 7. concatenate
+	    1. concatenate, concatenates copies of sequences together, producing a new sequence of a given type.
+	    2. The original sequences can be different types
+	    3. (concatenate new-sequence-type sequences...)
+	    4. new-sequence-type is a quoted symbol representing the type of the new sequence.
+	       1. 'simple-vector, simple vector
+	       2. 'list, list
+	       3. 'string, string
+	 8. make-sequence
+	    1. builds a sequence of a given type and length
+	    2. Like elt, it is a general function (it calls faster, more type-specific functions underneath)
+	    3. (make-sequence sequence-type length)
+	    4. :initial-element
+	 9. host of sequence-manipulative functions have very similar forms:
+	    1. either destructive or non-destructive, either they modify or destroy the original sequence to achieve their goals (faster), or they make a copy of the sequence first
+	    2. three versions, the function, the -if version, and the -if-not version
+	       1. count, count-if, count-if-not
+	       2. (count object sequence keywords...)
+	       3. (count-if test-predicate sequence keywords...)
+	       4. (count-if-not test-predicate sequence keywords...)
+	    3. optional keyword arguments:
+	       1. :key
+	       2. :from-end t
+	       3. :start and :end
+	    4. find, returns the first element matching the pattern
+	    5. position, returns the index of the first element matching the pattern
+	    6. remove, removes all the elements matching the pattern from a copy of the sequence
+	    7. substitute, replaces all the elements matching the pattern with some other element
+	       1. (substitute[-if[-not]] thing-to-replace-with rest-of-arguments-as-before...)
+	    8. search
+	       1. searches for the first index where one subsequence appears in another sequence
+	       2. (search subsequence sequence keywords...)
+	       3. :key, :test, :test-not, :from-end, :start1, :end1, :start2, :end2
+	    9. destructive form
+	       1. There are no promises with destructive functions: they may or may not modify the original
+	       2. should only use them on data that you don't care about any more
+	       3. remove[-if[-not]], delete[-if[-not]]
+	       4. substitute[-if[-not]], nsubstitute[-if[-not]]
+	       5. reverse, nreverse
+	       6. sort is destructive, (sort sequence predicate)
       7. Functions with Variable Arguments
       8. 
    3. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial3.html

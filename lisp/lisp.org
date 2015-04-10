@@ -262,7 +262,29 @@
 	    3. (rotatef expression1 expression2), which sees to it that the values of expression1 and expression2 are swapped
 	    4. 
       3. Function, Funcall, and Apply
-	 1. 
+	 1. function
+	    1. In Lisp, pointers to functions are first-class data objects. They can be stored in variables, passed into arguments, and returned by other functions.
+	    2. function, will return a pointer to a function
+	    3. (function function-symbol)
+	    4. function doesn't evalute its argument -- instead it just looks up the function by that name and returns pointer to it
+	    5. #'print, sam as (function print)
+	    6. Keep in mind that you can only get pointers to functions, not macros or special forms.
+	    7. attention: variable with pointer to function, can not be used to call function in lisp
+	    8. attention: the first item in an evaluated list must be a symbol which is not evaluated. If a variable could be put as the first item, it would have to be evaluated first (to extract the function pointer)
+	    9. Common lisp can associate a function with a symbol (by using defun) and it can also associate a value with the same symbol as a variable (by using setf).
+	    10. Lisp2, a lisp which can associate two or more different kinds of things at the same time with a symbol
+	    11. Common lisp and emacs lisp are lisp 2
+	    12. Scheme is a lisp 1
+	 2. funcall
+	    1. (funcall function-pointer arg1 arg2 ...)
+	    2. funcall, a function which evaluates function-pointer, which returns a pointer to a function, then it evaluates each of arguments, then passes the argument values into the function.
+	    3. funcall returns the value of the function
+	 3. apply
+	    1. apply, takes a function pointer, plus one more argument which must evaluate to a list
+	    2. (apply function-pointer list-arg)
+	    3. (apply function-pointer arg1 arg2 ... list-arg)
+	    4. 
+	 4. 
       4. Mapping
       5. Lambda and Closures
       6. Sequence Functions

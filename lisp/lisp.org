@@ -239,6 +239,34 @@
 	    3. not simple vector and cannot use svref (no idea why? why?)
 	    4. char, (char string index), same function as aref,
       2. Setf and Friends
-      3. 
+	 1. setf
+	    1. "sees to it"
+	    2. (setf (aref array indices...) val)
+	    3. donot use it to modify lists
+	    4. Stick with modifying arrays and strings
+	 2. incf, decf
+	    1. incf, a variant of setf
+	    2. like ++ operator in C++
+	    3. works on all sorts of things (array slots, etc.) in addition to just variables
+	    4. (incf expression 4), by adding 4
+	    5. (incf expression), by adding 1
+	    6. decf, does the opposite
+	 3. push, pop
+	    1. push, can be used to "see to it" that an expression (which must evalute to a list) now evaluates to a list with an element tacked onto the front of it
+	    2. (push val expression), same as (setf expression (cons val expression))
+	    3. pop, can also "see to it" that a list has an element removed from the front of it
+	    4. (pop expression)
+	 4. rotatef
+	    1. rotatef, can be used to swap several elements
+	    2. (rotatef expression1 expression2 ... expressionN)
+	    3. (rotatef expression1 expression2), which sees to it that the values of expression1 and expression2 are swapped
+	    4. 
+      3. Function, Funcall, and Apply
+	 1. 
+      4. Mapping
+      5. Lambda and Closures
+      6. Sequence Functions
+      7. Functions with Variable Arguments
+      8. 
    3. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial3.html
    4. 

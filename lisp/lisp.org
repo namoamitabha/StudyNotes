@@ -31,31 +31,9 @@
     5. 
 *** TODO LEC2
 ** Cause details
-** TODO [lisp]Structure and Interpretation of Computer Programs
-   1. course: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/
-   2. self study
-      1. link: http://icampustutor.csail.mit.edu/6.001-public/
-      2. account: crazy0man, pwd: cra740824
-      3. book online: http://mitpress.mit.edu/sicp/full-text/book/book.html
-      4. Lecture Notes: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/lecture-notes/
-      5. Readings: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/readings/
-      6. Video Lectures: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/
-      7. Recitations: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/recitations/
-      8. Exams: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/exams/
-      9. Projects: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/projects/
-      10. Tools: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/tools/
-	  1. Guide to MIT Scheme: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/tools/scheme/
-	  2. Revised(5) Report on the Algorithmic Language Scheme: http://people.csail.mit.edu/jaffer/r5rs_toc.html
-      11. Related Resources: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/related-resources/
-   3. GNU CLISP
-   4. 
-
-** TODO Study records
-   1. [ ] Introduction to Computation: 3/20/2015
-      1. [ ] lec1a_512kb.mp4
-      2. [ ] TODO: upload lec7a_512kb.mp4 to yunpan.cn
-   2. 
-** TODO Common Lisp Implementations: A Survey
+** DONE Common Lisp Implementations: A Survey
+   CLOSED: [2015-04-11 Sat 11:18]
+   - State "DONE"       from "TODO"       [2015-04-11 Sat 11:18]
    1. ref: https://www.common-lisp.net/~dlw/LispSurvey.html
    2. select implementation of lisp as "GNU CLISP"
       1. because:GPL, and run on linux/Unix/Mac/Windows
@@ -63,28 +41,26 @@
    3. GNU CLISP
    4. ref: http://www.clisp.org/
    5. Issue: how to install clisp on centos7
-** TODO Lisp jobs
-   1. https://lispjobs.wordpress.com/
-   2. 
-** TODO GNU CLISP
+** DONE GNU CLISP
+   CLOSED: [2015-04-11 Sat 11:18]
+   - State "DONE"       from "TODO"       [2015-04-11 Sat 11:18]
    1. http://www.clisp.org/
    2. how to install clisp on centos
    3. clisp not available on centos
 
-** TODO Gnu CL (GCL)
+** DONE Gnu CL (GCL)
+   CLOSED: [2015-04-11 Sat 11:18]
+   - State "DONE"       from "TODO"       [2015-04-11 Sat 11:18]
    1. http://www.gnu.org/software/gcl/
    2. 
 
-** TODO Steel Bank CL (SBCL)
+** DONE Steel Bank CL (SBCL)
+   CLOSED: [2015-04-11 Sat 11:18]
+   - State "DONE"       from "TODO"       [2015-04-11 Sat 11:18]
    1. http://www.sbcl.org/
    2. install on centos: http://www.lcs.wang/?p=47
    3. sudo yum install sbcl http://www.lcs.wang/?p=47
    4. http://www.sbcl.org/getting.html
-** TODO MIT/GNU Scheme 9.4
-   1. http://www.gnu.org/software/mit-scheme/documentation/mit-scheme-user/index.html#Top
-   2. in emacs
-   3. M-x load-library RET xscheme RET
-   4. M-x run-scheme
 ** DONE Install clisp on centos
    CLOSED: [2015-04-07 Tue 09:44]
    - State "DONE"       from "TODO"       [2015-04-07 Tue 09:44]
@@ -92,9 +68,9 @@
    2. issue: configure without libsigsegv
    3. libsigsegv still cannot be detected by clisp
    4. no idea about the root cause
-** TODO [LISP]Lisp: Tears of Joy, Part 1
-   1. http://www.opensourceforu.com/2011/06/lisp-tears-of-joy-part-1/
-** TODO [LISP]Lisp quickstart
+** DONE [LISP]Lisp quickstart 1 & 2
+   CLOSED: [2015-04-11 Sat 07:45]
+   - State "DONE"       from "TODO"       [2015-04-11 Sat 07:45]
    1. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial.html
       1. Lisp string does not terminate with a \0
       2. For tab and return, you can just type tab or return right in the string itself.
@@ -385,5 +361,89 @@
 	 2. If a function call provides any extra arguments beyond those defined in parameter list, the additional arguments are all placed in a list, which the &rest parameter is set to.
 	 3. Otherwise it is set to nil
 	 4. Donot use &rest with keyword parameter and optional parameters in the same function.
-   3. ref: http://cs.gmu.edu/~sean/lisp/LispTutorial3.html
+** DONE [Lisp]Lisp quickstart3
+   CLOSED: [2015-04-11 Sat 11:17]
+   - State "DONE"       from "TODO"       [2015-04-11 Sat 11:17]
+   1. http://cs.gmu.edu/~sean/lisp/LispTutorial3.html
+   2. List Functions
+      1. cons
+      2. car
+      3. cdr
+      4. last
+      5. butlast
+      6. list
+   3. Predicates and Types
+   4. Hash Tables
+   5. Printing and Reading
+   6. More Control Structures
+   7. Writing Lisp in Lisp
+   8. More Debugging
+   9. try to study practical common lisp instead
+
+** TODO Study records
+   1. [ ] Introduction to Computation: 3/20/2015
+      1. [ ] lec1a_512kb.mp4
+      2. [ ] TODO: upload lec7a_512kb.mp4 to yunpan.cn
+   2. 
+** TODO Lisp jobs
+   1. https://lispjobs.wordpress.com/
+   2. 
+** TODO [lisp]Structure and Interpretation of Computer Programs
+   1. course: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/
+   2. self study
+      1. link: http://icampustutor.csail.mit.edu/6.001-public/
+      2. account: crazy0man, pwd: cra740824
+      3. book online: http://mitpress.mit.edu/sicp/full-text/book/book.html
+      4. Lecture Notes: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/lecture-notes/
+      5. Readings: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/readings/
+      6. Video Lectures: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/
+      7. Recitations: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/recitations/
+      8. Exams: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/exams/
+      9. Projects: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/projects/
+      10. Tools: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/tools/
+	  1. Guide to MIT Scheme: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/tools/scheme/
+	  2. Revised(5) Report on the Algorithmic Language Scheme: http://people.csail.mit.edu/jaffer/r5rs_toc.html
+      11. Related Resources: http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/related-resources/
+   3. GNU CLISP
    4. 
+** TODO MIT/GNU Scheme 9.4
+   1. http://www.gnu.org/software/mit-scheme/documentation/mit-scheme-user/index.html#Top
+   2. in emacs
+   3. M-x load-library RET xscheme RET
+   4. M-x run-scheme
+** TODO [LISP]Lisp: Tears of Joy, Part 1
+   1. http://www.opensourceforu.com/2011/06/lisp-tears-of-joy-part-1/
+
+** TODO Practical Common Lisp
+   1. [ ] Ch01 Introduction: Why Lisp?
+   2. [ ] Ch02 Lather, Rinse, Repeat: A Tour of the REPL
+   3. [ ] Ch03 Practical: A Simple Database
+   4. [ ] Ch04 Syntax and Semantics
+   5. [ ] Ch05 Functions
+   6. [ ] Ch06 Variables
+   7. [ ] Ch07 Macros: Standard Control Constructs
+   8. [ ] Ch08 Macros: Defining Your Own
+   9. [ ] Ch09 Practical: Building a Unit Test Framework
+   10. [ ] Ch10 Numbers, Characters, and Strings
+   11. [ ] Ch11 Collections
+   12. [ ] Ch12 They Called It LISP for a Reason: List Processing
+   13. [ ] Ch13 Beyond Lists: Other Uses for Cons Cells
+   14. [ ] Ch14 Files and File I/O
+   15. [ ] Ch15 Practical: A Portable Pathname Library
+   16. [ ] Ch16 Object Reorientation: Generic Functions
+   17. [ ] Ch17 Object Reorientation: Classes
+   18. [ ] Ch18 A Few FORMAT Recipes
+   19. [ ] Ch19 Beyond Exception Handling: Conditions and Restarts
+   20. [ ] Ch20 The Special Operators
+   21. [ ] Ch21 Programming in the Large: Packages and Symbols
+   22. [ ] Ch22 LOOP for Black Belts
+   23. [ ] Ch23 Practical: A Spam Filter
+   24. [ ] Ch24 Practical: Parsing Binary Files
+   25. [ ] Ch25 Practical: An ID3 Parser
+   26. [ ] Ch26 Practical: Web Programming with AllegroServe
+   27. [ ] Ch27 Practical: An MP3 Database
+   28. [ ] Ch28 Practical: A Shoutcast Server
+   29. [ ] Ch29 Practical: An MP3 Browser
+   30. [ ] Ch30 Practical: An HTML Generation Library, the Interpreter
+   31. [ ] Ch31 Practical: An HTML Generation Library, the Compiler
+   32. [ ] Ch32 Practical: Conclusion: What's Next?

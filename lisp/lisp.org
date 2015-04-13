@@ -415,8 +415,8 @@
    1. http://www.opensourceforu.com/2011/06/lisp-tears-of-joy-part-1/
 
 ** TODO Practical Common Lisp
-   1. [ ] Ch01 Introduction: Why Lisp?
-   2. [ ] Ch02 Lather, Rinse, Repeat: A Tour of the REPL
+   1. [X] Ch01 Introduction: Why Lisp?
+   2. [X] Ch02 Lather, Rinse, Repeat: A Tour of the REPL
    3. [ ] Ch03 Practical: A Simple Database
    4. [ ] Ch04 Syntax and Semantics
    5. [ ] Ch05 Functions

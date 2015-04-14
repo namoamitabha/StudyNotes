@@ -415,9 +415,13 @@
    1. http://www.opensourceforu.com/2011/06/lisp-tears-of-joy-part-1/
 
 ** TODO Practical Common Lisp
+   CLOCK: [2015-04-14 Tue 07:41]
    1. [X] Ch01 Introduction: Why Lisp?
    2. [X] Ch02 Lather, Rinse, Repeat: A Tour of the REPL
    3. [ ] Ch03 Practical: A Simple Database
+      1. [ ] Follow book to exercise mp3 data base first
+      2. [ ] Rewrite mp3 data base afterward all by myself
+      3. [ ] 
    4. [ ] Ch04 Syntax and Semantics
    5. [ ] Ch05 Functions
    6. [ ] Ch06 Variables

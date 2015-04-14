@@ -1,3 +1,4 @@
+* Notes
 ** TODO Practical Common Lisp
    CLOCK: [2015-04-14 Tue 16:01]
    CLOCK: [2015-04-14 Tue 07:41]--[2015-04-14 Tue 16:00] =>  8:19

@@ -50,13 +50,26 @@
 (defun select (selector-fn)
   (remove-if-not selector-fn *db*))
 
-(defun where (&key title artist rating (ripped nil ripped-p))
-  #'(lambda (cd)
-      (and
-       (if title	(equal (getf cd :title)  title) t)
-       (if artist	(equal (getf cd :artist) artist) t)
-       (if rating	(equal (getf cd :rating) rating) t)
-       (if ripped-p	(equal (getf cd :ripped) ripped) t))))
+;; (defun where (&key title artist rating (ripped nil ripped-p))
+;;   #'(lambda (cd)
+;;       (and
+;;        (if title	(equal (getf cd :title)  title) t)
+;;        (if artist	(equal (getf cd :artist) artist) t)
+;;        (if rating	(equal (getf cd :rating) rating) t)
+;;        (if ripped-p	(equal (getf cd :ripped) ripped) t))))
+
+;; (defun make-comparison-expr (field value)
+;;   (list 'equal (list 'getf 'cd field) value))
+
+(defun make-comparison-expr (field value)
+  `(equal (getf cd ,field) ,value))
+
+(defun make-comparison-list (fields)
+  (loop while fields
+       collecting (make-comparison-expr (pop fields) (pop fields))))
+
+(defmacro where (&rest clauses)
+  `#'(lambda (cd) (and ,@(make-comparison-list clauses))))
 
 ;;Test query
 ;;(select (where :artist "Dixie Chicks"))
@@ -82,3 +95,7 @@
 
 (defun delete-rows (selector-fn)
   (setf *db* (remove-if selector-fn *db*)))
+
+
+;;test where macro
+;;(select (where :title "Home" :ripped t))

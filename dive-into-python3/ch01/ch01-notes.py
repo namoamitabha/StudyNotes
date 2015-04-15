@@ -66,3 +66,45 @@ Convert a file size to human-readable form.
 
     Returns: string
 
+te
+
+[angelo@centos ~]$ python3
+Python 3.3.2 (default, May 10 2014, 10:24:41) 
+[GCC 4.8.2 20140120 (Red Hat 4.8.2-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> x
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'x' is not defined
+>>> x = 1
+>>> x
+1
+>>> an_integer = 1
+>>> an_integer
+1
+>>> An_integer
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'An_integer' is not defined
+>>> exit
+Use exit() or Ctrl-D (i.e. EOF) to exit
+>>> eixt()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'eixt' is not defined
+>>> exit()
+[angelo@centos ~]$ ls
+#7#        Desktop    git-root  Public     tmp     VM-Station
+atos-root  Documents  Music     rpmbuild   tools
+bin        Downloads  Pictures  Templates  Videos
+[angelo@centos ~]$ cd git-root/study-notes/dive-into-python3/
+[angelo@centos dive-into-python3]$ ls
+ch01  humansize.py  humansize.py~  import-error.py
+[angelo@centos dive-into-python3]$ python3
+Python 3.3.2 (default, May 10 2014, 10:24:41) 
+[GCC 4.8.2 20140120 (Red Hat 4.8.2-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import humansize
+>>> humansize.__name__
+'humansize'
+>>> 

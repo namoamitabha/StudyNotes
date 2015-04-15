@@ -37,6 +37,9 @@ class ToRomanBadInput(unittest.TestCase):
         '''to_roman should fail with negative input'''
         self.assertRaises(roman1.OutOfRangeError, roman1.to_roman, -1)
 
+    def test_non_integer(self):
+        '''to_roman should fail with non-integer input'''
+        self.assertRaises(roman1.NotIntegerError, roman1.to_roman, 0.5)
 
 if __name__ == '__main__':
     #print(__name__)

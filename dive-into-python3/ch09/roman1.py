@@ -35,3 +35,15 @@ def to_roman(n):
             #print('subtracting {0} from input, adding {1} to output'.format(integer, numeral))
 
     return result
+
+def from_roman(s):
+    '''convert Roman numeral to integer'''
+    result = 0
+    index = 0 
+    for numeral, integer in roman_numeral_map:
+        while s[index:index+len(numeral)] == numeral:
+            result += integer
+            index += len(numeral)
+
+    return result
+

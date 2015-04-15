@@ -1,5 +1,8 @@
 # roman1.py
 
+class OutOfRangeError(ValueError):
+    pass
+
 roman_numeral_map = (('M',  1000),
                      ('CM', 900),
                      ('D',  500),
@@ -16,11 +19,15 @@ roman_numeral_map = (('M',  1000),
 
 def to_roman(n):
     '''convert integer to Roman numeral'''
+
+    if n > 3999:
+        raise OutOfRangeError('number out of range (must be less than 4000)')
+
     result = ''
     for numeral, integer in roman_numeral_map:
         while n >= integer:
             result += numeral
             n -= integer
-            print('subtracting {0} from input, adding {1} to output'.format(integer, numeral))
+            #print('subtracting {0} from input, adding {1} to output'.format(integer, numeral))
 
     return result
